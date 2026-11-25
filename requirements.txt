@@ -1,5 +1,5 @@
-fastapi==0.115.11
-pydantic==2.10.6
-firebase-admin==6.7.0
+fastapi==0.165.0
+pydantic==2.14.4
+firebase-admin==6.9.0
 httpx==0.28.1
-tzdata==2025.1
+tzdata==2026.6
