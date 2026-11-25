@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Build output
+dist/
+.vercel/
+*.tsbuildinfo
+
+# Environment & secrets
+.env
+.env.*
+*service-account*.json
+*firebase-adminsdk*.json
+
+# Logs & OS
+*.log
+.DS_Store
+Thumbs.db

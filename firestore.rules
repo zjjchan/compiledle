@@ -1,0 +1,21 @@
+rules_version = '2';
+
+// Compiledle — All Firestore reads and writes occur exclusively server-side via
+// the Python `firebase-admin` SDK (which bypasses Security Rules), so all direct
+// client SDK and REST access is unconditionally denied.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{uid} {
+      allow read, write: if false;
+
+      match /dailies/{dailyId} {
+        allow read, write: if false;
+      }
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
