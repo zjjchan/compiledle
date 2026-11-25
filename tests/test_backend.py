@@ -111,7 +111,7 @@ def test_api_health_and_cron_auth(monkeypatch: pytest.MonkeyPatch) -> None:
     # Valid cron secret (stubbed dispatcher)
     monkeypatch.setattr(
         "api.index.dispatch_due_notifications",
-        lambda: {"usersChecked": 2, "notificationsSent": 3, "staleTokensPruned": 0},
+        lambda **_: {"usersChecked": 2, "notificationsSent": 3, "staleTokensPruned": 0},
     )
     res_ok_cron = client.post(
         "/api/cron/notify", headers={"Authorization": "Bearer super-secret-token"}

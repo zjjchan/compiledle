@@ -58,18 +58,30 @@ def is_time_due(notify_time: str, local_dt: datetime, window_minutes: int = 30) 
     return 0 <= diff < window_minutes
 
 
+def absolute_https_url(base_url: str | None, path: str) -> str | None:
+    """FCM requires an absolute HTTPS click link; returns None for local http origins."""
+    if not base_url or not base_url.startswith("https://"):
+        return None
+    return base_url.rstrip("/") + path
+
+
 def send_push_to_tokens(
     fcm_tokens: dict[str, dict[str, Any]],
     title: str,
     body: str,
     url: str = "/",
-) -> tuple[int, list[str]]:
+    base_url: str | None = None,
+) -> tuple[int, list[str], list[str]]:
     """
     Dispatches a Web Push notification to all registered device tokens for a user.
-    Returns (sent_count, stale_token_hashes_to_delete).
+    Returns (sent_count, stale_token_hashes_to_delete, error_messages).
     """
     sent = 0
     stale_hashes: list[str] = []
+    errors: list[str] = []
+
+    link = absolute_https_url(base_url, url)
+    icon = absolute_https_url(base_url, "/icons/icon-192.png") or "/icons/icon-192.png"
 
     for token_hash, entry in fcm_tokens.items():
         token = (entry or {}).get("token")
@@ -83,10 +95,10 @@ def send_push_to_tokens(
                 notification=messaging.WebpushNotification(
                     title=title,
                     body=body,
-                    icon="/icons/icon-192.png",
-                    badge="/icons/icon-192.png",
+                    icon=icon,
+                    badge=icon,
                 ),
-                fcm_options=messaging.WebpushFCMOptions(link=url),
+                fcm_options=messaging.WebpushFCMOptions(link=link) if link else None,
             ),
             token=token,
         )
@@ -96,11 +108,15 @@ def send_push_to_tokens(
         except (messaging.UnregisteredError, messaging.SenderIdMismatchError):
             stale_hashes.append(token_hash)
         except Exception as exc:
-            err_text = str(exc).lower()
-            if "not a valid fcm registration token" in err_text or "unregistered" in err_text:
+            err_text = str(exc)
+            lowered = err_text.lower()
+            if "not a valid fcm registration token" in lowered or "unregistered" in lowered:
                 stale_hashes.append(token_hash)
+            else:
+                print(f"FCM send failed: {type(exc).__name__}: {err_text}")
+                errors.append(err_text)
 
-    return sent, stale_hashes
+    return sent, stale_hashes, errors
 
 
 def format_general_notification_body(titles: list[str]) -> str:
@@ -113,7 +129,9 @@ def format_general_notification_body(titles: list[str]) -> str:
     return f"Ready to play: {shown} (+{remaining} more)"
 
 
-def dispatch_due_notifications(now_utc: datetime | None = None) -> dict[str, int]:
+def dispatch_due_notifications(
+    now_utc: datetime | None = None, base_url: str | None = None
+) -> dict[str, int]:
     """
     Evaluates all opted-in users in their respective local timezones and dispatches:
     1) One consolidated general notification at `defaultNotifyTime` (default 00:00)
@@ -167,11 +185,12 @@ def dispatch_due_notifications(now_utc: datetime | None = None) -> dict[str, int
 
             if custom_time:
                 if d_data.get("lastNotifiedDate") != today_str and is_time_due(custom_time, local_dt):
-                    sent, stale = send_push_to_tokens(
+                    sent, stale, _ = send_push_to_tokens(
                         fcm_tokens=fcm_tokens,
                         title=f"Time to play {title}!",
                         body="Tap to jump right into today's puzzle.",
                         url=f"/?play={d_doc.id}",
+                        base_url=base_url,
                     )
                     all_stale_hashes.update(stale)
                     if sent > 0:
@@ -182,11 +201,12 @@ def dispatch_due_notifications(now_utc: datetime | None = None) -> dict[str, int
 
         user_updates: dict[str, Any] = {}
         if general_time_matched and general_due_titles:
-            sent, stale = send_push_to_tokens(
+            sent, stale, _ = send_push_to_tokens(
                 fcm_tokens=fcm_tokens,
                 title="Your Dailies Are Ready!",
                 body=format_general_notification_body(general_due_titles),
                 url="/",
+                base_url=base_url,
             )
             all_stale_hashes.update(stale)
             if sent > 0:

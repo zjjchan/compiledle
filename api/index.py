@@ -13,7 +13,7 @@ _ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if _ROOT_DIR not in sys.path:
     sys.path.insert(0, _ROOT_DIR)
 
-from fastapi import Depends, FastAPI, Header, HTTPException, Query, status
+from fastapi import Depends, FastAPI, Header, HTTPException, Query, Request, status
 from firebase_admin import auth as firebase_auth
 from firebase_admin import firestore
 from pydantic import BaseModel, Field
@@ -100,6 +100,14 @@ def _serialize_daily(
         "order": order_val,
         "createdAt": data.get("createdAt") or "",
     }
+
+
+def _public_base_url(request: Request) -> str:
+    host = request.headers.get("x-forwarded-host") or request.headers.get("host") or ""
+    host = host.split(",")[0].strip()
+    if not host or host.startswith(("localhost", "127.0.0.1")):
+        return f"http://{host}" if host else ""
+    return f"https://{host}"
 
 
 def _require_recent_auth(user: AuthenticatedUser) -> None:
@@ -504,6 +512,7 @@ def unregister_device(
 
 @app.post("/api/notifications/test")
 def send_test_notification(
+    request: Request,
     user: AuthenticatedUser = Depends(get_current_user),
 ) -> dict[str, Any]:
     user_ref, user_data = _ensure_user_doc(user.uid, user.email)
@@ -514,25 +523,30 @@ def send_test_notification(
             detail="No push-enabled devices registered yet. Enable push notifications on this device first.",
         )
 
-    sent, stale = send_push_to_tokens(
+    sent, stale, errors = send_push_to_tokens(
         fcm_tokens=fcm_tokens,
         title="Compiledle — Test Alert",
         body="Push notifications are working! You'll be notified at your scheduled times.",
         url="/",
+        base_url=_public_base_url(request),
     )
     if stale:
         user_ref.update({f"fcmTokens.{h}": firestore.DELETE_FIELD for h in stale})
 
     if sent == 0:
-        raise HTTPException(
-            status_code=400,
-            detail="Registered push token expired. Please toggle Push Notifications off and back on.",
+        detail = (
+            f"Push delivery failed: {errors[0]}"
+            if errors
+            else "Registered push token expired. Please click 'Enable on This Device' again."
         )
+        raise HTTPException(status_code=400, detail=detail)
     return {"sent": sent}
 
 
 @app.api_route("/api/cron/notify", methods=["GET", "POST"])
-def cron_notify(authorization: str | None = Header(default=None)) -> dict[str, Any]:
+def cron_notify(
+    request: Request, authorization: str | None = Header(default=None)
+) -> dict[str, Any]:
     expected_secret = os.environ.get("CRON_SECRET", "").strip()
     if not expected_secret:
         raise HTTPException(
@@ -550,7 +564,7 @@ def cron_notify(authorization: str | None = Header(default=None)) -> dict[str, A
             detail="Invalid cron authorization secret.",
         )
 
-    summary = dispatch_due_notifications()
+    summary = dispatch_due_notifications(base_url=_public_base_url(request))
     return {"status": "ok", **summary}
 
 
