@@ -8,6 +8,7 @@ import {
   createUserWithEmailAndPassword,
   reauthenticateWithCredential,
   reauthenticateWithPopup,
+  sendPasswordResetEmail,
   updatePassword,
   signOut,
   type Auth,
@@ -58,6 +59,11 @@ export async function signInWithEmail(email: string, password: string) {
 export async function signUpWithEmail(email: string, password: string) {
   if (!auth) throw new Error('Firebase is not configured.');
   return createUserWithEmailAndPassword(auth, email, password);
+}
+
+export async function requestPasswordReset(email: string): Promise<void> {
+  if (!auth) throw new Error('Firebase is not configured.');
+  await sendPasswordResetEmail(auth, email.trim());
 }
 
 export async function logOut() {
@@ -197,6 +203,7 @@ export function formatFirebaseAuthError(err: unknown): string {
     case 'auth/weak-password':
       return 'Password must be at least 6 characters long.';
     case 'auth/invalid-email':
+    case 'auth/missing-email':
       return 'Please enter a valid email address.';
     case 'auth/popup-closed-by-user':
       return 'Sign-in popup was closed before completing.';
