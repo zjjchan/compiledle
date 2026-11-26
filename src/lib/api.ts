@@ -42,8 +42,47 @@ export function fetchMe(detectedTz?: string): Promise<MeResponse> {
   return apiFetch<MeResponse>(`/api/me${query}`);
 }
 
-export function fetchCatalog(): Promise<{ games: CatalogGame[] }> {
-  return apiFetch<{ games: CatalogGame[] }>('/api/catalog');
+const CATALOG_CACHE_KEY = 'compiledle_catalog_cache_v1';
+const CATALOG_CACHE_TTL_MS = 10 * 60 * 1000;
+let memoryCatalogCache: { ts: number; games: CatalogGame[] } | null = null;
+
+export function invalidateClientCatalogCache(): void {
+  memoryCatalogCache = null;
+  try {
+    sessionStorage.removeItem(CATALOG_CACHE_KEY);
+  } catch {
+    // ignore storage errors
+  }
+}
+
+export async function fetchCatalog(forceRefresh = false): Promise<{ games: CatalogGame[] }> {
+  const now = Date.now();
+  if (!forceRefresh && memoryCatalogCache && now - memoryCatalogCache.ts < CATALOG_CACHE_TTL_MS) {
+    return { games: memoryCatalogCache.games };
+  }
+  if (!forceRefresh) {
+    try {
+      const raw = sessionStorage.getItem(CATALOG_CACHE_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw) as { ts: number; games: CatalogGame[] };
+        if (parsed?.ts && Array.isArray(parsed.games) && now - parsed.ts < CATALOG_CACHE_TTL_MS) {
+          memoryCatalogCache = parsed;
+          return { games: parsed.games };
+        }
+      }
+    } catch {
+      // ignore corrupted cache
+    }
+  }
+
+  const res = await apiFetch<{ games: CatalogGame[] }>('/api/catalog');
+  memoryCatalogCache = { ts: now, games: res.games };
+  try {
+    sessionStorage.setItem(CATALOG_CACHE_KEY, JSON.stringify(memoryCatalogCache));
+  } catch {
+    // ignore quota errors
+  }
+  return res;
 }
 
 export function updateUserSettings(patch: {
@@ -102,9 +141,10 @@ export function updateDaily(
     customNotifyTime?: string;
     clearCustomNotifyTime?: boolean;
     playedToday?: boolean;
+    localDate?: string;
   }
-): Promise<DailyItem> {
-  return apiFetch<DailyItem>(`/api/dailies/${encodeURIComponent(id)}`, {
+): Promise<Partial<DailyItem> & { id: string }> {
+  return apiFetch<Partial<DailyItem> & { id: string }>(`/api/dailies/${encodeURIComponent(id)}`, {
     method: 'PATCH',
     body: JSON.stringify(patch),
   });
@@ -131,17 +171,19 @@ export function fetchAdminRequests(): Promise<{ requests: GameRequestItem[] }> {
   return apiFetch<{ requests: GameRequestItem[] }>('/api/admin/requests');
 }
 
-export function acceptAdminRequest(
+export async function acceptAdminRequest(
   requestId: string,
   override?: { title?: string; category?: string }
 ): Promise<{ game: CatalogGame }> {
-  return apiFetch<{ game: CatalogGame }>(
+  const res = await apiFetch<{ game: CatalogGame }>(
     `/api/admin/requests/${encodeURIComponent(requestId)}/accept`,
     {
       method: 'POST',
       body: JSON.stringify(override || {}),
     }
   );
+  invalidateClientCatalogCache();
+  return res;
 }
 
 export function rejectAdminRequest(requestId: string): Promise<{ status: string; id: string }> {
@@ -153,34 +195,45 @@ export function rejectAdminRequest(requestId: string): Promise<{ status: string;
   );
 }
 
-export function addAdminCatalogGame(input: {
+export async function addAdminCatalogGame(input: {
   url: string;
   title?: string;
   category?: string;
 }): Promise<{ game: CatalogGame }> {
-  return apiFetch<{ game: CatalogGame }>('/api/admin/catalog', {
+  const res = await apiFetch<{ game: CatalogGame }>('/api/admin/catalog', {
     method: 'POST',
     body: JSON.stringify(input),
   });
+  invalidateClientCatalogCache();
+  return res;
 }
 
-export function updateAdminCatalogGame(
+export async function updateAdminCatalogGame(
   gameId: string,
   patch: { title?: string; category?: string }
 ): Promise<{ game: CatalogGame }> {
-  return apiFetch<{ game: CatalogGame }>(`/api/admin/catalog/${encodeURIComponent(gameId)}`, {
-    method: 'PATCH',
-    body: JSON.stringify(patch),
-  });
+  const res = await apiFetch<{ game: CatalogGame }>(
+    `/api/admin/catalog/${encodeURIComponent(gameId)}`,
+    {
+      method: 'PATCH',
+      body: JSON.stringify(patch),
+    }
+  );
+  invalidateClientCatalogCache();
+  return res;
 }
 
-export function removeAdminCatalogGame(gameId: string): Promise<{ status: string; id: string }> {
-  return apiFetch<{ status: string; id: string }>(
+export async function removeAdminCatalogGame(
+  gameId: string
+): Promise<{ status: string; id: string }> {
+  const res = await apiFetch<{ status: string; id: string }>(
     `/api/admin/catalog/${encodeURIComponent(gameId)}`,
     {
       method: 'DELETE',
     }
   );
+  invalidateClientCatalogCache();
+  return res;
 }
 
 export function registerDeviceToken(

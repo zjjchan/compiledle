@@ -37,7 +37,7 @@ export function EditDailyModal({
         customNotifyTime: scheduleMode === 'custom' ? customTime : undefined,
         clearCustomNotifyTime: scheduleMode === 'general',
       });
-      onUpdated(updated);
+      onUpdated({ ...daily, ...updated });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to update daily.');
     } finally {

@@ -3,6 +3,8 @@ from __future__ import annotations
 import hashlib
 import hmac
 import os
+import re
+import secrets
 import sys
 import time
 from datetime import datetime, timezone
@@ -16,6 +18,7 @@ if _ROOT_DIR not in sys.path:
 from fastapi import Depends, FastAPI, Header, HTTPException, Query, Request, status
 from firebase_admin import auth as firebase_auth
 from firebase_admin import firestore
+from google.api_core.exceptions import NotFound
 from pydantic import BaseModel, Field
 
 from api.auth import AuthenticatedUser, get_current_user, is_user_admin, require_admin
@@ -30,6 +33,7 @@ from api.catalog import (
 from api.firebase_client import get_db
 from api.inspector import inspect_daily_url
 from api.notifier import (
+    compute_slots_for_user_data,
     dispatch_due_notifications,
     local_today_str,
     sync_user_utc_notify_slots,
@@ -37,9 +41,11 @@ from api.notifier import (
     validate_timezone,
 )
 
-app = FastAPI(title="Compiledle API", version="2.0.0")
+app = FastAPI(title="Compiledle API", version="2.1.0")
 
 RECENT_AUTH_WINDOW_SECONDS = 300
+DATE_PATTERN = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+DAILY_ID_PATTERN = re.compile(r"^[A-Za-z0-9_-]{4,64}$")
 
 
 class CreateDailyRequest(BaseModel):
@@ -52,6 +58,7 @@ class UpdateDailyRequest(BaseModel):
     customNotifyTime: str | None = None
     clearCustomNotifyTime: bool = False
     playedToday: bool | None = None
+    localDate: str | None = None
 
 
 class ReorderDailiesRequest(BaseModel):
@@ -153,17 +160,39 @@ def _require_recent_auth(user: AuthenticatedUser) -> None:
         )
 
 
+def _is_compiledle_self_url(raw_url: str, request_host: str = "") -> bool:
+    try:
+        _, canonical_key, _ = canonicalize_game_url(raw_url)
+    except ValueError:
+        return False
+    host = canonical_key.split("/", 1)[0].split("?", 1)[0].split(":", 1)[0].lower()
+    blocked_hosts = {"compiledle.vercel.app"}
+    req_host = request_host.split(",")[0].strip().split(":", 1)[0].lower()
+    if req_host.startswith("www."):
+        req_host = req_host[4:]
+    if req_host and req_host not in ("localhost", "127.0.0.1"):
+        blocked_hosts.add(req_host)
+    return host in blocked_hosts
+
+
 def _ensure_user_doc(
     uid: str,
     email: str,
     detected_tz: str | None = None,
 ) -> tuple[firestore.DocumentReference, dict[str, Any]]:
+    """
+    Loads (or initializes) `users/{uid}` in 1 single read. If a legacy user doc does not
+    yet have the embedded `dailies` map, performs a one-time migration from the old
+    `users/{uid}/dailies` subcollection into `users/{uid}.dailies` and deletes the old
+    subcollection docs so future requests cost only 1 read total.
+    """
     db = get_db()
     user_ref = db.collection("users").document(uid)
     snap = user_ref.get()
     if snap.exists:
         data = snap.to_dict() or {}
         updates: dict[str, Any] = {}
+
         if detected_tz and not data.get("timezone"):
             try:
                 valid_tz = validate_timezone(detected_tz)
@@ -171,9 +200,30 @@ def _ensure_user_doc(
                 data["timezone"] = valid_tz
             except ValueError:
                 pass
+
         if email and data.get("email") != email:
             updates["email"] = email
             data["email"] = email
+
+        # One-time automatic migration from legacy `dailies` subcollection -> embedded map
+        if "dailies" not in data:
+            legacy_docs = list(user_ref.collection("dailies").stream())
+            embedded: dict[str, dict[str, Any]] = {}
+            for d_doc in legacy_docs:
+                embedded[d_doc.id] = d_doc.to_dict() or {}
+            data["dailies"] = embedded
+            updates["dailies"] = embedded
+            if legacy_docs:
+                batch = db.batch()
+                for d_doc in legacy_docs:
+                    batch.delete(d_doc.reference)
+                batch.commit()
+
+        if "utcNotifySlots" not in data or "dailies" in updates:
+            slots = compute_slots_for_user_data(data)
+            data["utcNotifySlots"] = slots
+            updates["utcNotifySlots"] = slots
+
         if updates:
             user_ref.update(updates)
         return user_ref, data
@@ -192,6 +242,7 @@ def _ensure_user_doc(
         "notificationsEnabled": False,
         "lastGeneralNotifiedDate": None,
         "fcmTokens": {},
+        "dailies": {},
         "utcNotifySlots": [],
         "isAdmin": False,
         "createdAt": datetime.now(timezone.utc).isoformat(),
@@ -210,12 +261,13 @@ def get_me(
     tz: str | None = Query(default=None),
     user: AuthenticatedUser = Depends(get_current_user),
 ) -> dict[str, Any]:
-    user_ref, user_data = _ensure_user_doc(user.uid, user.email, detected_tz=tz)
+    _user_ref, user_data = _ensure_user_doc(user.uid, user.email, detected_tz=tz)
     user_tz = user_data.get("timezone") or "UTC"
     today_str = local_today_str(user_tz)
     catalog = get_catalog_games()
 
-    raw_docs = [(doc.id, doc.to_dict() or {}) for doc in user_ref.collection("dailies").stream()]
+    dailies_map: dict[str, dict[str, Any]] = user_data.get("dailies") or {}
+    raw_docs = [(did, d or {}) for did, d in dailies_map.items()]
     raw_docs.sort(key=_daily_sort_key)
 
     if "utcNotifySlots" not in user_data:
@@ -287,9 +339,9 @@ def update_settings(
         updates["notificationsEnabled"] = body.notificationsEnabled
 
     if updates:
-        user_ref.update(updates)
         user_data.update(updates)
-        sync_user_utc_notify_slots(user_ref, user_data)
+        updates["utcNotifySlots"] = compute_slots_for_user_data(user_data)
+        user_ref.update(updates)
 
     user_tz = user_data.get("timezone") or "UTC"
     return {
@@ -335,8 +387,10 @@ def update_account_email(
 
     db = get_db()
     user_ref = db.collection("users").document(user.uid)
-    if user_ref.get().exists:
+    try:
         user_ref.update({"email": new_email})
+    except NotFound:
+        pass
 
     return {"email": new_email}
 
@@ -394,19 +448,20 @@ def create_daily(
         except ValueError as exc:
             raise HTTPException(status_code=400, detail=str(exc)) from exc
 
-    existing_docs = [d.to_dict() or {} for d in user_ref.collection("dailies").stream()]
-    for existing in existing_docs:
-        if _resolve_catalog_id_for_daily(existing, catalog) == body.catalogId:
+    dailies_map: dict[str, dict[str, Any]] = dict(user_data.get("dailies") or {})
+    for existing in dailies_map.values():
+        if _resolve_catalog_id_for_daily(existing or {}, catalog) == body.catalogId:
             raise HTTPException(
                 status_code=400,
                 detail=f"{game['title']} is already in your dailies.",
             )
 
     numeric_orders = [
-        int(d["order"]) for d in existing_docs if isinstance(d.get("order"), (int, float))
+        int(d["order"]) for d in dailies_map.values() if isinstance((d or {}).get("order"), (int, float))
     ]
-    next_order = (max(numeric_orders) + 1) if numeric_orders else len(existing_docs)
+    next_order = (max(numeric_orders) + 1) if numeric_orders else len(dailies_map)
 
+    daily_id = secrets.token_hex(10)
     now_iso = datetime.now(timezone.utc).isoformat()
     doc_data: dict[str, Any] = {
         "catalogId": body.catalogId,
@@ -419,11 +474,21 @@ def create_daily(
         "order": next_order,
         "createdAt": now_iso,
     }
-    _, doc_ref = user_ref.collection("dailies").add(doc_data)
-    sync_user_utc_notify_slots(user_ref, user_data, [*existing_docs, doc_data])
+
+    dailies_map[daily_id] = doc_data
+    user_data["dailies"] = dailies_map
+    new_slots = compute_slots_for_user_data(user_data)
+
+    user_ref.update(
+        {
+            f"dailies.{daily_id}": doc_data,
+            "utcNotifySlots": new_slots,
+        }
+    )
+
     today_str = local_today_str(user_data.get("timezone") or "UTC")
     return _serialize_daily(
-        doc_ref.id,
+        daily_id,
         doc_data,
         today_str,
         catalog_id=body.catalogId,
@@ -436,20 +501,16 @@ def reorder_dailies(
     body: ReorderDailiesRequest,
     user: AuthenticatedUser = Depends(get_current_user),
 ) -> dict[str, str]:
-    db = get_db()
-    user_ref, _ = _ensure_user_doc(user.uid, user.email)
-    dailies_col = user_ref.collection("dailies")
+    user_ref, user_data = _ensure_user_doc(user.uid, user.email)
+    dailies_map: dict[str, dict[str, Any]] = user_data.get("dailies") or {}
 
-    existing_ids = {doc.id for doc in dailies_col.stream()}
-    batch = db.batch()
-    updated = 0
+    updates: dict[str, Any] = {}
     for idx, daily_id in enumerate(body.orderedIds):
-        if daily_id in existing_ids:
-            batch.update(dailies_col.document(daily_id), {"order": idx})
-            updated += 1
+        if daily_id in dailies_map:
+            updates[f"dailies.{daily_id}.order"] = idx
 
-    if updated > 0:
-        batch.commit()
+    if updates:
+        user_ref.update(updates)
 
     return {"status": "ok"}
 
@@ -460,42 +521,77 @@ def update_daily(
     body: UpdateDailyRequest,
     user: AuthenticatedUser = Depends(get_current_user),
 ) -> dict[str, Any]:
+    if not DAILY_ID_PATTERN.match(daily_id):
+        raise HTTPException(status_code=400, detail="Invalid daily identifier.")
+
+    # Fast 0-read path for "Played Today" toggles (the most frequent write in the app)
+    is_played_only = (
+        body.playedToday is not None
+        and body.title is None
+        and body.customNotifyTime is None
+        and not body.clearCustomNotifyTime
+        and body.localDate is not None
+        and bool(DATE_PATTERN.match(body.localDate))
+    )
+    if is_played_only:
+        user_ref = get_db().collection("users").document(user.uid)
+        next_date = body.localDate if body.playedToday else None
+        try:
+            user_ref.update({f"dailies.{daily_id}.lastPlayedDate": next_date})
+        except NotFound as exc:
+            raise HTTPException(status_code=404, detail="Daily not found.") from exc
+        return {
+            "id": daily_id,
+            "playedToday": bool(body.playedToday),
+            "lastPlayedDate": next_date,
+        }
+
     user_ref, user_data = _ensure_user_doc(user.uid, user.email)
-    daily_ref = user_ref.collection("dailies").document(daily_id)
-    snap = daily_ref.get()
-    if not snap.exists:
+    dailies_map: dict[str, dict[str, Any]] = dict(user_data.get("dailies") or {})
+    if daily_id not in dailies_map:
         raise HTTPException(status_code=404, detail="Daily not found.")
 
-    current = snap.to_dict() or {}
+    current = dict(dailies_map[daily_id] or {})
     today_str = local_today_str(user_data.get("timezone") or "UTC")
     updates: dict[str, Any] = {}
+    schedule_changed = False
 
     if body.title is not None:
         cleaned_title = body.title.strip()
         if not cleaned_title:
             raise HTTPException(status_code=400, detail="Title cannot be empty.")
-        updates["title"] = cleaned_title
+        current["title"] = cleaned_title
+        updates[f"dailies.{daily_id}.title"] = cleaned_title
 
     if body.clearCustomNotifyTime:
-        updates["customNotifyTime"] = None
-        updates["lastNotifiedDate"] = None
+        current["customNotifyTime"] = None
+        current["lastNotifiedDate"] = None
+        updates[f"dailies.{daily_id}.customNotifyTime"] = None
+        updates[f"dailies.{daily_id}.lastNotifiedDate"] = None
+        schedule_changed = True
     elif body.customNotifyTime is not None:
         try:
             valid_time = validate_notify_time(body.customNotifyTime)
-            updates["customNotifyTime"] = valid_time
             if valid_time != current.get("customNotifyTime"):
-                updates["lastNotifiedDate"] = None
+                current["lastNotifiedDate"] = None
+                updates[f"dailies.{daily_id}.lastNotifiedDate"] = None
+            current["customNotifyTime"] = valid_time
+            updates[f"dailies.{daily_id}.customNotifyTime"] = valid_time
+            schedule_changed = True
         except ValueError as exc:
             raise HTTPException(status_code=400, detail=str(exc)) from exc
 
     if body.playedToday is not None:
-        updates["lastPlayedDate"] = today_str if body.playedToday else None
+        next_played_date = today_str if body.playedToday else None
+        current["lastPlayedDate"] = next_played_date
+        updates[f"dailies.{daily_id}.lastPlayedDate"] = next_played_date
 
     if updates:
-        daily_ref.update(updates)
-        current.update(updates)
-        if "customNotifyTime" in updates:
-            sync_user_utc_notify_slots(user_ref, user_data)
+        dailies_map[daily_id] = current
+        user_data["dailies"] = dailies_map
+        if schedule_changed:
+            updates["utcNotifySlots"] = compute_slots_for_user_data(user_data)
+        user_ref.update(updates)
 
     catalog = get_catalog_games()
     matched_id = _resolve_catalog_id_for_daily(current, catalog) or str(
@@ -509,28 +605,24 @@ def delete_daily(
     daily_id: str,
     user: AuthenticatedUser = Depends(get_current_user),
 ) -> dict[str, str]:
+    if not DAILY_ID_PATTERN.match(daily_id):
+        raise HTTPException(status_code=400, detail="Invalid daily identifier.")
     user_ref, user_data = _ensure_user_doc(user.uid, user.email)
-    daily_ref = user_ref.collection("dailies").document(daily_id)
-    if not daily_ref.get().exists:
+    dailies_map: dict[str, dict[str, Any]] = dict(user_data.get("dailies") or {})
+    if daily_id not in dailies_map:
         raise HTTPException(status_code=404, detail="Daily not found.")
-    daily_ref.delete()
-    sync_user_utc_notify_slots(user_ref, user_data)
+
+    dailies_map.pop(daily_id, None)
+    user_data["dailies"] = dailies_map
+    new_slots = compute_slots_for_user_data(user_data)
+
+    user_ref.update(
+        {
+            f"dailies.{daily_id}": firestore.DELETE_FIELD,
+            "utcNotifySlots": new_slots,
+        }
+    )
     return {"status": "deleted", "id": daily_id}
-
-
-def _is_compiledle_self_url(raw_url: str, request_host: str = "") -> bool:
-    try:
-        _, canonical_key, _ = canonicalize_game_url(raw_url)
-    except ValueError:
-        return False
-    host = canonical_key.split("/", 1)[0].split("?", 1)[0].split(":", 1)[0].lower()
-    blocked_hosts = {"compiledle.vercel.app"}
-    req_host = request_host.split(",")[0].strip().split(":", 1)[0].lower()
-    if req_host.startswith("www."):
-        req_host = req_host[4:]
-    if req_host and req_host not in ("localhost", "127.0.0.1"):
-        blocked_hosts.add(req_host)
-    return host in blocked_hosts
 
 
 @app.post("/api/requests", status_code=status.HTTP_201_CREATED)
@@ -701,7 +793,6 @@ async def admin_add_catalog_game(
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
-    # Clean up any matching pending request for the same URL
     req_ref = get_db().collection("game_requests").document(added["id"])
     if req_ref.get().exists:
         req_ref.delete()
@@ -754,17 +845,19 @@ def register_device(
         "userAgent": body.userAgent,
         "updatedAt": now_iso,
     }
-    user_ref.update(
-        {
-            f"fcmTokens.{token_hash}": entry,
-            "notificationsEnabled": True,
-        }
-    )
     tokens = dict(user_data.get("fcmTokens") or {})
     tokens[token_hash] = entry
     user_data["fcmTokens"] = tokens
     user_data["notificationsEnabled"] = True
-    sync_user_utc_notify_slots(user_ref, user_data)
+    new_slots = compute_slots_for_user_data(user_data)
+
+    user_ref.update(
+        {
+            f"fcmTokens.{token_hash}": entry,
+            "notificationsEnabled": True,
+            "utcNotifySlots": new_slots,
+        }
+    )
     return {
         "tokenHash": token_hash,
         "deviceCount": len(tokens),
@@ -780,11 +873,17 @@ def unregister_device(
     if not token_hash.isalnum():
         raise HTTPException(status_code=400, detail="Invalid device identifier.")
     user_ref, user_data = _ensure_user_doc(user.uid, user.email)
-    user_ref.update({f"fcmTokens.{token_hash}": firestore.DELETE_FIELD})
     tokens = dict(user_data.get("fcmTokens") or {})
     tokens.pop(token_hash, None)
     user_data["fcmTokens"] = tokens
-    sync_user_utc_notify_slots(user_ref, user_data)
+    new_slots = compute_slots_for_user_data(user_data)
+
+    user_ref.update(
+        {
+            f"fcmTokens.{token_hash}": firestore.DELETE_FIELD,
+            "utcNotifySlots": new_slots,
+        }
+    )
     return {"status": "removed"}
 
 

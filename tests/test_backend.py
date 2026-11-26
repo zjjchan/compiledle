@@ -17,6 +17,7 @@ from api.index import (
 )
 from api.inspector import normalize_and_validate_url
 from api.notifier import (
+    compute_slots_for_user_data,
     compute_utc_notify_slots,
     current_utc_query_slots,
     format_general_notification_body,
@@ -181,6 +182,25 @@ def test_blocks_suggesting_compiledle_itself() -> None:
     assert _is_compiledle_self_url("https://www.compiledle.vercel.app") is True
     assert _is_compiledle_self_url("https://krillion.io") is False
 
+
+def test_compute_slots_for_user_data_from_embedded_dailies() -> None:
+    # Asia/Singapore is UTC+8 (no DST): 00:00 -> 16:00 UTC, 13:00 -> 05:00 UTC
+    user_data = {
+        "timezone": "Asia/Singapore",
+        "defaultNotifyTime": "00:00",
+        "notificationsEnabled": True,
+        "fcmTokens": {"hash1": {"token": "tok1"}},
+        "dailies": {
+            "d1": {"title": "Wordle", "customNotifyTime": None},
+            "d2": {"title": "Krillion", "customNotifyTime": "13:00"},
+        },
+    }
+    slots = compute_slots_for_user_data(user_data)
+    assert slots == ["05:00", "16:00"]
+
+    # Notifications disabled or no FCM tokens => no UTC slots indexed
+    assert compute_slots_for_user_data({**user_data, "notificationsEnabled": False}) == []
+    assert compute_slots_for_user_data({**user_data, "fcmTokens": {}}) == []
 
 def test_utc_notify_slots_and_query_window() -> None:
     # Asia/Singapore (UTC+8, no DST): 00:00 -> 16:00 UTC, 13:00 -> 05:00 UTC

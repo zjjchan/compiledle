@@ -60,7 +60,7 @@ export function AdminPage({ onBack, onCatalogChanged }: AdminPageProps) {
     setLoading(true);
     setError(null);
     try {
-      const [reqRes, catRes] = await Promise.all([fetchAdminRequests(), fetchCatalog()]);
+      const [reqRes, catRes] = await Promise.all([fetchAdminRequests(), fetchCatalog(true)]);
       setRequests(reqRes.requests);
       setCatalog(catRes.games);
     } catch (err) {

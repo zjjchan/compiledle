@@ -131,22 +131,22 @@ def format_general_notification_body(titles: list[str]) -> str:
 
 
 def group_due_dailies_by_time(
-    dailies: list[tuple[Any, dict[str, Any]]],
+    dailies: list[tuple[str, dict[str, Any]]],
     default_time: str,
     last_general_date: str | None,
     local_dt: datetime,
-) -> dict[str, list[tuple[Any, str, bool]]]:
+) -> dict[str, list[tuple[str, str, bool]]]:
     """
     Groups all unplayed, un-notified dailies that are currently due into buckets keyed by
     their effective scheduled time ("HH:MM"), so each scheduled time triggers at most one
     batched notification regardless of how many dailies share that time.
 
-    Returns { "HH:MM": [(doc_ref, title, is_custom_time), ...] }.
+    Returns { "HH:MM": [(daily_id, title, is_custom_time), ...] }.
     """
     today_str = local_dt.strftime("%Y-%m-%d")
-    due_by_time: dict[str, list[tuple[Any, str, bool]]] = {}
+    due_by_time: dict[str, list[tuple[str, str, bool]]] = {}
 
-    for doc_ref, d_data in dailies:
+    for daily_id, d_data in dailies:
         if d_data.get("lastPlayedDate") == today_str:
             continue
 
@@ -165,7 +165,7 @@ def group_due_dailies_by_time(
             continue
 
         title = d_data.get("title") or "Daily Game"
-        due_by_time.setdefault(effective_time, []).append((doc_ref, title, is_custom))
+        due_by_time.setdefault(effective_time, []).append((daily_id, title, is_custom))
 
     return due_by_time
 
@@ -216,28 +216,20 @@ def current_utc_query_slots(now_utc: datetime) -> list[str]:
     return [cur_dt.strftime("%H:%M"), prev_dt.strftime("%H:%M")]
 
 
-def sync_user_utc_notify_slots(
-    user_ref: Any,
-    user_data: dict[str, Any],
-    daily_docs: list[dict[str, Any]] | None = None,
-) -> list[str]:
-    """Recomputes and persists `utcNotifySlots` on `users/{uid}`."""
+def compute_slots_for_user_data(user_data: dict[str, Any]) -> list[str]:
     enabled = bool(user_data.get("notificationsEnabled", False))
     has_tokens = bool(user_data.get("fcmTokens"))
     if not enabled or not has_tokens:
-        slots: list[str] = []
-    else:
-        if daily_docs is None:
-            daily_docs = [d.to_dict() or {} for d in user_ref.collection("dailies").stream()]
-        default_time = user_data.get("defaultNotifyTime") or "00:00"
-        local_times = {d.get("customNotifyTime") or default_time for d in daily_docs}
-        tz_name = user_data.get("timezone") or "UTC"
-        slots = compute_utc_notify_slots(local_times, tz_name, enabled=True, has_tokens=True)
-
-    if user_data.get("utcNotifySlots") != slots:
-        user_ref.update({"utcNotifySlots": slots})
-        user_data["utcNotifySlots"] = slots
-    return slots
+        return []
+    dailies_map: dict[str, dict[str, Any]] = user_data.get("dailies") or {}
+    if not dailies_map:
+        return []
+    default_time = user_data.get("defaultNotifyTime") or "00:00"
+    local_times = {
+        (d or {}).get("customNotifyTime") or default_time for d in dailies_map.values()
+    }
+    tz_name = user_data.get("timezone") or "UTC"
+    return compute_utc_notify_slots(local_times, tz_name, enabled=True, has_tokens=True)
 
 
 def dispatch_due_notifications(
@@ -245,7 +237,8 @@ def dispatch_due_notifications(
 ) -> dict[str, int]:
     """
     Queries only users whose `utcNotifySlots` matches the current or previous 15-minute
-    UTC slot, then sends at most one batched notification per scheduled time slot.
+    UTC slot, reads embedded `users/{uid}.dailies` with 0 extra subcollection reads,
+    and sends at most one batched notification per scheduled time slot.
     """
     db = get_db()
     ref_utc = now_utc or datetime.now(timezone.utc)
@@ -275,8 +268,16 @@ def dispatch_due_notifications(
         default_time = user_data.get("defaultNotifyTime") or "00:00"
         last_general_date = user_data.get("lastGeneralNotifiedDate")
 
-        dailies_ref = user_doc.reference.collection("dailies")
-        daily_entries = [(d.reference, d.to_dict() or {}) for d in dailies_ref.stream()]
+        # Use embedded dailies map (0 extra reads); fall back to legacy subcollection only if unmigrated
+        if "dailies" in user_data:
+            dailies_map: dict[str, dict[str, Any]] = user_data.get("dailies") or {}
+            daily_entries = [(did, d or {}) for did, d in dailies_map.items()]
+            is_embedded = True
+        else:
+            legacy_docs = list(user_doc.reference.collection("dailies").stream())
+            daily_entries = [(d.id, d.to_dict() or {}) for d in legacy_docs]
+            is_embedded = False
+
         if not daily_entries:
             continue
 
@@ -309,9 +310,14 @@ def dispatch_due_notifications(
             all_stale_hashes.update(stale)
             if sent > 0:
                 notifications_sent += sent
-                for doc_ref, _title, is_custom in items:
+                for daily_id, _title, is_custom in items:
                     if is_custom:
-                        doc_ref.update({"lastNotifiedDate": today_str})
+                        if is_embedded:
+                            user_updates[f"dailies.{daily_id}.lastNotifiedDate"] = today_str
+                        else:
+                            user_doc.reference.collection("dailies").document(daily_id).update(
+                                {"lastNotifiedDate": today_str}
+                            )
                     else:
                         user_updates["lastGeneralNotifiedDate"] = today_str
 
