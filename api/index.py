@@ -36,7 +36,6 @@ from api.notifier import (
     compute_slots_for_user_data,
     dispatch_due_notifications,
     local_today_str,
-    sync_user_utc_notify_slots,
     validate_notify_time,
     validate_timezone,
 )
@@ -269,9 +268,6 @@ def get_me(
     dailies_map: dict[str, dict[str, Any]] = user_data.get("dailies") or {}
     raw_docs = [(did, d or {}) for did, d in dailies_map.items()]
     raw_docs.sort(key=_daily_sort_key)
-
-    if "utcNotifySlots" not in user_data:
-        sync_user_utc_notify_slots(user_ref, user_data, [d for _, d in raw_docs])
 
     dailies: list[dict[str, Any]] = []
     for idx, (doc_id, doc_data) in enumerate(raw_docs):
