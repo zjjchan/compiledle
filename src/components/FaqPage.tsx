@@ -120,17 +120,17 @@ export function FaqPage({ onBack }: FaqPageProps) {
         <button
           type="button"
           onClick={onBack}
-          className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white mb-2 cursor-pointer"
+          className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white mb-2 cursor-pointer"
         >
-          <ArrowLeft className="w-3.5 h-3.5" />
+          <ArrowLeft className="w-4 h-4" />
           Back to Dailies
         </button>
-        <h2 className="text-xl font-bold text-slate-900 dark:text-white">
+        <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
           Frequently Asked Questions
         </h2>
       </div>
 
-      <div className="space-y-2.5">
+      <div className="space-y-3">
         {FAQ_ITEMS.map((item) => {
           const isOpen = openIds.has(item.id);
           return (
@@ -144,17 +144,17 @@ export function FaqPage({ onBack }: FaqPageProps) {
                 aria-expanded={isOpen}
                 className="w-full px-5 py-4 flex items-center justify-between gap-3 text-left cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/50 transition"
               >
-                <span className="text-sm font-semibold text-slate-900 dark:text-white">
+                <span className="text-base font-semibold text-slate-900 dark:text-white">
                   {item.question}
                 </span>
                 <ChevronDown
-                  className={`w-4 h-4 text-slate-400 shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''
+                  className={`w-5 h-5 text-slate-400 shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''
                     }`}
                 />
               </button>
 
               {isOpen && (
-                <div className="px-5 pb-4 pt-1 text-xs leading-relaxed text-slate-600 dark:text-slate-300 border-t border-slate-100 dark:border-slate-800/80">
+                <div className="px-5 pb-5 pt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300 border-t border-slate-100 dark:border-slate-800/80">
                   {item.answer}
                 </div>
               )}
