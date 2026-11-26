@@ -8,7 +8,13 @@ from fastapi.testclient import TestClient
 
 from api.auth import AuthenticatedUser
 from api.catalog import _load_seed_catalog, canonicalize_game_url
-from api.index import _daily_sort_key, _request_sort_key, _require_recent_auth, app
+from api.index import (
+    _daily_sort_key,
+    _is_compiledle_self_url,
+    _request_sort_key,
+    _require_recent_auth,
+    app,
+)
 from api.inspector import normalize_and_validate_url
 from api.notifier import (
     format_general_notification_body,
@@ -165,3 +171,10 @@ def test_seed_catalog_loads_valid_unique_games() -> None:
     assert "Wordle" in titles
     assert "Krillion" in titles
     assert "Minute Cryptic" in titles
+
+
+def test_blocks_suggesting_compiledle_itself() -> None:
+    assert _is_compiledle_self_url("https://compiledle.vercel.app/") is True
+    assert _is_compiledle_self_url("compiledle.vercel.app/some-path") is True
+    assert _is_compiledle_self_url("https://www.compiledle.vercel.app") is True
+    assert _is_compiledle_self_url("https://krillion.io") is False

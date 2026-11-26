@@ -81,6 +81,43 @@ const FAQ_ITEMS: FaqEntry[] = [
     ),
   },
   {
+    id: 'catalog-source',
+    question: 'Where is the list of selectable dailies from?',
+    answer: (
+      <p>
+        Many of the daily games in Compiledle&apos;s catalog are sourced from{' '}
+        <a
+          href="https://dles.aukspot.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-medium text-amber-600 hover:underline dark:text-amber-400"
+        >
+          aukspot&apos;s Dles (dles.aukspot.com)
+        </a>
+        , alongside other games suggested by the community and curated for Compiledle.
+      </p>
+    ),
+  },
+  {
+    id: 'suggest-dailies',
+    question: "How do I suggest dailies that aren't in the list?",
+    answer: (
+      <div className="space-y-2">
+        <p>
+          Open the <strong>Add Daily</strong> modal and click{' '}
+          <strong>Can&apos;t find a game? Request it</strong> at the bottom (or tap the request
+          button when your search has no matches). Enter the game&apos;s website URL along with an
+          optional display name and category to submit it for review.
+        </p>
+        <p>
+          Each user can request a given game once, and requests are reviewed in order of
+          popularity. Please note that submitted games are reviewed before being added and may not
+          always be accepted (for example, if a link is not a daily game or is unavailable).
+        </p>
+      </div>
+    ),
+  },
+  {
     id: 'about-developer',
     question: 'About the developer',
     answer: (

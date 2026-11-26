@@ -4,6 +4,7 @@ import {
   Check,
   ExternalLink,
   Loader2,
+  Pencil,
   Plus,
   Search,
   ShieldCheck,
@@ -17,6 +18,7 @@ import {
   fetchCatalog,
   rejectAdminRequest,
   removeAdminCatalogGame,
+  updateAdminCatalogGame,
 } from '../lib/api';
 import { CATALOG_CATEGORIES, type CatalogGame, type GameRequestItem } from '../types';
 
@@ -50,6 +52,9 @@ export function AdminPage({ onBack, onCatalogChanged }: AdminPageProps) {
     text: string;
   } | null>(null);
   const [confirmRemoveId, setConfirmRemoveId] = useState<string | null>(null);
+  const [editingGameId, setEditingGameId] = useState<string | null>(null);
+  const [editTitle, setEditTitle] = useState('');
+  const [editCategory, setEditCategory] = useState<string>('Word');
 
   const loadAll = useCallback(async () => {
     setLoading(true);
@@ -140,6 +145,33 @@ export function AdminPage({ onBack, onCatalogChanged }: AdminPageProps) {
       });
     } finally {
       setAddingGame(false);
+    }
+  }
+
+  async function handleSaveCatalogEdit(gameId: string) {
+    if (!editTitle.trim()) return;
+    setBusyId(gameId);
+    setCatalogFeedback(null);
+    try {
+      const res = await updateAdminCatalogGame(gameId, {
+        title: editTitle.trim(),
+        category: editCategory,
+      });
+      setCatalog((prev) =>
+        prev
+          .map((g) => (g.id === gameId ? res.game : g))
+          .sort((a, b) => a.title.toLowerCase().localeCompare(b.title.toLowerCase()))
+      );
+      setEditingGameId(null);
+      setCatalogFeedback({ kind: 'ok', text: `Updated "${res.game.title}".` });
+      onCatalogChanged();
+    } catch (err) {
+      setCatalogFeedback({
+        kind: 'err',
+        text: err instanceof Error ? err.message : 'Failed to update game.',
+      });
+    } finally {
+      setBusyId(null);
     }
   }
 
@@ -399,65 +431,137 @@ export function AdminPage({ onBack, onCatalogChanged }: AdminPageProps) {
             {filteredCatalog.slice(0, catalogLimit).map((game) => {
               const isBusy = busyId === game.id;
               const isConfirming = confirmRemoveId === game.id;
+              const isEditing = editingGameId === game.id;
               return (
                 <div
                   key={game.id}
-                  className="rounded-xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900/90 px-3.5 py-2.5 flex items-center justify-between gap-3"
+                  className="rounded-xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900/90 px-3.5 py-2.5 space-y-2.5"
                 >
-                  <div className="flex items-center gap-3 min-w-0 flex-1">
-                    <img
-                      src={game.iconUrl}
-                      alt=""
-                      loading="lazy"
-                      className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 p-1 object-contain shrink-0"
-                    />
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-center gap-2">
-                        <span className="text-sm font-semibold text-slate-900 dark:text-white truncate">
-                          {game.title}
-                        </span>
-                        <span className="text-[10px] rounded bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 px-1.5 py-0.5 shrink-0">
-                          {game.category}
-                        </span>
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-3 min-w-0 flex-1">
+                      <img
+                        src={game.iconUrl}
+                        alt=""
+                        loading="lazy"
+                        className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 p-1 object-contain shrink-0"
+                      />
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm font-semibold text-slate-900 dark:text-white truncate">
+                            {game.title}
+                          </span>
+                          <span className="text-[10px] rounded bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 px-1.5 py-0.5 shrink-0">
+                            {game.category}
+                          </span>
+                        </div>
+                        <a
+                          href={game.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[11px] text-slate-500 hover:text-sky-600 dark:hover:text-sky-400 truncate block"
+                        >
+                          {game.url}
+                        </a>
                       </div>
-                      <a
-                        href={game.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-[11px] text-slate-500 hover:text-sky-600 dark:hover:text-sky-400 truncate block"
-                      >
-                        {game.url}
-                      </a>
                     </div>
+
+                    {isConfirming ? (
+                      <div className="flex items-center gap-1.5 shrink-0">
+                        <button
+                          type="button"
+                          disabled={isBusy}
+                          onClick={() => void handleRemoveCatalogGame(game.id)}
+                          className="rounded-lg bg-rose-600 hover:bg-rose-700 text-white px-2.5 py-1 text-xs font-semibold cursor-pointer"
+                        >
+                          {isBusy ? 'Removing...' : 'Confirm'}
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setConfirmRemoveId(null)}
+                          className="rounded-lg px-2 py-1 text-xs text-slate-500 hover:text-slate-900 dark:hover:text-white cursor-pointer"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-1 shrink-0">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            if (isEditing) {
+                              setEditingGameId(null);
+                            } else {
+                              setEditingGameId(game.id);
+                              setEditTitle(game.title);
+                              setEditCategory(game.category);
+                              setConfirmRemoveId(null);
+                            }
+                          }}
+                          title={`Edit ${game.title}`}
+                          className="p-1.5 rounded-lg text-slate-400 hover:text-amber-600 hover:bg-amber-50 dark:hover:text-amber-400 dark:hover:bg-amber-500/10 transition cursor-pointer"
+                        >
+                          <Pencil className="w-4 h-4" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setEditingGameId(null);
+                            setConfirmRemoveId(game.id);
+                          }}
+                          title={`Remove ${game.title} from catalog`}
+                          className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:text-rose-400 dark:hover:bg-rose-500/10 transition cursor-pointer"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+                    )}
                   </div>
 
-                  {isConfirming ? (
-                    <div className="flex items-center gap-1.5 shrink-0">
-                      <button
-                        type="button"
-                        disabled={isBusy}
-                        onClick={() => void handleRemoveCatalogGame(game.id)}
-                        className="rounded-lg bg-rose-600 hover:bg-rose-700 text-white px-2.5 py-1 text-xs font-semibold cursor-pointer"
+                  {isEditing && (
+                    <div className="pt-2.5 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row gap-2">
+                      <input
+                        type="text"
+                        value={editTitle}
+                        onChange={(e) => setEditTitle(e.target.value)}
+                        aria-label="Edit display name"
+                        className="flex-1 rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-900 focus:border-amber-500 dark:border-slate-700 dark:bg-slate-950 dark:text-white focus:outline-none"
+                      />
+                      <select
+                        value={editCategory}
+                        onChange={(e) => setEditCategory(e.target.value)}
+                        aria-label="Edit category"
+                        className="rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-xs text-slate-900 focus:border-amber-500 dark:border-slate-700 dark:bg-slate-950 dark:text-white focus:outline-none"
                       >
-                        {isBusy ? 'Removing...' : 'Confirm'}
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => setConfirmRemoveId(null)}
-                        className="rounded-lg px-2 py-1 text-xs text-slate-500 hover:text-slate-900 dark:hover:text-white cursor-pointer"
-                      >
-                        Cancel
-                      </button>
+                        {CATALOG_CATEGORIES.map((cat) => (
+                          <option key={cat} value={cat}>
+                            {cat}
+                          </option>
+                        ))}
+                      </select>
+                      <div className="flex items-center justify-end gap-1.5 shrink-0">
+                        <button
+                          type="button"
+                          disabled={isBusy}
+                          onClick={() => setEditingGameId(null)}
+                          className="rounded-lg px-2.5 py-1.5 text-xs text-slate-500 hover:text-slate-900 dark:hover:text-white cursor-pointer"
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          type="button"
+                          disabled={isBusy || !editTitle.trim()}
+                          onClick={() => void handleSaveCatalogEdit(game.id)}
+                          className="inline-flex items-center gap-1 rounded-lg bg-amber-400 hover:bg-amber-500 dark:hover:bg-amber-300 text-slate-950 font-semibold px-3 py-1.5 text-xs transition disabled:opacity-50 cursor-pointer"
+                        >
+                          {isBusy ? (
+                            <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                          ) : (
+                            <Check className="w-3.5 h-3.5" />
+                          )}
+                          Save
+                        </button>
+                      </div>
                     </div>
-                  ) : (
-                    <button
-                      type="button"
-                      onClick={() => setConfirmRemoveId(game.id)}
-                      title={`Remove ${game.title} from catalog`}
-                      className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:text-rose-400 dark:hover:bg-rose-500/10 transition cursor-pointer shrink-0"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
                   )}
                 </div>
               );

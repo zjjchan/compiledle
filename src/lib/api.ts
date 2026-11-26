@@ -164,6 +164,16 @@ export function addAdminCatalogGame(input: {
   });
 }
 
+export function updateAdminCatalogGame(
+  gameId: string,
+  patch: { title?: string; category?: string }
+): Promise<{ game: CatalogGame }> {
+  return apiFetch<{ game: CatalogGame }>(`/api/admin/catalog/${encodeURIComponent(gameId)}`, {
+    method: 'PATCH',
+    body: JSON.stringify(patch),
+  });
+}
+
 export function removeAdminCatalogGame(gameId: string): Promise<{ status: string; id: string }> {
   return apiFetch<{ status: string; id: string }>(
     `/api/admin/catalog/${encodeURIComponent(gameId)}`,

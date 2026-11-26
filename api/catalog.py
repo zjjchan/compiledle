@@ -185,6 +185,37 @@ def add_game_to_catalog(
     return entry
 
 
+def update_game_in_catalog(
+    game_id: str,
+    title: str | None = None,
+    category: str | None = None,
+) -> dict[str, Any] | None:
+    games = get_catalog_games(force_refresh=True)
+    existing = games.get(game_id)
+    if not existing:
+        return None
+
+    updated = dict(existing)
+    if title is not None:
+        cleaned_title = title.strip()[:80]
+        if not cleaned_title:
+            raise ValueError("Title cannot be empty.")
+        updated["title"] = cleaned_title
+    if category is not None:
+        updated["category"] = normalize_category(category)
+
+    db = get_db()
+    catalog_ref = db.collection("config").document("catalog")
+    catalog_ref.update(
+        {
+            f"games.{game_id}": updated,
+            "updatedAt": datetime.now(timezone.utc).isoformat(),
+        }
+    )
+    invalidate_catalog_cache()
+    return updated
+
+
 def remove_game_from_catalog(game_id: str) -> bool:
     games = get_catalog_games(force_refresh=True)
     if game_id not in games:
