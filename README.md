@@ -105,3 +105,10 @@ A Progressive Web App (PWA) for collating, scheduling reminders for, and playing
    - **Schedule**: Every **15 minutes** (`*/15 * * * *`)
    - **Request Method**: `POST` (or `GET`)
    - **Header**: `Authorization: Bearer <your-CRON_SECRET>`
+
+---
+
+## Credits & License
+
+- Initial daily games catalog seeded in part from [aukspot/dles](https://github.com/aukspot/dles) (GPL-3.0), pulled from commit [`5197194`](https://github.com/aukspot/dles/commit/5197194e80edc0396c726a67a819d757854abf65) on November 26, 2026.
+- Licensed under the GNU General Public License v3.0 ([LICENSE](LICENSE)).

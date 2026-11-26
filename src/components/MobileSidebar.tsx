@@ -5,17 +5,19 @@ import {
   LayoutGrid,
   LogOut,
   Moon,
+  ShieldCheck,
   Sun,
   UserRound,
   X,
 } from 'lucide-react';
 import type { ThemeMode } from '../lib/theme';
 
-export type AppView = 'dashboard' | 'account' | 'faq';
+export type AppView = 'dashboard' | 'account' | 'faq' | 'admin';
 
 interface MobileSidebarProps {
   open: boolean;
   email: string;
+  isAdmin: boolean;
   currentView: AppView;
   notificationsEnabled: boolean;
   theme: ThemeMode;
@@ -29,6 +31,7 @@ interface MobileSidebarProps {
 export function MobileSidebar({
   open,
   email,
+  isAdmin,
   currentView,
   notificationsEnabled,
   theme,
@@ -173,6 +176,24 @@ export function MobileSidebar({
             <HelpCircle className="w-4 h-4 shrink-0" />
             FAQs
           </button>
+
+          {isAdmin && (
+            <button
+              type="button"
+              onClick={() => {
+                onNavigate('admin');
+                onClose();
+              }}
+              className={`w-full flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition cursor-pointer ${
+                currentView === 'admin'
+                  ? 'bg-amber-500/10 text-amber-800 dark:bg-amber-400/15 dark:text-amber-300'
+                  : 'text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800/70'
+              }`}
+            >
+              <ShieldCheck className="w-4 h-4 shrink-0 text-amber-500 dark:text-amber-400" />
+              Admin
+            </button>
+          )}
         </nav>
 
         <div className="px-3 pt-3 border-t border-slate-200 dark:border-slate-800">

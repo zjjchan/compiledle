@@ -1,0 +1,4617 @@
+[
+  {
+    "title": "23 Words",
+    "url": "https://wordnerd.co/23words",
+    "category": "Word"
+  },
+  {
+    "title": "3Doku",
+    "url": "https://www.andrewt.net/puzzles/3doku/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "4 x 3",
+    "url": "https://www.hankgreen.com/fourbythree/",
+    "category": "Word"
+  },
+  {
+    "title": "7 Little Words",
+    "url": "https://7littlewords.com/7lw",
+    "category": "Word"
+  },
+  {
+    "title": "Absurdle",
+    "url": "https://qntm.org/files/absurdle/absurdle.html",
+    "category": "Word"
+  },
+  {
+    "title": "Ace Attorneydle",
+    "url": "https://aceattorneydle.fr/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Acted",
+    "url": "https://acted.wtf/",
+    "category": "Other"
+  },
+  {
+    "title": "Actorle",
+    "url": "https://actorle.com/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Actorle - Fill The Grid",
+    "url": "https://actorle.com/fill-the-grid",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Actorle - Storyboard",
+    "url": "https://actorle.com/storyboard",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Actorle TV",
+    "url": "https://actorle.tv/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Adoptle",
+    "url": "https://tryhardguides.com/adoptle",
+    "category": "Word"
+  },
+  {
+    "title": "Airport Guessr",
+    "url": "https://airportguessr.bytecatch.io/",
+    "category": "Other"
+  },
+  {
+    "title": "AITA Guesser",
+    "url": "https://muhashi.com/aita-guesser/",
+    "category": "Other"
+  },
+  {
+    "title": "Alphalock",
+    "url": "https://alphalockgame.net/",
+    "category": "Word"
+  },
+  {
+    "title": "Am I Dead?",
+    "url": "https://www.amidead.gg/",
+    "category": "Other"
+  },
+  {
+    "title": "Amountle",
+    "url": "https://amountle.dev/",
+    "category": "Other"
+  },
+  {
+    "title": "Angle",
+    "url": "https://angle.wtf/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Anidle",
+    "url": "https://anidle.net/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Anigrams",
+    "url": "https://anigrams.us/",
+    "category": "Other"
+  },
+  {
+    "title": "AniGuessr",
+    "url": "https://aniguessr.com/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Animdle",
+    "url": "https://animdle.com/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Anthropeum",
+    "url": "https://anthropeum.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Antiwordle",
+    "url": "https://www.antiwordle.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Apparle",
+    "url": "https://www.apparle.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Archiguessr",
+    "url": "https://archiguesser.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Artle",
+    "url": "https://www.nga.gov/artle.html",
+    "category": "Trivia"
+  },
+  {
+    "title": "Auctimate",
+    "url": "https://guessdash.com/auctimate",
+    "category": "Other"
+  },
+  {
+    "title": "Avatardle",
+    "url": "https://avatardle.com/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Babelle",
+    "url": "https://babelle.terrylaire.fr/",
+    "category": "Geography"
+  },
+  {
+    "title": "Baddle",
+    "url": "https://tumblecricket.net/Baddle/",
+    "category": "Other"
+  },
+  {
+    "title": "Balatrodle",
+    "url": "https://www.balatrodle.com/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Ballot Blocks",
+    "url": "https://ballotblocks.com/",
+    "category": "Geography"
+  },
+  {
+    "title": "BallotGuessr",
+    "url": "https://ballotguessr.com/daily",
+    "category": "Geography"
+  },
+  {
+    "title": "Bandle",
+    "url": "https://bandle.app/",
+    "category": "Music"
+  },
+  {
+    "title": "Basketball 5",
+    "url": "https://basketball-5.com/",
+    "category": "Sports"
+  },
+  {
+    "title": "Batter Up",
+    "url": "https://www.batter-up.app/",
+    "category": "Sports"
+  },
+  {
+    "title": "Bazaar Doku",
+    "url": "https://bazaardb.gg/doku",
+    "category": "Gaming"
+  },
+  {
+    "title": "Bean Sort",
+    "url": "https://coffeefirst.games/bean-sort",
+    "category": "Other"
+  },
+  {
+    "title": "Beat Me At Boggle",
+    "url": "https://beatmeatboggle.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Beatdle",
+    "url": "https://beatdle.fun/",
+    "category": "Music"
+  },
+  {
+    "title": "Bells & Whistles",
+    "url": "https://puzzmallow.com/bells",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Betweenle",
+    "url": "https://betweenle.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Bibdle",
+    "url": "https://bibdle.com/",
+    "category": "Other"
+  },
+  {
+    "title": "BingeWatcher",
+    "url": "https://bingewatcher.org/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Birdie Game",
+    "url": "https://birdiegame.net/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Birdle",
+    "url": "https://www.play-birdle.com/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Birdle (like Wordle)",
+    "url": "https://birdle.escism.net/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Blockle",
+    "url": "https://blockle.au/",
+    "category": "Word"
+  },
+  {
+    "title": "Blossom",
+    "url": "https://www.merriam-webster.com/games/blossom-word-game",
+    "category": "Word"
+  },
+  {
+    "title": "Blunderwall",
+    "url": "https://bythomas.co.uk/blunderwall",
+    "category": "Word"
+  },
+  {
+    "title": "Boggdle",
+    "url": "https://simenmh.com/boggdle",
+    "category": "Word"
+  },
+  {
+    "title": "Bonedle",
+    "url": "https://bonedle.rito.lol/",
+    "category": "Gaming"
+  },
+  {
+    "title": "BopMatch",
+    "url": "https://bopmatch.com/",
+    "category": "Music"
+  },
+  {
+    "title": "Border guesser",
+    "url": "https://borderguesser.com/",
+    "category": "Geography"
+  },
+  {
+    "title": "Boston Globe - Align",
+    "url": "https://www.bostonglobe.com/games/align/",
+    "category": "Word"
+  },
+  {
+    "title": "Box Office Game",
+    "url": "https://boxofficega.me/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Bracket City",
+    "url": "https://www.theatlantic.com/games/bracket-city/",
+    "category": "Word"
+  },
+  {
+    "title": "BrainBashers Daily 30 Seconds",
+    "url": "https://www.brainbashers.com/30seconds.asp",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "BrainBashers Daily Puzzle",
+    "url": "https://www.brainbashers.com/dailypuzzle.asp",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Brainer",
+    "url": "https://gamebunny.app/brainer",
+    "category": "Trivia"
+  },
+  {
+    "title": "Breadle",
+    "url": "https://breadle.us/Breadle_Home/Breadle_Classic/breadle-classic.html",
+    "category": "Trivia"
+  },
+  {
+    "title": "Brickdle",
+    "url": "https://www.brickdle.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Buzzled",
+    "url": "https://puzzmallow.com/buzzled",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Cadgy",
+    "url": "https://cadgy.net/",
+    "category": "Word"
+  },
+  {
+    "title": "Calcle",
+    "url": "https://calclegame.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Cancelwise",
+    "url": "https://cancelwise.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Capitale",
+    "url": "https://capitale.countryle.com/",
+    "category": "Geography"
+  },
+  {
+    "title": "Capitalibrate",
+    "url": "https://guessdash.com/capitalibrate",
+    "category": "Geography"
+  },
+  {
+    "title": "Cardle",
+    "url": "https://cardle.boxbox.autos/",
+    "category": "Other"
+  },
+  {
+    "title": "CarGuesser",
+    "url": "https://carguesser.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Cartoonguessr",
+    "url": "https://cartoonguesser.pythonanywhere.com/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Cascadle",
+    "url": "https://cascadle.xyz/",
+    "category": "Word"
+  },
+  {
+    "title": "Categories",
+    "url": "https://categories.clevergoat.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Catfishing",
+    "url": "https://catfishing.net/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Cell Tower",
+    "url": "https://www.andrewt.net/puzzles/cell-tower",
+    "category": "Word"
+  },
+  {
+    "title": "Celtix",
+    "url": "https://www.andrewt.net/puzzles/celtix/",
+    "category": "Other"
+  },
+  {
+    "title": "cemantle",
+    "url": "https://cemantle.certitudes.org/",
+    "category": "Word"
+  },
+  {
+    "title": "Centroid",
+    "url": "https://centroidgame.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Centumth",
+    "url": "https://www.centumth.com/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Chainagram",
+    "url": "https://puzzletrail.games/puzzles/chainagram",
+    "category": "Word"
+  },
+  {
+    "title": "Chainle",
+    "url": "https://chainle.io/",
+    "category": "Word"
+  },
+  {
+    "title": "Chartle",
+    "url": "https://chartle.cc/",
+    "category": "Geography"
+  },
+  {
+    "title": "Chemdle",
+    "url": "https://www.chemdle.com/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Chess.com Daily Puzzle",
+    "url": "https://www.chess.com/daily-chess-puzzle",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Chessguessr",
+    "url": "https://www.chessguessr.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Chessle",
+    "url": "https://jackli.gg/chessle",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Chiddle",
+    "url": "https://www.chiddle.net/",
+    "category": "Word"
+  },
+  {
+    "title": "CHN LNK",
+    "url": "https://thechnlnk.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Chroma",
+    "url": "https://robson.plus/chroma",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Chronle",
+    "url": "https://chronle.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Chrono",
+    "url": "https://chrono.quest/",
+    "category": "Other"
+  },
+  {
+    "title": "Chrono NBA",
+    "url": "https://chrono.quest/basketball.html",
+    "category": "Sports"
+  },
+  {
+    "title": "Chrono NFL",
+    "url": "https://chrono.quest/nfl.html",
+    "category": "Sports"
+  },
+  {
+    "title": "Chrono USA",
+    "url": "https://chrono.quest/us_history.html",
+    "category": "Other"
+  },
+  {
+    "title": "Chronoline",
+    "url": "https://chronoline.app/daily",
+    "category": "Other"
+  },
+  {
+    "title": "Chronoodle",
+    "url": "https://chronoodle.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Chronophoto",
+    "url": "https://www.chronophoto.app/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Cine2Nerdle",
+    "url": "https://www.cinenerdle2.app/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "CineLine",
+    "url": "https://www.playcineline.com/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Cinema Circuit",
+    "url": "https://www.wfhgames.com/cinema-circuit",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Cinematrix",
+    "url": "https://www.vulture.com/article/daily-movie-grid-trivia-game-cinematrix.html",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "CineNerdle",
+    "url": "https://www.cinenerdle.app/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Circle Moon Puzzles",
+    "url": "https://circle9puzzle.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Cladder",
+    "url": "https://playcladder.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Clasherdle",
+    "url": "https://clasherdle.pixelcrux.com/",
+    "category": "Gaming"
+  },
+  {
+    "title": "ClickWord",
+    "url": "https://clickword.org/",
+    "category": "Word"
+  },
+  {
+    "title": "Cliffhanger",
+    "url": "https://jumoh.com/games/cliffhanger/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Clue Raider",
+    "url": "https://clueraider.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Clue Tube",
+    "url": "https://thecluetube.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Clues by Sam",
+    "url": "https://cluesbysam.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Cluewords",
+    "url": "https://wordnerd.co/cluewords",
+    "category": "Word"
+  },
+  {
+    "title": "Coastle",
+    "url": "https://pkyu.github.io/coastle/",
+    "category": "Other"
+  },
+  {
+    "title": "Cobble",
+    "url": "https://wilf.live/cobble/",
+    "category": "Word"
+  },
+  {
+    "title": "Codenames Daily",
+    "url": "https://codenames.game/daily/en",
+    "category": "Word"
+  },
+  {
+    "title": "Coindle",
+    "url": "https://muhashi.com/coindle/",
+    "category": "Other"
+  },
+  {
+    "title": "Collagedle",
+    "url": "https://collagedle.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Collections",
+    "url": "https://puzzmallow.com/collections",
+    "category": "Word"
+  },
+  {
+    "title": "Colordle",
+    "url": "https://colordle.ryantanen.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Colorfle",
+    "url": "https://colorfle.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "ColorGuesser",
+    "url": "https://colorguesser.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Combinations",
+    "url": "https://combinations.org/",
+    "category": "Word"
+  },
+  {
+    "title": "Compound Your Joy",
+    "url": "https://onelook.com/?loc=rd&w=cyj",
+    "category": "Word"
+  },
+  {
+    "title": "Concludle",
+    "url": "https://tryhardguides.com/concludle",
+    "category": "Trivia"
+  },
+  {
+    "title": "Conexo",
+    "url": "https://conexo.ws/en",
+    "category": "Word"
+  },
+  {
+    "title": "Connections Game",
+    "url": "https://connectionsgame.org/",
+    "category": "Word"
+  },
+  {
+    "title": "Contexto",
+    "url": "https://contexto.me/",
+    "category": "Word"
+  },
+  {
+    "title": "Cosmeredle",
+    "url": "https://cosmeredle.net/",
+    "category": "Other"
+  },
+  {
+    "title": "Costcodle",
+    "url": "https://costcodle.com/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Countryle",
+    "url": "https://countryle.com/",
+    "category": "Geography"
+  },
+  {
+    "title": "Couples",
+    "url": "https://www.couples.game/",
+    "category": "Word"
+  },
+  {
+    "title": "Couplit",
+    "url": "https://couplit.io/",
+    "category": "Word"
+  },
+  {
+    "title": "Cracked Sudoku",
+    "url": "https://danielchasehooper.com/projects/cracked-sudoku/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Craft Connections",
+    "url": "https://craftconnections.net/",
+    "category": "Gaming"
+  },
+  {
+    "title": "CraftWord",
+    "url": "https://craftword.game/",
+    "category": "Word"
+  },
+  {
+    "title": "Cramdle",
+    "url": "https://cramdle.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Crayondle",
+    "url": "https://crayondle.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Cropple",
+    "url": "https://cropple.app/",
+    "category": "Other"
+  },
+  {
+    "title": "Crossflip",
+    "url": "https://puzzmallow.com/crossflip",
+    "category": "Word"
+  },
+  {
+    "title": "Crosshare",
+    "url": "https://crosshare.org/",
+    "category": "Word"
+  },
+  {
+    "title": "Crossherd",
+    "url": "https://crossherd.clevergoat.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Crosslink",
+    "url": "https://romainpastureau.github.io/crosslink/",
+    "category": "Word"
+  },
+  {
+    "title": "Crosstune",
+    "url": "https://crosstune.io/",
+    "category": "Music"
+  },
+  {
+    "title": "Crossword Club Daily",
+    "url": "https://crosswordclub.com/puzzles/",
+    "category": "Word"
+  },
+  {
+    "title": "Crosswordle",
+    "url": "https://crosswordle.vercel.app/",
+    "category": "Word"
+  },
+  {
+    "title": "crosswordle.com",
+    "url": "https://crosswordle.com/",
+    "category": "Word"
+  },
+  {
+    "title": "crosswordle.org",
+    "url": "https://crosswordle.org/",
+    "category": "Word"
+  },
+  {
+    "title": "Crowdle.gg",
+    "url": "https://crowdle.gg/",
+    "category": "Trivia"
+  },
+  {
+    "title": "cryptle",
+    "url": "https://cryptle.xyz/",
+    "category": "Word"
+  },
+  {
+    "title": "Curdle",
+    "url": "https://gumbo.systems/curdle/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Cutle",
+    "url": "https://pfiffel.com/cutle/",
+    "category": "Other"
+  },
+  {
+    "title": "Cyphr",
+    "url": "https://cyphrgame.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Daily Akari",
+    "url": "https://dailyakari.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Daily Analogy",
+    "url": "https://dailyanalogy.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Daily Crypticle",
+    "url": "https://dailycrypticle.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Daily Dozen Trivia",
+    "url": "https://dailydozentrivia.com/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Daily Fact or Fiction",
+    "url": "https://dailyfactorfiction.com/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Daily Fill-Ins",
+    "url": "https://azgames.io/game/daily-fill-ins",
+    "category": "Word"
+  },
+  {
+    "title": "Daily Gogen",
+    "url": "https://www.dailygogen.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Daily Jingle",
+    "url": "https://dailyjingle.me/",
+    "category": "Music"
+  },
+  {
+    "title": "Daily Orbs",
+    "url": "https://dailyorbs.com/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Daily Rinds",
+    "url": "https://dailyrinds.com/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Daily Set",
+    "url": "https://www.setgame.com/set/puzzle",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Daily Tens",
+    "url": "https://dailytens.com/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Daily Tomato",
+    "url": "https://www.rottentomatoes.com/movie-trivia",
+    "category": "Other"
+  },
+  {
+    "title": "Daily Walkoff",
+    "url": "https://www.dailywalkoff.com/",
+    "category": "Sports"
+  },
+  {
+    "title": "DayBrix",
+    "url": "https://vole.wtf/daybrix",
+    "category": "Other"
+  },
+  {
+    "title": "Daydle",
+    "url": "https://daydle.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Daydoku",
+    "url": "https://www.daydoku.com/",
+    "category": "Other"
+  },
+  {
+    "title": "DBDle",
+    "url": "https://dbdle.net/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Decipher",
+    "url": "https://decipher.wtf/",
+    "category": "Word"
+  },
+  {
+    "title": "Decodex",
+    "url": "https://playdecodex.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Definitions",
+    "url": "https://pzlgames.com/games/definitions/",
+    "category": "Word"
+  },
+  {
+    "title": "Dialed - Color Game",
+    "url": "https://dialed.gg/color",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Dialed - Color Toon",
+    "url": "https://dialed.gg/color2",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Dialed - Shape Game",
+    "url": "https://dialed.gg/shape",
+    "category": "Other"
+  },
+  {
+    "title": "Dialed - Sound Game",
+    "url": "https://dialed.gg/sound",
+    "category": "Other"
+  },
+  {
+    "title": "Dialed - Time Game",
+    "url": "https://dialed.gg/time",
+    "category": "Other"
+  },
+  {
+    "title": "Dicele",
+    "url": "https://dicele.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Dimension Flux",
+    "url": "https://dimensionflux.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Disney Heardle",
+    "url": "https://www.disney.heardledecades.com/",
+    "category": "Music"
+  },
+  {
+    "title": "Disorderly",
+    "url": "https://playdisorderly.com/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Disordle",
+    "url": "https://disordle.com/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Doctordle",
+    "url": "https://doctordle.org/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Dodeku",
+    "url": "https://dodeku.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "DOGDLE",
+    "url": "https://dogdle.org/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Doggle",
+    "url": "https://doggle.app/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Domino Fit",
+    "url": "https://dominofit.isotropic.us/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Doople",
+    "url": "https://www.dooplepuzzle.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Dordle",
+    "url": "https://zaratustra.itch.io/dordle",
+    "category": "Word"
+  },
+  {
+    "title": "Dot Hopper",
+    "url": "https://dothopper.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Dotadle",
+    "url": "https://dotadle.net/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Dowsle",
+    "url": "https://dowsle.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Dungleon",
+    "url": "https://www.dungleon.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Duolock Game",
+    "url": "https://www.duolockgame.net/",
+    "category": "Word"
+  },
+  {
+    "title": "Duotrigordle",
+    "url": "https://duotrigordle.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Eater of Wordles",
+    "url": "https://hexdecima.github.io/eowordles/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Echo Chess",
+    "url": "https://echochess.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Eightile",
+    "url": "https://eightile.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Electle",
+    "url": "https://electle.fun/",
+    "category": "Geography"
+  },
+  {
+    "title": "Elemingle",
+    "url": "https://elemingle.com/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Emoji Quiz - Movies",
+    "url": "https://www.emojiquiz.net/movies",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Emoji Quiz - TV",
+    "url": "https://www.emojiquiz.net/tv",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Emoji Quiz - Video Games",
+    "url": "https://www.emojiquiz.net/games",
+    "category": "Gaming"
+  },
+  {
+    "title": "Emoji Test",
+    "url": "https://emojitest.com/en",
+    "category": "Word"
+  },
+  {
+    "title": "Enchant Worldle",
+    "url": "https://enchantworldle.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "enclose.horse",
+    "url": "https://enclose.horse/",
+    "category": "Other"
+  },
+  {
+    "title": "Energle",
+    "url": "https://energle.org/",
+    "category": "Geography"
+  },
+  {
+    "title": "Episode",
+    "url": "https://episode.wtf/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Equations",
+    "url": "https://www.equations-game.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Eruptle",
+    "url": "https://eruptle.app/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Estimadle",
+    "url": "https://estimadle.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Estimania",
+    "url": "https://estimania.app/",
+    "category": "Other"
+  },
+  {
+    "title": "Estimate Me",
+    "url": "https://estimate-me.aukspot.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Estimatle",
+    "url": "https://estimatle.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Etyle",
+    "url": "https://www.etyle.app/",
+    "category": "Word"
+  },
+  {
+    "title": "Exodle",
+    "url": "https://exodle.astrelion.com/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Face Guessr",
+    "url": "https://www.faceguesser.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Facedle",
+    "url": "https://facedle.app/",
+    "category": "Other"
+  },
+  {
+    "title": "faces",
+    "url": "https://faces.wtf/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Factle",
+    "url": "https://frontofficesports.com/trivia/factle",
+    "category": "Trivia"
+  },
+  {
+    "title": "Factle Sports",
+    "url": "https://frontofficesports.com/trivia/factle-sports",
+    "category": "Sports"
+  },
+  {
+    "title": "Factual",
+    "url": "https://playfactual.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Far Out",
+    "url": "https://www.faroutquiz.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Faustdle",
+    "url": "https://faustdle.com/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Fermi",
+    "url": "https://fermi.gg/",
+    "category": "Other"
+  },
+  {
+    "title": "Fibble",
+    "url": "https://fibble.xyz/",
+    "category": "Word"
+  },
+  {
+    "title": "Fields",
+    "url": "https://inkwellgames.com/games/fields",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Figure",
+    "url": "https://figure.game/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "FilmLink",
+    "url": "https://filmlink.io/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Fishdle",
+    "url": "https://tacklevillage.com/fishdle-game/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Five Fold",
+    "url": "https://fivefold.ca/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Flag Connections",
+    "url": "https://flagdoku.com/connections.html",
+    "category": "Geography"
+  },
+  {
+    "title": "Flagdle",
+    "url": "https://www.flagdle.org/",
+    "category": "Geography"
+  },
+  {
+    "title": "Flagdoku",
+    "url": "https://flagdoku.com/",
+    "category": "Geography"
+  },
+  {
+    "title": "Flagged",
+    "url": "https://gamebunny.app/flagged",
+    "category": "Geography"
+  },
+  {
+    "title": "Flagle",
+    "url": "https://www.flagle.io/",
+    "category": "Geography"
+  },
+  {
+    "title": "Flagle Game",
+    "url": "https://flagle-game.com/",
+    "category": "Geography"
+  },
+  {
+    "title": "Flags Game",
+    "url": "https://flagsgame.net/",
+    "category": "Geography"
+  },
+  {
+    "title": "FlashPopTiles",
+    "url": "https://flashpoptiles.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Flickle",
+    "url": "https://flickle.app/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "FlipList Daily",
+    "url": "https://playfliplist.com/daily/",
+    "category": "Music"
+  },
+  {
+    "title": "Flipple",
+    "url": "https://flipple.clevergoat.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Flipsies",
+    "url": "https://www.flipsies.dev/",
+    "category": "Other"
+  },
+  {
+    "title": "Fluxis",
+    "url": "https://www.theatlantic.com/games/fluxis/",
+    "category": "Word"
+  },
+  {
+    "title": "FoodGuessr",
+    "url": "https://www.foodguessr.com/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Forgeous",
+    "url": "https://forgeous.fun/",
+    "category": "Other"
+  },
+  {
+    "title": "Fortnitedle",
+    "url": "https://www.fortnitedle.net/",
+    "category": "Gaming"
+  },
+  {
+    "title": "FoxiMax",
+    "url": "https://foximax.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Framed",
+    "url": "https://framed.wtf/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Framedle",
+    "url": "https://framedle.org/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Framedle.com",
+    "url": "https://framedle.com/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Freehand",
+    "url": "https://freehand.fun/",
+    "category": "Other"
+  },
+  {
+    "title": "Freestyle",
+    "url": "https://playfreestyle.co/",
+    "category": "Word"
+  },
+  {
+    "title": "fridgle",
+    "url": "https://fridgle.net/",
+    "category": "Other"
+  },
+  {
+    "title": "Fusele",
+    "url": "https://fusele.netlify.app/",
+    "category": "Word"
+  },
+  {
+    "title": "Futbol 11",
+    "url": "https://futbol11.com/",
+    "category": "Sports"
+  },
+  {
+    "title": "Futdoku",
+    "url": "https://flagdoku.com/futdoku.html",
+    "category": "Sports"
+  },
+  {
+    "title": "Gamedle",
+    "url": "https://www.gamedle.wtf/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Gamedle Artwork",
+    "url": "https://www.gamedle.wtf/artwork",
+    "category": "Gaming"
+  },
+  {
+    "title": "Gamedle Character",
+    "url": "https://www.gamedle.wtf/characters",
+    "category": "Gaming"
+  },
+  {
+    "title": "Gamedle Classic",
+    "url": "https://www.gamedle.wtf/classic",
+    "category": "Gaming"
+  },
+  {
+    "title": "Gamedle Classic Unlimited",
+    "url": "https://www.gamedle.wtf/unlimited",
+    "category": "Other"
+  },
+  {
+    "title": "Gamedle Guess",
+    "url": "https://www.gamedle.wtf/guess",
+    "category": "Gaming"
+  },
+  {
+    "title": "Gamedle Keywords",
+    "url": "https://www.gamedle.wtf/keywords",
+    "category": "Gaming"
+  },
+  {
+    "title": "Gaps",
+    "url": "https://gaps.wtf/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Gauntle",
+    "url": "https://gauntle.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Genshindle",
+    "url": "https://us.genshindle.com/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Geocircles",
+    "url": "https://geocircles.io/",
+    "category": "Geography"
+  },
+  {
+    "title": "GeoConnections",
+    "url": "https://geoconnections.net/",
+    "category": "Geography"
+  },
+  {
+    "title": "Geodle",
+    "url": "https://geodle.me/",
+    "category": "Geography"
+  },
+  {
+    "title": "Geografind",
+    "url": "https://coffeefirst.games/geografind",
+    "category": "Geography"
+  },
+  {
+    "title": "Geographle",
+    "url": "https://geographle.com/",
+    "category": "Other"
+  },
+  {
+    "title": "GeoGrid",
+    "url": "https://www.geogridgame.com/",
+    "category": "Geography"
+  },
+  {
+    "title": "Geonections",
+    "url": "https://geonections.com/",
+    "category": "Geography"
+  },
+  {
+    "title": "GeoPaint",
+    "url": "https://georankle.io/geopaint",
+    "category": "Geography"
+  },
+  {
+    "title": "GeoQuest",
+    "url": "https://geoquest.gg/",
+    "category": "Geography"
+  },
+  {
+    "title": "Geozee",
+    "url": "https://geozee.earth/",
+    "category": "Geography"
+  },
+  {
+    "title": "Gerrymandle",
+    "url": "https://gerrymandle.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Giffle - Friends",
+    "url": "https://giffle.com/friends/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Giffle - Simpsons",
+    "url": "https://giffle.com/simpsons/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Gisnep",
+    "url": "https://gisnep.com/",
+    "category": "Word"
+  },
+  {
+    "title": "GlobeHoppr",
+    "url": "https://globehoppr.com/",
+    "category": "Geography"
+  },
+  {
+    "title": "Globeiku",
+    "url": "https://www.globeiku.com/",
+    "category": "Geography"
+  },
+  {
+    "title": "Globle",
+    "url": "https://globle-game.com/",
+    "category": "Geography"
+  },
+  {
+    "title": "Globle",
+    "url": "https://globle-game.com/game",
+    "category": "Geography"
+  },
+  {
+    "title": "Globle Capitals",
+    "url": "https://globle-capitals.com/",
+    "category": "Geography"
+  },
+  {
+    "title": "Glyph",
+    "url": "https://glyph.today/",
+    "category": "Word"
+  },
+  {
+    "title": "GnarlyQ",
+    "url": "https://gnarlyq.com/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Google Feud",
+    "url": "https://googlefeud.com/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Gram Jam",
+    "url": "https://gramjam.app/",
+    "category": "Word"
+  },
+  {
+    "title": "graphs.world",
+    "url": "https://www.graphs.world/",
+    "category": "Other"
+  },
+  {
+    "title": "Griddable",
+    "url": "https://griddable.co.uk/",
+    "category": "Word"
+  },
+  {
+    "title": "Griddle",
+    "url": "https://griddlegame.io/",
+    "category": "Word"
+  },
+  {
+    "title": "Gridogram",
+    "url": "https://www.gridogram.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Guess My Word",
+    "url": "https://hryanjones.com/guess-my-word",
+    "category": "Word"
+  },
+  {
+    "title": "Guess The Angle",
+    "url": "https://guesstheangle.wtf/",
+    "category": "Other"
+  },
+  {
+    "title": "Guess The Audio",
+    "url": "https://guesstheaudio.com/",
+    "category": "Music"
+  },
+  {
+    "title": "Guess The Book",
+    "url": "https://guessthebook.app/",
+    "category": "Other"
+  },
+  {
+    "title": "Guess the Chain",
+    "url": "https://guessthechain.com/",
+    "category": "Geography"
+  },
+  {
+    "title": "Guess The House",
+    "url": "https://guessthe.house/",
+    "category": "Other"
+  },
+  {
+    "title": "Guess The Jumpshot",
+    "url": "https://guessthepro.com/en/games/guess-the-jumpshot",
+    "category": "Sports"
+  },
+  {
+    "title": "Guess The Logo",
+    "url": "https://guessthelogo.wtf/",
+    "category": "Other"
+  },
+  {
+    "title": "Guess The Movie",
+    "url": "https://guessthemovie.name/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Guess The Phrase",
+    "url": "https://guessthephrase.xyz/",
+    "category": "Word"
+  },
+  {
+    "title": "GuessTen",
+    "url": "https://guessten.com/",
+    "category": "Trivia"
+  },
+  {
+    "title": "GuessThe.Game",
+    "url": "https://guessthe.game/",
+    "category": "Gaming"
+  },
+  {
+    "title": "GuessTheMovie.me",
+    "url": "https://guessthemovie.me/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "haggle",
+    "url": "https://haggle.gg/",
+    "category": "Other"
+  },
+  {
+    "title": "Halfsies",
+    "url": "https://halfsies.dev/",
+    "category": "Other"
+  },
+  {
+    "title": "Harmonies",
+    "url": "https://harmonies.io/",
+    "category": "Music"
+  },
+  {
+    "title": "Harrypotterdle",
+    "url": "https://www.harrypotterdle.com/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Headline",
+    "url": "https://headline.fromthethink.com/",
+    "category": "Geography"
+  },
+  {
+    "title": "Heardle 1950's",
+    "url": "https://50s.heardledecades.com/",
+    "category": "Music"
+  },
+  {
+    "title": "Heardle 1960's",
+    "url": "https://60s.heardledecades.com/",
+    "category": "Music"
+  },
+  {
+    "title": "Heardle 1970's",
+    "url": "https://70s.heardledecades.com/",
+    "category": "Music"
+  },
+  {
+    "title": "Heardle 1980's",
+    "url": "https://80s.heardledecades.com/",
+    "category": "Music"
+  },
+  {
+    "title": "Heardle 1990's",
+    "url": "https://90s.heardledecades.com/",
+    "category": "Music"
+  },
+  {
+    "title": "Heardle 2000's",
+    "url": "https://00s.heardledecades.com/",
+    "category": "Music"
+  },
+  {
+    "title": "Heardle 2010's",
+    "url": "https://10s.heardledecades.com/",
+    "category": "Music"
+  },
+  {
+    "title": "Heardle 2020's",
+    "url": "https://20s.heardledecades.com/",
+    "category": "Music"
+  },
+  {
+    "title": "Heardle Daily",
+    "url": "https://www.heardle.info/daily/",
+    "category": "Music"
+  },
+  {
+    "title": "Heardle Decades",
+    "url": "https://heardledecades.com/",
+    "category": "Music"
+  },
+  {
+    "title": "Heardle K-pop",
+    "url": "https://kpop.heardledecades.com/",
+    "category": "Music"
+  },
+  {
+    "title": "Heardle TV Themes",
+    "url": "https://tv.heardledecades.xyz/",
+    "category": "Music"
+  },
+  {
+    "title": "hello wordl",
+    "url": "https://hellowordl.net/",
+    "category": "Word"
+  },
+  {
+    "title": "Hexcodle",
+    "url": "https://www.hexcodle.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Hexcodle Mini",
+    "url": "https://www.hexcodle.com/mini",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "HexHunt",
+    "url": "https://thehexhunt.com/",
+    "category": "Geography"
+  },
+  {
+    "title": "Hexle",
+    "url": "https://frankljin.github.io/hexle/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Hidden Mirrors",
+    "url": "https://www.hidden-mirrors.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Historydle",
+    "url": "https://historydle.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Hitori Conquest",
+    "url": "https://hitoriconquest.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Hoop Grids",
+    "url": "https://hoopgrids.com/",
+    "category": "Sports"
+  },
+  {
+    "title": "Horsle",
+    "url": "https://cabletwo.net/horsle/",
+    "category": "Other"
+  },
+  {
+    "title": "HOTSdle",
+    "url": "https://hotsdle.zgame.studio/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Housle",
+    "url": "https://housle.house/",
+    "category": "Other"
+  },
+  {
+    "title": "HowLongToBeat Daily Challenge",
+    "url": "https://howlongtobeat.com/play",
+    "category": "Gaming"
+  },
+  {
+    "title": "Huedle",
+    "url": "https://www.huedle.uk/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Huewords",
+    "url": "https://huewords.snellman.net/",
+    "category": "Word"
+  },
+  {
+    "title": "Humppadle",
+    "url": "https://www.humppadle.de/",
+    "category": "Music"
+  },
+  {
+    "title": "I Called Game",
+    "url": "https://icalledgame.hoopgrids.com/",
+    "category": "Sports"
+  },
+  {
+    "title": "Immaculate Footy",
+    "url": "https://www.sports-reference.com/immaculate-footy/",
+    "category": "Sports"
+  },
+  {
+    "title": "Immaculate Grid",
+    "url": "https://www.immaculategrid.com/",
+    "category": "Sports"
+  },
+  {
+    "title": "Immaculate Grid: Baseball",
+    "url": "https://www.sports-reference.com/immaculate-grid/",
+    "category": "Sports"
+  },
+  {
+    "title": "Immaculate Grid: Hockey",
+    "url": "https://www.sports-reference.com/immaculate-grid/hockey",
+    "category": "Sports"
+  },
+  {
+    "title": "Immaculate Grid: Men's Basketball",
+    "url": "https://www.sports-reference.com/immaculate-grid/basketball/mens",
+    "category": "Sports"
+  },
+  {
+    "title": "Immaculate Grid: Pro Football",
+    "url": "https://www.sports-reference.com/immaculate-grid/football",
+    "category": "Sports"
+  },
+  {
+    "title": "Immaculate Grid: Women's Basketball",
+    "url": "https://www.sports-reference.com/immaculate-grid/basketball/womens",
+    "category": "Sports"
+  },
+  {
+    "title": "Isaacle",
+    "url": "https://isaacle.net/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Isaaconnect",
+    "url": "https://isaaconnect.com/",
+    "category": "Gaming"
+  },
+  {
+    "title": "IYKYK",
+    "url": "https://daily.iykyk.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Jeffgoldblumle",
+    "url": "https://jeffgoldblumle.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Jeopardiem",
+    "url": "https://jeopardiem.com/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Jeopardle",
+    "url": "https://jeopardle.co/",
+    "category": "Other"
+  },
+  {
+    "title": "Jeopardy 6",
+    "url": "https://www.jeopardy.com/play/j6",
+    "category": "Trivia"
+  },
+  {
+    "title": "Jigsaw Explorer",
+    "url": "https://www.jigsawexplorer.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Jigsy",
+    "url": "https://jigsy.app/daily/",
+    "category": "Other"
+  },
+  {
+    "title": "Jihanki",
+    "url": "https://puzzmallow.com/jihanki",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Jingle.rs",
+    "url": "https://jingle.rs/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Jojodle",
+    "url": "https://www.jojodle.app/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Jumble Daily",
+    "url": "https://fun.chicagotribune.com/game/tca-jumble-daily/",
+    "category": "Word"
+  },
+  {
+    "title": "Jumblie",
+    "url": "https://jumblie.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Juxtastat",
+    "url": "https://urbanstats.org/quiz.html",
+    "category": "Geography"
+  },
+  {
+    "title": "Karat",
+    "url": "https://karat.auronymous.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Keyboard Lines",
+    "url": "https://keyboardlines.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Keyword",
+    "url": "https://www.washingtonpost.com/games/keyword",
+    "category": "Word"
+  },
+  {
+    "title": "Kickoff League",
+    "url": "https://kickoffleague.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Kinda Hard Golf",
+    "url": "https://kindahardgolf.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Knotilus",
+    "url": "https://knotil.us/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Krillion",
+    "url": "https://krillion.io/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Kuromasu",
+    "url": "https://nibble.games/kuromasu/kuromasu-small.html",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "LA Times Crossword",
+    "url": "https://www.latimes.com/games/daily-crossword",
+    "category": "Word"
+  },
+  {
+    "title": "LA Times Jigsaw",
+    "url": "https://www.latimes.com/games/jigsaw-puzzle",
+    "category": "Other"
+  },
+  {
+    "title": "LA Times Mini",
+    "url": "https://www.latimes.com/games/mini-crossword",
+    "category": "Word"
+  },
+  {
+    "title": "LA Times Sudoku",
+    "url": "https://www.latimes.com/games/sudoku",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "LA Times Word Search",
+    "url": "https://www.latimes.com/games/wordsearch",
+    "category": "Word"
+  },
+  {
+    "title": "LA Times Wordflower",
+    "url": "https://www.latimes.com/games/wordflower",
+    "category": "Word"
+  },
+  {
+    "title": "Landmarkd",
+    "url": "https://www.landmarkdgame.com/",
+    "category": "Geography"
+  },
+  {
+    "title": "Landmarkr",
+    "url": "https://www.landmarkr.app/",
+    "category": "Geography"
+  },
+  {
+    "title": "Langle",
+    "url": "https://langle.uk/",
+    "category": "Word"
+  },
+  {
+    "title": "Language Tree",
+    "url": "https://languagetree.app/",
+    "category": "Word"
+  },
+  {
+    "title": "Lawndle",
+    "url": "https://johalloran.dev/lawndle/",
+    "category": "Other"
+  },
+  {
+    "title": "Leetle",
+    "url": "https://leetle.app/",
+    "category": "Other"
+  },
+  {
+    "title": "Letroso",
+    "url": "https://letroso.com/en/daily",
+    "category": "Word"
+  },
+  {
+    "title": "Letterboxdle",
+    "url": "https://letterboxdle.net/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Lettered",
+    "url": "https://lettered.io/",
+    "category": "Word"
+  },
+  {
+    "title": "Lettergrams",
+    "url": "https://puzzlist.com/lettergrams",
+    "category": "Word"
+  },
+  {
+    "title": "Letterinth",
+    "url": "https://letterinth.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Letteripher",
+    "url": "https://letteripher.com/",
+    "category": "Word"
+  },
+  {
+    "title": "LetterLoop",
+    "url": "https://theletterloop.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Letterrankd",
+    "url": "https://www.letterrankd.com/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Letterset",
+    "url": "https://www.letterset.net/daily",
+    "category": "Word"
+  },
+  {
+    "title": "Lex.Games - By A Vowel",
+    "url": "https://lex.games/byavowel/",
+    "category": "Word"
+  },
+  {
+    "title": "Lex.Games - Conlextions",
+    "url": "https://lex.games/connections/",
+    "category": "Word"
+  },
+  {
+    "title": "Lex.Games - Lexicogs",
+    "url": "https://lex.games/lexicogs/",
+    "category": "Word"
+  },
+  {
+    "title": "Lex.Games - Mini Crossword",
+    "url": "https://lex.games/mini/",
+    "category": "Word"
+  },
+  {
+    "title": "Lex.Games - Six Appeal",
+    "url": "https://lex.games/six/",
+    "category": "Word"
+  },
+  {
+    "title": "Lex.Games - Square Dance",
+    "url": "https://lex.games/squaredance",
+    "category": "Word"
+  },
+  {
+    "title": "Lexagon",
+    "url": "https://lexagon.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Lexicle",
+    "url": "https://lexicle.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Lichess Daily Puzzle",
+    "url": "https://lichess.org/training/daily",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Lingule",
+    "url": "https://lingule.xyz/",
+    "category": "Word"
+  },
+  {
+    "title": "LinkedIn - Mini Sudoku",
+    "url": "https://www.linkedin.com/games/mini-sudoku/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "LinkedIn - Patches",
+    "url": "https://www.linkedin.com/games/patches/",
+    "category": "Other"
+  },
+  {
+    "title": "LinkedIn - Wend",
+    "url": "https://www.linkedin.com/games/wend/",
+    "category": "Word"
+  },
+  {
+    "title": "LinkedIn Crossclimb",
+    "url": "https://www.linkedin.com/games/crossclimb/",
+    "category": "Word"
+  },
+  {
+    "title": "LinkedIn Pinpoint",
+    "url": "https://www.linkedin.com/games/pinpoint/",
+    "category": "Word"
+  },
+  {
+    "title": "LinkedIn Queens",
+    "url": "https://www.linkedin.com/games/queens/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "LinkedIn Tango",
+    "url": "https://www.linkedin.com/games/tango/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "LinkedIn Zip",
+    "url": "https://www.linkedin.com/games/zip/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "LINKR",
+    "url": "https://www.playlinkr.net/",
+    "category": "Other"
+  },
+  {
+    "title": "Linxicon",
+    "url": "https://linxicon.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Lirdle",
+    "url": "https://lirdle.com/",
+    "category": "Word"
+  },
+  {
+    "title": "list animals until failure",
+    "url": "https://rose.systems/animalist/",
+    "category": "Trivia"
+  },
+  {
+    "title": "List Them All!",
+    "url": "https://listthemall.com/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Listed",
+    "url": "https://listed.fun/",
+    "category": "Other"
+  },
+  {
+    "title": "Locatle",
+    "url": "https://locatle.strct.net/",
+    "category": "Geography"
+  },
+  {
+    "title": "Lockle",
+    "url": "https://www.lockle.app/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Logiquiz",
+    "url": "https://www.logiquiz.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Loldle",
+    "url": "https://loldle.net/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Loopy",
+    "url": "https://loopy.wtf/",
+    "category": "Other"
+  },
+  {
+    "title": "Loopy River",
+    "url": "https://inkwellgames.com/games/loopy-river",
+    "category": "Other"
+  },
+  {
+    "title": "lost in translation",
+    "url": "https://lostintranslationdaily.com/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "LRNGdle",
+    "url": "https://lrngdle.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Luckle",
+    "url": "https://luckle.org/",
+    "category": "Other"
+  },
+  {
+    "title": "Lyricle",
+    "url": "https://www.lyricle.app/",
+    "category": "Music"
+  },
+  {
+    "title": "Magnitudle",
+    "url": "https://magnitudle.com/daily",
+    "category": "Other"
+  },
+  {
+    "title": "Mahjong Handle",
+    "url": "https://mahjong-handle.update.sh/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "MapGame",
+    "url": "https://mapgame.net/",
+    "category": "Geography"
+  },
+  {
+    "title": "MapleWordle",
+    "url": "https://www.maplewordle.com/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Mapster",
+    "url": "https://mapster.teuteuf.fr/",
+    "category": "Geography"
+  },
+  {
+    "title": "MapTap",
+    "url": "https://maptap.gg/",
+    "category": "Geography"
+  },
+  {
+    "title": "Marathondle",
+    "url": "https://marathondle.com/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Marveldle",
+    "url": "https://marveldle.com/character/audiovisual/guess",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Mathdle",
+    "url": "https://mathdle.app/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Mathler",
+    "url": "https://www.mathler.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Matle",
+    "url": "https://www.matle.io/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Mazele",
+    "url": "https://mazele.io/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Mazetangle",
+    "url": "https://mazetangle.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Mcbirdle",
+    "url": "https://kendisc.com/mcbirdle",
+    "category": "Sports"
+  },
+  {
+    "title": "Mcdle",
+    "url": "https://www.mcdle.net/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Meleedle",
+    "url": "https://meleedle.netlify.app/",
+    "category": "Gaming"
+  },
+  {
+    "title": "MeloGuessr",
+    "url": "https://meloguessr.com/",
+    "category": "Music"
+  },
+  {
+    "title": "Mentle",
+    "url": "https://mentle.gg/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Metaflora",
+    "url": "https://flora.metazooa.com/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Metazooa",
+    "url": "https://metazooa.com/",
+    "category": "Trivia"
+  },
+  {
+    "title": "MinecraftDle",
+    "url": "https://www.minecraftdle.net/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Minecraftle",
+    "url": "https://minecraftle.zachmanson.com/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Mineswifter",
+    "url": "https://mineswifter.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Mini Crossword (The Observer)",
+    "url": "https://fordhamobserver.com/category/fun-and-games/daily-mini-crossword",
+    "category": "Word"
+  },
+  {
+    "title": "Minigolfle",
+    "url": "https://minigolfle.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Minute Cryptic",
+    "url": "https://www.minutecryptic.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Mirror Mirror",
+    "url": "https://mirrormirrorgame.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Mislettered",
+    "url": "https://tryhardguides.com/mislettered",
+    "category": "Word"
+  },
+  {
+    "title": "MLB Pickle",
+    "url": "https://www.mlbpickle.com/",
+    "category": "Sports"
+  },
+  {
+    "title": "Moneyline",
+    "url": "https://moneyline.fromthethink.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Monster Hunter-dle",
+    "url": "https://monster-hunter-dle.akato.fr/classic",
+    "category": "Gaming"
+  },
+  {
+    "title": "More/Less",
+    "url": "https://lessgames.com/moreless",
+    "category": "Other"
+  },
+  {
+    "title": "morsle",
+    "url": "https://morsle.fun/",
+    "category": "Other"
+  },
+  {
+    "title": "Morsle (decipher.wiki)",
+    "url": "https://decipher.wiki/morsle",
+    "category": "Other"
+  },
+  {
+    "title": "Motion Path",
+    "url": "https://motionpath.app/",
+    "category": "Other"
+  },
+  {
+    "title": "Movie Grid",
+    "url": "https://moviegrid.io/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Movie Pyramid",
+    "url": "https://moviepyramid.io/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Movie Reveal",
+    "url": "https://moviereveal.io/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Movie Snake",
+    "url": "https://moviesnake.io/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Movie Timeliner",
+    "url": "https://movietimeliner.com/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Movie to Movie",
+    "url": "https://movietomovie.com/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Moviedle",
+    "url": "https://likewise.com/games/moviedle",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Moviedle",
+    "url": "https://moviedle.xyz/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Moviedle (from Histordle)",
+    "url": "https://histordle.com/moviedle",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Moviedle - Fill The Grid",
+    "url": "https://moviedle.xyz/fill-the-grid",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Moviedle - Moviemoji",
+    "url": "https://moviedle.xyz/moviemoji",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Moviedle - Twenty Questions",
+    "url": "https://moviedle.xyz/twenty",
+    "category": "Other"
+  },
+  {
+    "title": "Moviemoji",
+    "url": "https://www.playmoviemoji.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Moview",
+    "url": "https://moview.online/",
+    "category": "Other"
+  },
+  {
+    "title": "Mowkoban",
+    "url": "https://mowkoban.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Murdle",
+    "url": "https://murdle.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Music Timeliner",
+    "url": "https://musictimeliner.com/",
+    "category": "Music"
+  },
+  {
+    "title": "Musicdoku",
+    "url": "https://musicdoku.com/",
+    "category": "Music"
+  },
+  {
+    "title": "Musicle",
+    "url": "https://musicle.app/",
+    "category": "Music"
+  },
+  {
+    "title": "MusicVidle",
+    "url": "https://www.musicvidle.com/",
+    "category": "Music"
+  },
+  {
+    "title": "Narutodle",
+    "url": "https://narutodle.net/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "NBAGrid",
+    "url": "https://www.nbagr.id/",
+    "category": "Sports"
+  },
+  {
+    "title": "Neighborle",
+    "url": "https://neighborle.com/",
+    "category": "Geography"
+  },
+  {
+    "title": "Neograms",
+    "url": "https://neograms.app/",
+    "category": "Word"
+  },
+  {
+    "title": "Nerdcube - Carom",
+    "url": "https://www.nerdcube.games/carom",
+    "category": "Other"
+  },
+  {
+    "title": "Nerdcube - Dabble",
+    "url": "https://www.nerdcube.games/dabble",
+    "category": "Word"
+  },
+  {
+    "title": "Nerdle",
+    "url": "https://nerdlegame.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Netflix - Bonza",
+    "url": "https://www.netflix.com/tudum/puzzled/bonza/daily",
+    "category": "Word"
+  },
+  {
+    "title": "Netflix - Crossover",
+    "url": "https://www.netflix.com/tudum/puzzled/crossover/daily",
+    "category": "Word"
+  },
+  {
+    "title": "Netflix - Jigsaw",
+    "url": "https://www.netflix.com/tudum/puzzled/jigsaw/daily",
+    "category": "Other"
+  },
+  {
+    "title": "Netflix - Keysmash",
+    "url": "https://www.netflix.com/tudum/puzzled/keysmash/daily",
+    "category": "Word"
+  },
+  {
+    "title": "Netflix - Shapes",
+    "url": "https://www.netflix.com/tudum/puzzled/shapes/daily",
+    "category": "Other"
+  },
+  {
+    "title": "Netflix - Starstruck",
+    "url": "https://www.netflix.com/tudum/puzzled/starstruck/daily",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Netflix - Sudoku",
+    "url": "https://www.netflix.com/tudum/puzzled/sudoku/daily",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Netflix - Waywords",
+    "url": "https://www.netflix.com/tudum/puzzled/waywords/daily",
+    "category": "Word"
+  },
+  {
+    "title": "New Yorker - Catalogues",
+    "url": "https://www.newyorker.com/puzzles-and-games-dept/catalogues",
+    "category": "Trivia"
+  },
+  {
+    "title": "New Yorker - Laugh Lines",
+    "url": "https://www.newyorker.com/puzzles-and-games-dept/laugh-lines",
+    "category": "Other"
+  },
+  {
+    "title": "New Yorker - Shuffalo",
+    "url": "https://www.newyorker.com/puzzles-and-games-dept/shuffalo",
+    "category": "Word"
+  },
+  {
+    "title": "NextUp",
+    "url": "https://nextupgame.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "NHLdle",
+    "url": "https://nhldle.com/classic",
+    "category": "Sports"
+  },
+  {
+    "title": "Nodes",
+    "url": "https://www.nodes-game.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Noggle",
+    "url": "https://nibble.games/noggle/noggle.html",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "NonoDaily",
+    "url": "https://www.nonodaily.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Nonodle",
+    "url": "https://lab174.com/nonodle",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Nookle",
+    "url": "https://nookle.net/",
+    "category": "Gaming"
+  },
+  {
+    "title": "NounSense",
+    "url": "https://daily.gametje.com/nounsense",
+    "category": "Word"
+  },
+  {
+    "title": "Number Crunch",
+    "url": "https://numbercrunch.fun/",
+    "category": "Other"
+  },
+  {
+    "title": "Number Island",
+    "url": "https://numberisland.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Numble",
+    "url": "https://numble.wtf/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Numblino",
+    "url": "https://numblino.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Numbobulate",
+    "url": "https://www.numbobulate.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "NYT Connections",
+    "url": "https://www.nytimes.com/games/connections",
+    "category": "Word"
+  },
+  {
+    "title": "NYT Connections: Sports Edition",
+    "url": "https://www.nytimes.com/athletic/connections-sports-edition",
+    "category": "Sports"
+  },
+  {
+    "title": "NYT Letter Boxed",
+    "url": "https://www.nytimes.com/puzzles/letter-boxed",
+    "category": "Word"
+  },
+  {
+    "title": "NYT Pips",
+    "url": "https://www.nytimes.com/games/pips",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "NYT Spelling Bee",
+    "url": "https://www.nytimes.com/puzzles/spelling-bee",
+    "category": "Word"
+  },
+  {
+    "title": "NYT Strands",
+    "url": "https://www.nytimes.com/games/strands",
+    "category": "Word"
+  },
+  {
+    "title": "NYT Sudoku",
+    "url": "https://www.nytimes.com/puzzles/sudoku",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "NYT The Mini Crossword",
+    "url": "https://www.nytimes.com/crosswords/game/mini",
+    "category": "Word"
+  },
+  {
+    "title": "Octordle",
+    "url": "https://www.britannica.com/games/octordle/",
+    "category": "Word"
+  },
+  {
+    "title": "Odle",
+    "url": "https://www.odle.app/",
+    "category": "Other"
+  },
+  {
+    "title": "OEC Connectrade",
+    "url": "https://oec.world/en/games/connectrade",
+    "category": "Geography"
+  },
+  {
+    "title": "OEC Pick 5",
+    "url": "https://oec.world/en/games/pick-5",
+    "category": "Geography"
+  },
+  {
+    "title": "OEC Tradle",
+    "url": "https://oec.world/en/games/tradle",
+    "category": "Geography"
+  },
+  {
+    "title": "Omiword",
+    "url": "https://www.omiword.com/",
+    "category": "Word"
+  },
+  {
+    "title": "On the Record",
+    "url": "https://www.washingtonpost.com/news-quiz",
+    "category": "Trivia"
+  },
+  {
+    "title": "One Up Puzzle",
+    "url": "https://www.oneuppuzzle.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "One Word Search",
+    "url": "https://puzzlist.com/onewordsearch/",
+    "category": "Word"
+  },
+  {
+    "title": "Onepiecedle",
+    "url": "https://onepiecedle.net/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Ophex",
+    "url": "https://www.andrewt.net/puzzles/ophex/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Orbits",
+    "url": "https://www.playorbits.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Order Up",
+    "url": "https://orderup.games/",
+    "category": "Other"
+  },
+  {
+    "title": "Originle",
+    "url": "https://originle.io/",
+    "category": "Geography"
+  },
+  {
+    "title": "Outlier",
+    "url": "https://outlier.land/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Outword",
+    "url": "https://outword.me/",
+    "category": "Other"
+  },
+  {
+    "title": "OWdle",
+    "url": "https://owdle.guessing.day/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Packle",
+    "url": "https://packle.top/",
+    "category": "Other"
+  },
+  {
+    "title": "Padlock",
+    "url": "https://www.padlockgame.net/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Pair Down",
+    "url": "https://pairdown.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Palwordle",
+    "url": "https://palwordle.net/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Pandergram",
+    "url": "https://onelook.com/pandergram",
+    "category": "Word"
+  },
+  {
+    "title": "Panigma",
+    "url": "https://panigma.fr/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Parlorbox",
+    "url": "https://parlorbox.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Parseword",
+    "url": "https://www.parseword.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Passportle",
+    "url": "https://passportle.lordos.tech/",
+    "category": "Geography"
+  },
+  {
+    "title": "Past Puzzle",
+    "url": "https://www.pastpuzzle.de/",
+    "category": "Other"
+  },
+  {
+    "title": "Patchdle",
+    "url": "https://patchdle.com/",
+    "category": "Gaming"
+  },
+  {
+    "title": "pedantle",
+    "url": "https://pedantle.certitudes.org/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Peekpedia",
+    "url": "https://peekpedia.com/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Pell Puzzles",
+    "url": "https://pell.achromath.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Per Night",
+    "url": "https://pernight.app/",
+    "category": "Other"
+  },
+  {
+    "title": "Perceptle",
+    "url": "https://perceptle.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Perfect Pitch Puzzle",
+    "url": "https://www.perfectpitchpuzzle.com/",
+    "category": "Music"
+  },
+  {
+    "title": "Petalgrams",
+    "url": "https://petalgrams.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Petdle",
+    "url": "https://petdle.link/",
+    "category": "Gaming"
+  },
+  {
+    "title": "PetGuessr",
+    "url": "https://petguessr.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Phrasicle",
+    "url": "https://phrasicle.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Phrasle",
+    "url": "https://phrasle.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Phrazle",
+    "url": "https://solitaired.com/phrazle",
+    "category": "Word"
+  },
+  {
+    "title": "picklechess",
+    "url": "https://playpicklechess.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Picsey",
+    "url": "https://picsey.io/",
+    "category": "Other"
+  },
+  {
+    "title": "Pikadoku",
+    "url": "https://pikadoku.dentotino.com/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Pimantle",
+    "url": "https://semantle.pimanrul.es/",
+    "category": "Word"
+  },
+  {
+    "title": "Pipcross",
+    "url": "https://puzzmallow.com/pipcross",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "PIVOT",
+    "url": "https://pivotthegame.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Pivots",
+    "url": "https://playpivots.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Pixletters",
+    "url": "https://pixletters.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Planespottle",
+    "url": "https://planespottle.bytecatch.io/",
+    "category": "Other"
+  },
+  {
+    "title": "Platedle",
+    "url": "https://platedle.day/",
+    "category": "Geography"
+  },
+  {
+    "title": "Plausible",
+    "url": "https://plausiblegame.com/en",
+    "category": "Word"
+  },
+  {
+    "title": "Plotwords",
+    "url": "https://plotwords.com/daily",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "PlusWord",
+    "url": "https://puzzles-prod.telegraph.co.uk/plusword",
+    "category": "Word"
+  },
+  {
+    "title": "Pocket Puzzles",
+    "url": "https://playpocketpuzzles.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Poeltl",
+    "url": "https://poeltl.dunk.town/",
+    "category": "Sports"
+  },
+  {
+    "title": "Poeltl",
+    "url": "https://poeltl.nbpa.com/",
+    "category": "Sports"
+  },
+  {
+    "title": "Poemdle",
+    "url": "https://poemdle.org/",
+    "category": "Other"
+  },
+  {
+    "title": "PokeCryptic",
+    "url": "https://www.pokecryptic.com/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Pokedle.com",
+    "url": "https://pokedle.com/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Pokedle.net",
+    "url": "https://pokedle.net/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Pokegrid",
+    "url": "https://www.pokegrid.net/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Pokerating",
+    "url": "https://pokerating.com/puzzle",
+    "category": "Gaming"
+  },
+  {
+    "title": "Pokle",
+    "url": "https://poklegame.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "PokéDoku",
+    "url": "https://pokedoku.com/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Polygonle",
+    "url": "https://www.polygonle.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Ponder Club",
+    "url": "https://ponderclub.co/",
+    "category": "Other"
+  },
+  {
+    "title": "Poopguessr",
+    "url": "https://poopguessr.com/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Poople",
+    "url": "https://poople.io/",
+    "category": "Word"
+  },
+  {
+    "title": "PopCultured",
+    "url": "https://histordle.com/popcultured",
+    "category": "Trivia"
+  },
+  {
+    "title": "Posterdle",
+    "url": "https://likewise.com/games/posterdle",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Power Scadle",
+    "url": "https://powerscadle.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Primel",
+    "url": "https://converged.yt/primel",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Prince Chazz",
+    "url": "https://princechazz.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Puckdoku",
+    "url": "https://www.puckdoku.com/",
+    "category": "Sports"
+  },
+  {
+    "title": "Pufferdle",
+    "url": "https://pufferdle.com/",
+    "category": "Gaming"
+  },
+  {
+    "title": "putt.day",
+    "url": "https://putt.day/play",
+    "category": "Other"
+  },
+  {
+    "title": "Puttsies",
+    "url": "https://www.puttsies.dev/",
+    "category": "Other"
+  },
+  {
+    "title": "Puzzmo - Bongo",
+    "url": "https://www.puzzmo.com/game/bongo",
+    "category": "Word"
+  },
+  {
+    "title": "Puzzmo - Circuits",
+    "url": "https://www.puzzmo.com/play/circuits",
+    "category": "Word"
+  },
+  {
+    "title": "Puzzmo - Crossword",
+    "url": "https://www.puzzmo.com/play/crossword",
+    "category": "Word"
+  },
+  {
+    "title": "Puzzmo - Flipart",
+    "url": "https://www.puzzmo.com/play/flip-art",
+    "category": "Other"
+  },
+  {
+    "title": "Puzzmo - Memoku",
+    "url": "https://www.puzzmo.com/play/memoku",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Puzzmo - Pile-Up Poker",
+    "url": "https://www.puzzmo.com/play/pile-up-poker",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Puzzmo - Really Bad Chess",
+    "url": "https://www.puzzmo.com/play/really-bad-chess",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Puzzmo - Spelltower",
+    "url": "https://www.puzzmo.com/play/spelltower",
+    "category": "Word"
+  },
+  {
+    "title": "Puzzmo - Typeshift",
+    "url": "https://www.puzzmo.com/play/typeshift",
+    "category": "Word"
+  },
+  {
+    "title": "Puzzmo - Weather Memoku",
+    "url": "https://www.puzzmo.com/play/weather-memoku",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "QueenSweep",
+    "url": "https://playqueensweep.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Quickflip",
+    "url": "https://puzzmallow.com/quickflip",
+    "category": "Word"
+  },
+  {
+    "title": "QuickQ",
+    "url": "https://www.quickqtrivia.com/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Quintalist",
+    "url": "https://www.quintalist.com/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Quintessential",
+    "url": "https://quintessential.fun/",
+    "category": "Word"
+  },
+  {
+    "title": "Quiple",
+    "url": "https://quiple.xyz/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Quizl",
+    "url": "https://quizl.io/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Quizmoji",
+    "url": "https://quizmoji.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Quolture",
+    "url": "https://www.quolture.com/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Quordle",
+    "url": "https://www.merriam-webster.com/games/quordle/",
+    "category": "Word"
+  },
+  {
+    "title": "Quotadle",
+    "url": "https://quotadle.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Quotesed",
+    "url": "https://www.quotesed.com/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "R6dle",
+    "url": "https://r6dle.net/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Rabbithole",
+    "url": "https://www.theatlantic.com/games/rabbithole/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Rackdle",
+    "url": "https://rackdle.fun/",
+    "category": "Word"
+  },
+  {
+    "title": "RADDLE",
+    "url": "https://raddle.quest/",
+    "category": "Word"
+  },
+  {
+    "title": "Radiordle",
+    "url": "https://www.radiordle.org/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Raindle",
+    "url": "https://raindle.net/items",
+    "category": "Gaming"
+  },
+  {
+    "title": "Rankdle",
+    "url": "https://rankdle.com/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Rankle",
+    "url": "https://www.rankle.app/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Real Bird Fake Bird",
+    "url": "https://realbirdfakebird.com/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Real Flag / Fake Flag",
+    "url": "https://realflagfakeflag.com/",
+    "category": "Geography"
+  },
+  {
+    "title": "Reciple",
+    "url": "https://reciple.net/",
+    "category": "Other"
+  },
+  {
+    "title": "Redactle",
+    "url": "https://redactle.net/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Redividers - Storylines",
+    "url": "https://storylines.redividers.app/",
+    "category": "Word"
+  },
+  {
+    "title": "Refiner",
+    "url": "https://nibble.games/refiner/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "regexle.com",
+    "url": "https://regexle.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "regexle.ithea.de",
+    "url": "https://regexle.ithea.de/",
+    "category": "Word"
+  },
+  {
+    "title": "ReHeardle",
+    "url": "https://reheardle.com/",
+    "category": "Music"
+  },
+  {
+    "title": "ReHeardle Video Games",
+    "url": "https://reheardle.com/videogames",
+    "category": "Music"
+  },
+  {
+    "title": "Relatle",
+    "url": "https://www.relatle.lol/",
+    "category": "Word"
+  },
+  {
+    "title": "relatle.io",
+    "url": "https://relatle.io/",
+    "category": "Music"
+  },
+  {
+    "title": "Retro Game Trivia",
+    "url": "https://retrotrivia.games/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Revealed",
+    "url": "https://www.britannica.com/games/revealed",
+    "category": "Trivia"
+  },
+  {
+    "title": "Reversle",
+    "url": "https://reversle.net/",
+    "category": "Word"
+  },
+  {
+    "title": "Rewordio",
+    "url": "https://rewordio.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Rhyme Time",
+    "url": "https://www.rhymetime.co/",
+    "category": "Word"
+  },
+  {
+    "title": "riddl.ing",
+    "url": "https://riddl.ing/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Riffdle",
+    "url": "https://www.synthia.space/riffdle",
+    "category": "Music"
+  },
+  {
+    "title": "Ripple",
+    "url": "https://ripplegame.app/",
+    "category": "Other"
+  },
+  {
+    "title": "Rivadle",
+    "url": "https://rivadle.net/",
+    "category": "Gaming"
+  },
+  {
+    "title": "RNGdle",
+    "url": "https://rngdle.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Rogule",
+    "url": "https://rogule.com/game.html",
+    "category": "Other"
+  },
+  {
+    "title": "Rolldle",
+    "url": "https://www.light.gg/rolldle/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Ronin",
+    "url": "https://www.andrewt.net/puzzles/ronin/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Rotaboxes",
+    "url": "https://rotaboxes.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Rotatly",
+    "url": "https://www.rotatly.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Royal Family",
+    "url": "https://coffeefirst.games/royal-family",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Royaledle",
+    "url": "https://royaledle.com/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Runedle",
+    "url": "https://runedle.com/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Satle",
+    "url": "https://satle.ca/",
+    "category": "Geography"
+  },
+  {
+    "title": "SatPin",
+    "url": "https://satpixel.com/en/satellite-pin-guess/",
+    "category": "Geography"
+  },
+  {
+    "title": "SatZoom",
+    "url": "https://satpixel.com/en/satellite-zoom-game/",
+    "category": "Geography"
+  },
+  {
+    "title": "Scramble",
+    "url": "https://playscramble.vercel.app/?daily=1",
+    "category": "Word"
+  },
+  {
+    "title": "Scrandle",
+    "url": "https://scrandle.com/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Scrokkdle",
+    "url": "https://scrokkle.io/daily",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Seadle",
+    "url": "https://seadle.muhashi.com/",
+    "category": "Geography"
+  },
+  {
+    "title": "Searchle",
+    "url": "https://searchle.net/",
+    "category": "Word"
+  },
+  {
+    "title": "Sedecordle",
+    "url": "https://sedecordle.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Seedle",
+    "url": "https://seedle.io/",
+    "category": "Other"
+  },
+  {
+    "title": "Semantle",
+    "url": "https://semantle.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Sequences",
+    "url": "https://www.dailyfastgames.com/sequences/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "SetFury",
+    "url": "https://www.setfury.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Sexaginta-quattuordle",
+    "url": "https://64ordle.au/?mode=daily",
+    "category": "Word"
+  },
+  {
+    "title": "Shaple",
+    "url": "https://swag.github.io/shaple",
+    "category": "Other"
+  },
+  {
+    "title": "Shikaku of the day",
+    "url": "https://shikakuofthe.day/",
+    "category": "Other"
+  },
+  {
+    "title": "Showdle",
+    "url": "https://showdle.com/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Shrinkle",
+    "url": "https://shrinkle.org/",
+    "category": "Word"
+  },
+  {
+    "title": "Silksongdle",
+    "url": "https://silksongdle.com/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Silly Little Codes",
+    "url": "https://playsillylittlegames.com/codes",
+    "category": "Word"
+  },
+  {
+    "title": "Size It Up",
+    "url": "https://magnitudle.com/size-it-up",
+    "category": "Other"
+  },
+  {
+    "title": "Size It Up - Geography",
+    "url": "https://magnitudle.com/size-it-up/geography",
+    "category": "Geography"
+  },
+  {
+    "title": "Slate - Pears",
+    "url": "https://slate.com/games/pears",
+    "category": "Word"
+  },
+  {
+    "title": "Smashdle",
+    "url": "https://smashdle.net/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Smixed",
+    "url": "https://smixed.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Smush",
+    "url": "https://www.hankgreen.com/smush/",
+    "category": "Word"
+  },
+  {
+    "title": "Snapdle",
+    "url": "https://snapdle.github.io/classic",
+    "category": "Gaming"
+  },
+  {
+    "title": "Songdle",
+    "url": "https://statt-land-song.ch/songdle",
+    "category": "Music"
+  },
+  {
+    "title": "Songle",
+    "url": "https://histordle.com/songle",
+    "category": "Music"
+  },
+  {
+    "title": "Songless",
+    "url": "https://lessgames.com/songless",
+    "category": "Music"
+  },
+  {
+    "title": "SongSwipe",
+    "url": "https://play.songswipe.fun/",
+    "category": "Music"
+  },
+  {
+    "title": "Sortdle",
+    "url": "https://sortdle.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Sorted",
+    "url": "https://puzzles-prod.telegraph.co.uk/sorted/index.html",
+    "category": "Trivia"
+  },
+  {
+    "title": "Sortwise",
+    "url": "https://sortwise.fun/",
+    "category": "Other"
+  },
+  {
+    "title": "Soulsborndle",
+    "url": "https://malthesers.github.io/soulsborndle",
+    "category": "Gaming"
+  },
+  {
+    "title": "Sound of Sliver",
+    "url": "https://soundofsliver.com/",
+    "category": "Music"
+  },
+  {
+    "title": "SpaceWord",
+    "url": "https://spaceword.org/",
+    "category": "Word"
+  },
+  {
+    "title": "Spectra",
+    "url": "https://spectra.quest/puzzles/latest",
+    "category": "Trivia"
+  },
+  {
+    "title": "Spectrle",
+    "url": "https://spectrle.games/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Spell Bee",
+    "url": "https://www.spell-bee.com/game-daily.html",
+    "category": "Word"
+  },
+  {
+    "title": "Spellcheck",
+    "url": "https://spellcheckgame.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Spellcheck",
+    "url": "https://spellcheck.xyz/",
+    "category": "Word"
+  },
+  {
+    "title": "Spellie",
+    "url": "https://spelliegame.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Spellify",
+    "url": "https://edhrec.com/games/spellify",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Spelling Bee",
+    "url": "https://spellsbee.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Spelling Bee (Lessgames)",
+    "url": "https://lessgames.com/spellingbee",
+    "category": "Word"
+  },
+  {
+    "title": "Spindle",
+    "url": "https://playspindle.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Spiredle",
+    "url": "https://spiredle.com/",
+    "category": "Gaming"
+  },
+  {
+    "title": "spiredle.net",
+    "url": "https://spiredle.net/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Spongedle",
+    "url": "https://spongedle.onrender.com/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Sporcle - Boxed In",
+    "url": "https://www.sporcle.com/boxed-in/play",
+    "category": "Word"
+  },
+  {
+    "title": "Sporcle - Chess Attack",
+    "url": "https://www.sporcle.com/chess-attack/play",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Sporcle - Daily Acrostic",
+    "url": "https://www.sporcle.com/acrostic/todays-acrostic",
+    "category": "Word"
+  },
+  {
+    "title": "Sporcle - Steps",
+    "url": "https://www.sporcle.com/steps/play",
+    "category": "Word"
+  },
+  {
+    "title": "Sporcle - WorldPlay",
+    "url": "https://www.sporcle.com/worldplay/play",
+    "category": "Geography"
+  },
+  {
+    "title": "Spot the differences",
+    "url": "https://www.spot-differences.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Spotle",
+    "url": "https://spotle.io/",
+    "category": "Music"
+  },
+  {
+    "title": "sqnces",
+    "url": "https://sqnces.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Squardle",
+    "url": "https://fubargames.se/squardle",
+    "category": "Word"
+  },
+  {
+    "title": "Squaredle",
+    "url": "https://squaredle.app/",
+    "category": "Word"
+  },
+  {
+    "title": "Squares",
+    "url": "https://squares.org/",
+    "category": "Word"
+  },
+  {
+    "title": "Squareword",
+    "url": "https://squareword.org/",
+    "category": "Word"
+  },
+  {
+    "title": "Squeezy",
+    "url": "https://imsqueezy.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Squigdle",
+    "url": "https://squigdle.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Squirdle Daily",
+    "url": "https://squirdle.fireblend.com/daily.html",
+    "category": "Gaming"
+  },
+  {
+    "title": "Squishy Billiards",
+    "url": "https://squishybilliards.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Stackdle",
+    "url": "https://stackdle.dev/",
+    "category": "Other"
+  },
+  {
+    "title": "Stackdown",
+    "url": "https://puzzlist.com/stackdown/",
+    "category": "Word"
+  },
+  {
+    "title": "Stacked",
+    "url": "https://stacked.clevergoat.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Stackle",
+    "url": "https://www.stackle.fun/",
+    "category": "Word"
+  },
+  {
+    "title": "Stacks",
+    "url": "https://www.theatlantic.com/games/stacks/",
+    "category": "Word"
+  },
+  {
+    "title": "Stardewdle",
+    "url": "https://stardewdle.com/game",
+    "category": "Gaming"
+  },
+  {
+    "title": "Stardewdle.org",
+    "url": "https://stardewdle.org/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Stardle",
+    "url": "https://stardlegame.github.io/stardle",
+    "category": "Trivia"
+  },
+  {
+    "title": "Stars",
+    "url": "https://inkwellgames.com/games/stars",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Stat Mini Crossword",
+    "url": "https://www.statnews.com/stat-mini-crossword/",
+    "category": "Word"
+  },
+  {
+    "title": "Statele",
+    "url": "https://statele.teuteuf.fr/",
+    "category": "Geography"
+  },
+  {
+    "title": "StatPad Game",
+    "url": "https://www.statpadgame.com/",
+    "category": "Sports"
+  },
+  {
+    "title": "steamdle.com",
+    "url": "https://steamdle.com/",
+    "category": "Gaming"
+  },
+  {
+    "title": "steamdle.pro",
+    "url": "https://steamdle.pro/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Stepdle",
+    "url": "https://www.stepdle.com/",
+    "category": "Word"
+  },
+  {
+    "title": "SteppedUpdle",
+    "url": "https://steppedupdle.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Stepwords",
+    "url": "https://stepwords.xyz/",
+    "category": "Word"
+  },
+  {
+    "title": "Stewardle",
+    "url": "https://stewardle.com/",
+    "category": "Sports"
+  },
+  {
+    "title": "Story Sleuth",
+    "url": "https://booksleuth.club/storysleuth/",
+    "category": "Other"
+  },
+  {
+    "title": "Streetfighterdle",
+    "url": "https://streetfighterdle.net/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Sudoker",
+    "url": "https://sudoker.io/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Sudoku Shift",
+    "url": "https://coffeefirst.games/sudoku-shift/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Summit",
+    "url": "https://summitgame.io/",
+    "category": "Word"
+  },
+  {
+    "title": "Summit Game",
+    "url": "https://summit-puzzle.me/",
+    "category": "Word"
+  },
+  {
+    "title": "Summle",
+    "url": "https://summle.net/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Sumplete",
+    "url": "https://sumplete.com/daily",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Supervivedle",
+    "url": "https://supervivedle.com/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Survivle",
+    "url": "https://lazyguyy.github.io/survivle",
+    "category": "Word"
+  },
+  {
+    "title": "Swapple",
+    "url": "https://nibble.games/swapple/swapple-easy.html",
+    "category": "Word"
+  },
+  {
+    "title": "Swiftle",
+    "url": "https://www.techyonic.co/swiftle",
+    "category": "Music"
+  },
+  {
+    "title": "Syllacrostic",
+    "url": "https://www.syllacrostic.com/daily",
+    "category": "Word"
+  },
+  {
+    "title": "Symble",
+    "url": "https://www.symble.app/",
+    "category": "Word"
+  },
+  {
+    "title": "Synthmaze",
+    "url": "https://synthmaze.heliante.io/",
+    "category": "Other"
+  },
+  {
+    "title": "Tagline",
+    "url": "https://www.merriam-webster.com/games/tagline",
+    "category": "Word"
+  },
+  {
+    "title": "Takes",
+    "url": "https://takes.clevergoat.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Talldle",
+    "url": "https://www.talldle.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Tally Game",
+    "url": "https://tally-game.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Tarkovdle",
+    "url": "https://tarkovdle.com/",
+    "category": "Gaming"
+  },
+  {
+    "title": "TED - Cheat Sheet",
+    "url": "https://www.ted.com/games/cheat-sheet",
+    "category": "Trivia"
+  },
+  {
+    "title": "TED - Letterbrew",
+    "url": "https://www.ted.com/games/letter-brew",
+    "category": "Word"
+  },
+  {
+    "title": "TED - Spellcheck",
+    "url": "https://www.ted.com/games/spellcheck",
+    "category": "Word"
+  },
+  {
+    "title": "Temple",
+    "url": "https://tck.mn/temple",
+    "category": "Other"
+  },
+  {
+    "title": "Terradle",
+    "url": "https://www.terradle.com/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Terraformation",
+    "url": "https://puzzmallow.com/terraformation",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Terrariadle",
+    "url": "https://terrariadle.com/",
+    "category": "Gaming"
+  },
+  {
+    "title": "TF2dle",
+    "url": "https://www.tf2dle.com/",
+    "category": "Gaming"
+  },
+  {
+    "title": "TFTdle",
+    "url": "https://tftdle.gg/classic",
+    "category": "Gaming"
+  },
+  {
+    "title": "The Atlantic Crossword",
+    "url": "https://www.theatlantic.com/games/daily-crossword/",
+    "category": "Word"
+  },
+  {
+    "title": "The Daily Baffle",
+    "url": "https://dailybaffle.com/",
+    "category": "Other"
+  },
+  {
+    "title": "The Daily Burgle",
+    "url": "https://www.thedailyburgle.app/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "The Daily Headlines",
+    "url": "https://www.daily-headlines.com/",
+    "category": "Other"
+  },
+  {
+    "title": "The Daily Spell",
+    "url": "https://www.the-daily-spell.com/today",
+    "category": "Word"
+  },
+  {
+    "title": "The Guardian - Cryptic Crossword",
+    "url": "https://www.theguardian.com/crosswords/series/cryptic",
+    "category": "Word"
+  },
+  {
+    "title": "The Guardian - Quick Crossword",
+    "url": "https://www.theguardian.com/crosswords/series/quick",
+    "category": "Word"
+  },
+  {
+    "title": "The Magical Ferry",
+    "url": "https://magicalferry.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "The New Daily - Trivia",
+    "url": "https://www.thenewdaily.com.au/puzzles/quiz-trivia",
+    "category": "Trivia"
+  },
+  {
+    "title": "The Split",
+    "url": "https://www.timecube.in/",
+    "category": "Other"
+  },
+  {
+    "title": "The Wiki Game Daily",
+    "url": "https://www.thewikigamedaily.com/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Thingdle",
+    "url": "https://thingdle.app/en/thingdle",
+    "category": "Other"
+  },
+  {
+    "title": "Thinky Dailies",
+    "url": "https://thinkygames.com/dailies/today/",
+    "category": "Other"
+  },
+  {
+    "title": "Thirdle",
+    "url": "https://thirdle.org/",
+    "category": "Word"
+  },
+  {
+    "title": "Three Magic Words",
+    "url": "https://www.threemagicwords.app/play",
+    "category": "Word"
+  },
+  {
+    "title": "Threepeat",
+    "url": "https://onelook.com/threepeat",
+    "category": "Word"
+  },
+  {
+    "title": "Thrice",
+    "url": "https://thrice.geekswhodrink.com/",
+    "category": "Trivia"
+  },
+  {
+    "title": "ThroughWord",
+    "url": "https://throughword.app/",
+    "category": "Word"
+  },
+  {
+    "title": "Thruline",
+    "url": "https://cyllibi.com/thruline",
+    "category": "Trivia"
+  },
+  {
+    "title": "Tic-Tac-Word",
+    "url": "https://www.tictacword.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Tightrope",
+    "url": "https://www.britannica.com/quiz/tightrope",
+    "category": "Trivia"
+  },
+  {
+    "title": "Tile Knight",
+    "url": "https://tileknight.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Tiled Words",
+    "url": "https://tiledwords.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Tiler",
+    "url": "https://gamebunny.app/tiler",
+    "category": "Word"
+  },
+  {
+    "title": "Tilt",
+    "url": "https://tilt.day/",
+    "category": "Other"
+  },
+  {
+    "title": "Tiltanic",
+    "url": "https://tiltanic.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Timdle",
+    "url": "https://www.timdle.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Timdle Math",
+    "url": "https://timdle.com/math",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Timdle Music",
+    "url": "https://timdle.com/music",
+    "category": "Music"
+  },
+  {
+    "title": "Time Machine (MLB)",
+    "url": "https://boxscore.email/games/time-machine",
+    "category": "Sports"
+  },
+  {
+    "title": "TimeGuessr",
+    "url": "https://timeguessr.com/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Timeline",
+    "url": "https://timeline.fromthethink.com/",
+    "category": "Other"
+  },
+  {
+    "title": "TimeLine Game",
+    "url": "https://www.playtimelines.com/",
+    "category": "Other"
+  },
+  {
+    "title": "TimeSwipe",
+    "url": "https://play.timeswipe.fun/",
+    "category": "Other"
+  },
+  {
+    "title": "Timingle",
+    "url": "https://timingle.danielbrandao.dev/",
+    "category": "Other"
+  },
+  {
+    "title": "Toddle",
+    "url": "https://toddle-puzzle.web.app/",
+    "category": "Word"
+  },
+  {
+    "title": "Top 5",
+    "url": "https://topfivetrivia.com/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Toppled",
+    "url": "https://bythomas.co.uk/toppled",
+    "category": "Word"
+  },
+  {
+    "title": "Totem Words",
+    "url": "https://totemwords.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Tower of Questions",
+    "url": "https://towerofquestions.com/",
+    "category": "Trivia"
+  },
+  {
+    "title": "Tracell",
+    "url": "https://tracellgame.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Tradle",
+    "url": "https://games.oec.world/en/tradle/",
+    "category": "Geography"
+  },
+  {
+    "title": "Traindle",
+    "url": "https://www.traindle.io/",
+    "category": "Word"
+  },
+  {
+    "title": "TravelGuessr",
+    "url": "https://travelguessr.com/",
+    "category": "Geography"
+  },
+  {
+    "title": "Travle",
+    "url": "https://travle.earth/",
+    "category": "Geography"
+  },
+  {
+    "title": "Treasure Guessr",
+    "url": "https://play.treasureguessr.com/",
+    "category": "Geography"
+  },
+  {
+    "title": "Triplets",
+    "url": "https://www.tripletgame.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Trivial Pursuit Daily",
+    "url": "https://www.trivialpursuit.com/daily",
+    "category": "Trivia"
+  },
+  {
+    "title": "trms",
+    "url": "https://impliedampersand.itch.io/trms",
+    "category": "Word"
+  },
+  {
+    "title": "Truncate",
+    "url": "https://truncate.town/",
+    "category": "Word"
+  },
+  {
+    "title": "TuneGuessr",
+    "url": "https://www.tuneguessr.net/",
+    "category": "Music"
+  },
+  {
+    "title": "TV Circuit",
+    "url": "https://www.wfhgames.com/tv-circuit",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "Twofer Goofer",
+    "url": "https://twofergoofer.com/",
+    "category": "Word"
+  },
+  {
+    "title": "TypeCircuit",
+    "url": "https://typecircuit.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Umadle",
+    "url": "https://umadle.net/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Underline",
+    "url": "https://www.fromthethink.com/underline",
+    "category": "Word"
+  },
+  {
+    "title": "Unlabeled",
+    "url": "https://unlabeled.dev/",
+    "category": "Other"
+  },
+  {
+    "title": "Unolingo",
+    "url": "https://games.usatoday.com/games/uclick-unolingo",
+    "category": "Word"
+  },
+  {
+    "title": "Unshuffle",
+    "url": "https://www.unshuffle.me/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Unzoomed",
+    "url": "https://www.unzoomed.com/en",
+    "category": "Geography"
+  },
+  {
+    "title": "Valodle",
+    "url": "https://valodle.eu/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Verticle",
+    "url": "https://verticle.netlify.app/",
+    "category": "Word"
+  },
+  {
+    "title": "Vexle",
+    "url": "https://vexle.org/",
+    "category": "Geography"
+  },
+  {
+    "title": "Video Game Bandle",
+    "url": "https://www.vgbandle.app/",
+    "category": "Music"
+  },
+  {
+    "title": "VideoPuzzle",
+    "url": "https://videopuzzle.org/",
+    "category": "Other"
+  },
+  {
+    "title": "Viewdle",
+    "url": "https://viewdle.org/",
+    "category": "Geography"
+  },
+  {
+    "title": "vocalstim",
+    "url": "https://vocalstim.app/",
+    "category": "Music"
+  },
+  {
+    "title": "Vowel Play",
+    "url": "https://bythomas.co.uk/vowelplay",
+    "category": "Word"
+  },
+  {
+    "title": "Vox Daily Crossword",
+    "url": "https://www.vox.com/21523212/crossword-puzzles-free-daily-printable",
+    "category": "Word"
+  },
+  {
+    "title": "VTuble",
+    "url": "https://www.vtuble.moe/",
+    "category": "Other"
+  },
+  {
+    "title": "Waffle",
+    "url": "https://wafflegame.net/daily",
+    "category": "Word"
+  },
+  {
+    "title": "Wallstreetle",
+    "url": "https://wallstreetle.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Wantedle",
+    "url": "https://wantedle.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Warbl",
+    "url": "https://www.warbl.org/",
+    "category": "Music"
+  },
+  {
+    "title": "Wardle",
+    "url": "https://wardlegame.com/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Washington Post Crossword",
+    "url": "https://www.washingtonpost.com/games/crossword/",
+    "category": "Word"
+  },
+  {
+    "title": "Weakdle",
+    "url": "https://dentotino.com/weakdle",
+    "category": "Gaming"
+  },
+  {
+    "title": "Weakdoku",
+    "url": "https://weakdoku.dentotino.com/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Weather Darts",
+    "url": "http://www.weatherdarts.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Weaver",
+    "url": "https://wordwormdormdork.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Weaver",
+    "url": "https://weavergame.org/",
+    "category": "Word"
+  },
+  {
+    "title": "Weddle",
+    "url": "https://www.weddlegame.com/",
+    "category": "Sports"
+  },
+  {
+    "title": "Weighsies",
+    "url": "https://www.weighsies.dev/",
+    "category": "Other"
+  },
+  {
+    "title": "werdel",
+    "url": "https://bennw.github.io/werdel/",
+    "category": "Word"
+  },
+  {
+    "title": "WhenTaken",
+    "url": "https://whentaken.com/",
+    "category": "Geography"
+  },
+  {
+    "title": "WhenTaken Movies",
+    "url": "https://movies.whentaken.com/",
+    "category": "Geography"
+  },
+  {
+    "title": "Where in the USA is this?",
+    "url": "https://pudding.cool/games/where",
+    "category": "Geography"
+  },
+  {
+    "title": "Whereabouts?",
+    "url": "https://whereabouts.earth/daily/",
+    "category": "Geography"
+  },
+  {
+    "title": "WhereTaken",
+    "url": "https://wheretaken.teuteuf.fr/",
+    "category": "Geography"
+  },
+  {
+    "title": "WhereTaken USA",
+    "url": "https://wheretakenusa.teuteuf.fr/",
+    "category": "Geography"
+  },
+  {
+    "title": "Which year",
+    "url": "https://whichyr.com/",
+    "category": "Other"
+  },
+  {
+    "title": "WhichWay",
+    "url": "https://whichway.is/",
+    "category": "Geography"
+  },
+  {
+    "title": "Whodle",
+    "url": "https://whodle.dixonary.co.uk/",
+    "category": "Movies & TV"
+  },
+  {
+    "title": "WikiGame Daily",
+    "url": "https://www.thewikigame.com/daily",
+    "category": "Trivia"
+  },
+  {
+    "title": "WikiRNG",
+    "url": "https://wikirng.com/",
+    "category": "Other"
+  },
+  {
+    "title": "Wikitrivia",
+    "url": "https://wikitrivia.tomjwatson.com/daily",
+    "category": "Other"
+  },
+  {
+    "title": "Wildlife Sudoku",
+    "url": "https://flagdoku.com/wildlife.html",
+    "category": "Trivia"
+  },
+  {
+    "title": "Worchle",
+    "url": "https://www.worchle.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Word Box",
+    "url": "https://wordbox.game/",
+    "category": "Word"
+  },
+  {
+    "title": "Word Chain",
+    "url": "https://wordnerd.co/wordchain",
+    "category": "Word"
+  },
+  {
+    "title": "Word Chase",
+    "url": "https://wordchase.semantle.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Word Connection",
+    "url": "https://www.thewordfinder.com/word-connection",
+    "category": "Word"
+  },
+  {
+    "title": "Word Grid",
+    "url": "https://wordgrid.clevergoat.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Word Ladder",
+    "url": "https://wordladder.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Word Peaks",
+    "url": "https://vegeta897.github.io/word-peaks",
+    "category": "Word"
+  },
+  {
+    "title": "Word Salad",
+    "url": "https://wordsalad.online/",
+    "category": "Word"
+  },
+  {
+    "title": "Word to your Mother",
+    "url": "https://w2ym.org/",
+    "category": "Word"
+  },
+  {
+    "title": "Word Waffle",
+    "url": "https://wordwaffle.org/",
+    "category": "Word"
+  },
+  {
+    "title": "Word Zip",
+    "url": "https://www.wfhgames.com/word-zip",
+    "category": "Word"
+  },
+  {
+    "title": "word.golf",
+    "url": "https://word.golf/",
+    "category": "Word"
+  },
+  {
+    "title": "Word500",
+    "url": "https://word500.com/game?mode=daily",
+    "category": "Word"
+  },
+  {
+    "title": "WordAll",
+    "url": "https://wordall.xyz/",
+    "category": "Word"
+  },
+  {
+    "title": "Wordamid",
+    "url": "https://www.wordamid.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Wordcell",
+    "url": "https://gamebunny.app/wordcell",
+    "category": "Word"
+  },
+  {
+    "title": "Wordcrux",
+    "url": "https://wordcrux.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Wordfall",
+    "url": "https://play-wordfall.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Wordga",
+    "url": "https://wordga.com/daily",
+    "category": "Word"
+  },
+  {
+    "title": "Wordgy",
+    "url": "https://wordgy.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Wordiply",
+    "url": "https://www.wordiply.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Wordistance",
+    "url": "https://wordistance.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Wordle",
+    "url": "https://www.nytimes.com/games/wordle/index.html",
+    "category": "Word"
+  },
+  {
+    "title": "Wordless",
+    "url": "https://lessgames.com/wordless",
+    "category": "Word"
+  },
+  {
+    "title": "WordLink",
+    "url": "https://playwordlink.com/",
+    "category": "Word"
+  },
+  {
+    "title": "WordLinx",
+    "url": "https://sacsgames.com/wordlinx/",
+    "category": "Word"
+  },
+  {
+    "title": "WordLock",
+    "url": "https://wordlockgame.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Wordloop",
+    "url": "https://word-loop.com/",
+    "category": "Word"
+  },
+  {
+    "title": "words for days",
+    "url": "https://wordsfordays.com/",
+    "category": "Word"
+  },
+  {
+    "title": "WordSmyth",
+    "url": "https://playwordsmyth.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Wordspan",
+    "url": "https://puzzmallow.com/wordspan",
+    "category": "Word"
+  },
+  {
+    "title": "WordWavr",
+    "url": "https://wordwavr.app/",
+    "category": "Word"
+  },
+  {
+    "title": "Worldle",
+    "url": "https://worldle.teuteuf.fr/",
+    "category": "Geography"
+  },
+  {
+    "title": "Wormle",
+    "url": "https://wormle.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Worpel",
+    "url": "https://playworpel.com/",
+    "category": "Sports"
+  },
+  {
+    "title": "Wowdle",
+    "url": "https://www.wowdle.app/",
+    "category": "Gaming"
+  },
+  {
+    "title": "WRDLINK",
+    "url": "https://www.wrdlink.io/",
+    "category": "Word"
+  },
+  {
+    "title": "WrestlePlay",
+    "url": "https://wrestleplay.com/",
+    "category": "Sports"
+  },
+  {
+    "title": "Wridges",
+    "url": "https://www.washingtonpost.com/games/wridges/",
+    "category": "Word"
+  },
+  {
+    "title": "Wrodeo",
+    "url": "https://wrodeo.com/",
+    "category": "Word"
+  },
+  {
+    "title": "xdle",
+    "url": "https://zaratustra.itch.io/xdle",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Year To Beat",
+    "url": "https://yeartobeat.com/",
+    "category": "Music"
+  },
+  {
+    "title": "Yeardle",
+    "url": "https://histordle.com/yeardle",
+    "category": "Other"
+  },
+  {
+    "title": "Yearly Daily",
+    "url": "https://coffeefirst.games/yearly-daily",
+    "category": "Other"
+  },
+  {
+    "title": "Yellow Yellow",
+    "url": "https://yellowyellow.xyz/",
+    "category": "Word"
+  },
+  {
+    "title": "YGOdle",
+    "url": "https://www.ygodle.net/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Zaggle",
+    "url": "https://playzaggle.com/",
+    "category": "Word"
+  },
+  {
+    "title": "Zaku Chess",
+    "url": "https://zakuchess.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Zanagrams",
+    "url": "https://pzlgames.com/games/zanagrams/",
+    "category": "Word"
+  },
+  {
+    "title": "Zebra Puzzles",
+    "url": "https://www.zebrapuzzles.com/",
+    "category": "Logic & Math"
+  },
+  {
+    "title": "Zeldadle",
+    "url": "https://www.zeldadle.net/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Zeldle",
+    "url": "https://zeldle.xyz/",
+    "category": "Gaming"
+  },
+  {
+    "title": "Zonday",
+    "url": "https://zonday.app/",
+    "category": "Other"
+  },
+  {
+    "title": "ZoomOut",
+    "url": "https://zoomout.videoludid.com/",
+    "category": "Gaming"
+  }
+]

@@ -1,5 +1,6 @@
 export interface DailyItem {
   id: string;
+  catalogId: string;
   title: string;
   url: string;
   iconUrl: string;
@@ -17,6 +18,7 @@ export interface UserSettings {
   notificationsEnabled: boolean;
   deviceCount: number;
   localToday: string;
+  isAdmin: boolean;
 }
 
 export interface MeResponse {
@@ -24,11 +26,36 @@ export interface MeResponse {
   dailies: DailyItem[];
 }
 
-export interface InspectedSite {
-  url: string;
+export interface CatalogGame {
+  id: string;
   title: string;
+  url: string;
+  category: string;
   iconUrl: string;
+  createdAt?: string;
 }
+
+export interface GameRequestItem {
+  id: string;
+  title: string;
+  url: string;
+  category: string;
+  iconUrl: string;
+  requestCount: number;
+  createdAt: string;
+}
+
+export const CATALOG_CATEGORIES = [
+  'Word',
+  'Trivia',
+  'Geography',
+  'Movies & TV',
+  'Music',
+  'Logic & Math',
+  'Gaming',
+  'Sports',
+  'Other',
+] as const;
 
 export interface TimeOption {
   value: string;
