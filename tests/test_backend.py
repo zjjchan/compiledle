@@ -17,6 +17,8 @@ from api.index import (
 )
 from api.inspector import normalize_and_validate_url
 from api.notifier import (
+    compute_utc_notify_slots,
+    current_utc_query_slots,
     format_general_notification_body,
     group_due_dailies_by_time,
     is_time_due,
@@ -178,3 +180,25 @@ def test_blocks_suggesting_compiledle_itself() -> None:
     assert _is_compiledle_self_url("compiledle.vercel.app/some-path") is True
     assert _is_compiledle_self_url("https://www.compiledle.vercel.app") is True
     assert _is_compiledle_self_url("https://krillion.io") is False
+
+
+def test_utc_notify_slots_and_query_window() -> None:
+    # Asia/Singapore (UTC+8, no DST): 00:00 -> 16:00 UTC, 13:00 -> 05:00 UTC
+    assert compute_utc_notify_slots({"00:00", "13:00"}, "Asia/Singapore", True, True) == [
+        "05:00",
+        "16:00",
+    ]
+    # America/New_York (DST): 00:00 covers both 04:00 UTC (EDT) and 05:00 UTC (EST)
+    assert compute_utc_notify_slots({"00:00"}, "America/New_York", True, True) == [
+        "04:00",
+        "05:00",
+    ]
+    # Disabled or no devices -> empty list (0 cron reads!)
+    assert compute_utc_notify_slots({"00:00"}, "Asia/Singapore", False, True) == []
+    assert compute_utc_notify_slots({"00:00"}, "Asia/Singapore", True, False) == []
+
+    # Midnight UTC wraps cleanly to previous day's 23:45 slot
+    assert current_utc_query_slots(datetime(2026, 11, 26, 0, 2, tzinfo=timezone.utc)) == [
+        "00:00",
+        "23:45",
+    ]
