@@ -7,7 +7,8 @@ import pytest
 from fastapi.testclient import TestClient
 
 from api.auth import AuthenticatedUser
-from api.index import _daily_sort_key, _require_recent_auth, app
+from api.catalog import _load_seed_catalog, canonicalize_game_url
+from api.index import _daily_sort_key, _request_sort_key, _require_recent_auth, app
 from api.inspector import normalize_and_validate_url
 from api.notifier import (
     format_general_notification_body,
@@ -136,3 +137,31 @@ def test_group_due_dailies_batches_by_time_slot() -> None:
     grouped_midnight = group_due_dailies_by_time(midnight_dailies, "00:00", None, sg_0000)
     assert list(grouped_midnight.keys()) == ["00:00"]
     assert [title for _, title, _ in grouped_midnight["00:00"]] == ["Wordle", "Minute Cryptic"]
+
+
+def test_canonicalize_game_url_deduplicates_variants() -> None:
+    _, k1, id1 = canonicalize_game_url("https://www.nytimes.com/games/wordle/index.html?utm_source=x")
+    _, k2, id2 = canonicalize_game_url("nytimes.com/games/wordle/")
+    _, k3, id3 = canonicalize_game_url("http://nytimes.com/games/wordle")
+    assert k1 == k2 == k3 == "nytimes.com/games/wordle"
+    assert id1 == id2 == id3
+
+
+def test_request_sort_order_by_count_desc_then_name_asc() -> None:
+    reqs = [
+        {"title": "Zebra", "requestCount": 2},
+        {"title": "Alpha", "requestCount": 2},
+        {"title": "Wordle", "requestCount": 5},
+        {"title": "Beta", "requestCount": 1},
+    ]
+    reqs.sort(key=_request_sort_key)
+    assert [r["title"] for r in reqs] == ["Wordle", "Alpha", "Zebra", "Beta"]
+
+
+def test_seed_catalog_loads_valid_unique_games() -> None:
+    seed = _load_seed_catalog()
+    assert len(seed) >= 70
+    titles = {g["title"] for g in seed.values()}
+    assert "Wordle" in titles
+    assert "Krillion" in titles
+    assert "Minute Cryptic" in titles

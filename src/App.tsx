@@ -35,6 +35,7 @@ import { MobileSidebar, type AppView } from './components/MobileSidebar';
 import { DesktopSettingsMenu } from './components/DesktopSettingsMenu';
 import { AccountPage } from './components/AccountPage';
 import { FaqPage } from './components/FaqPage';
+import { AdminPage } from './components/AdminPage';
 import { PwaInstallBanner } from './components/PwaInstallBanner';
 
 export function App() {
@@ -269,6 +270,7 @@ export function App() {
 
             <DesktopSettingsMenu
               email={displayEmail}
+              isAdmin={Boolean(settings?.isAdmin)}
               currentView={currentView}
               notificationsEnabled={Boolean(settings?.notificationsEnabled)}
               theme={theme}
@@ -284,6 +286,7 @@ export function App() {
       <MobileSidebar
         open={mobileMenuOpen}
         email={displayEmail}
+        isAdmin={Boolean(settings?.isAdmin)}
         currentView={currentView}
         notificationsEnabled={Boolean(settings?.notificationsEnabled)}
         theme={theme}
@@ -334,6 +337,11 @@ export function App() {
         />
       ) : currentView === 'faq' ? (
         <FaqPage onBack={() => setCurrentView('dashboard')} />
+      ) : currentView === 'admin' && settings?.isAdmin ? (
+        <AdminPage
+          onBack={() => setCurrentView('dashboard')}
+          onCatalogChanged={() => void loadDashboard()}
+        />
       ) : (
         <main className="max-w-3xl mx-auto px-4 pt-6 space-y-8">
           {loadingData ? (
@@ -361,8 +369,8 @@ export function App() {
                 Your Compiledle Hub is Empty
               </h2>
               <p className="text-sm text-slate-600 dark:text-slate-400 max-w-sm mx-auto mt-1.5 mb-6">
-                Add your favorite daily puzzles by pasting their URL—we&apos;ll fetch their icon
-                and remind you on schedule.
+                Browse Compiledle&apos;s catalog of daily puzzles, add your favorites, and get
+                reminded on schedule.
               </p>
               <button
                 type="button"
@@ -444,6 +452,7 @@ export function App() {
       {showAddModal && (
         <AddDailyModal
           defaultNotifyTime={settings?.defaultNotifyTime || '00:00'}
+          existingCatalogIds={new Set(dailies.map((d) => d.catalogId))}
           onClose={() => setShowAddModal(false)}
           onCreated={(created) => {
             setDailies((prev) => [...prev, created]);

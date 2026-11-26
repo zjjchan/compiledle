@@ -1,5 +1,11 @@
 import { auth } from './firebase';
-import type { DailyItem, InspectedSite, MeResponse, UserSettings } from '../types';
+import type {
+  CatalogGame,
+  DailyItem,
+  GameRequestItem,
+  MeResponse,
+  UserSettings,
+} from '../types';
 
 async function apiFetch<T>(
   path: string,
@@ -36,6 +42,10 @@ export function fetchMe(detectedTz?: string): Promise<MeResponse> {
   return apiFetch<MeResponse>(`/api/me${query}`);
 }
 
+export function fetchCatalog(): Promise<{ games: CatalogGame[] }> {
+  return apiFetch<{ games: CatalogGame[] }>('/api/catalog');
+}
+
 export function updateUserSettings(patch: {
   timezone?: string;
   defaultNotifyTime?: string;
@@ -68,17 +78,8 @@ export function deleteAccount(): Promise<{ status: string }> {
   );
 }
 
-export function inspectUrl(url: string): Promise<InspectedSite> {
-  return apiFetch<InspectedSite>('/api/dailies/inspect', {
-    method: 'POST',
-    body: JSON.stringify({ url }),
-  });
-}
-
 export function createDaily(input: {
-  url: string;
-  title?: string;
-  iconUrl?: string;
+  catalogId: string;
   customNotifyTime?: string | null;
 }): Promise<DailyItem> {
   return apiFetch<DailyItem>('/api/dailies', {
@@ -113,6 +114,63 @@ export function deleteDaily(id: string): Promise<{ status: string; id: string }>
   return apiFetch<{ status: string; id: string }>(`/api/dailies/${encodeURIComponent(id)}`, {
     method: 'DELETE',
   });
+}
+
+export function submitGameRequest(input: {
+  url: string;
+  title?: string;
+  category?: string;
+}): Promise<{ id: string; title: string; url: string; requestCount: number }> {
+  return apiFetch('/api/requests', {
+    method: 'POST',
+    body: JSON.stringify(input),
+  });
+}
+
+export function fetchAdminRequests(): Promise<{ requests: GameRequestItem[] }> {
+  return apiFetch<{ requests: GameRequestItem[] }>('/api/admin/requests');
+}
+
+export function acceptAdminRequest(
+  requestId: string,
+  override?: { title?: string; category?: string }
+): Promise<{ game: CatalogGame }> {
+  return apiFetch<{ game: CatalogGame }>(
+    `/api/admin/requests/${encodeURIComponent(requestId)}/accept`,
+    {
+      method: 'POST',
+      body: JSON.stringify(override || {}),
+    }
+  );
+}
+
+export function rejectAdminRequest(requestId: string): Promise<{ status: string; id: string }> {
+  return apiFetch<{ status: string; id: string }>(
+    `/api/admin/requests/${encodeURIComponent(requestId)}`,
+    {
+      method: 'DELETE',
+    }
+  );
+}
+
+export function addAdminCatalogGame(input: {
+  url: string;
+  title?: string;
+  category?: string;
+}): Promise<{ game: CatalogGame }> {
+  return apiFetch<{ game: CatalogGame }>('/api/admin/catalog', {
+    method: 'POST',
+    body: JSON.stringify(input),
+  });
+}
+
+export function removeAdminCatalogGame(gameId: string): Promise<{ status: string; id: string }> {
+  return apiFetch<{ status: string; id: string }>(
+    `/api/admin/catalog/${encodeURIComponent(gameId)}`,
+    {
+      method: 'DELETE',
+    }
+  );
 }
 
 export function registerDeviceToken(

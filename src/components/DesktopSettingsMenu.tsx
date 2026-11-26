@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
-import { Bell, HelpCircle, LogOut, Moon, Settings, Sun, UserRound } from 'lucide-react';
+import { Bell, HelpCircle, LogOut, Moon, Settings, ShieldCheck, Sun, UserRound } from 'lucide-react';
 import type { ThemeMode } from '../lib/theme';
 import type { AppView } from './MobileSidebar';
 
 interface DesktopSettingsMenuProps {
   email: string;
+  isAdmin: boolean;
   currentView: AppView;
   notificationsEnabled: boolean;
   theme: ThemeMode;
@@ -16,6 +17,7 @@ interface DesktopSettingsMenuProps {
 
 export function DesktopSettingsMenu({
   email,
+  isAdmin,
   currentView,
   notificationsEnabled,
   theme,
@@ -142,6 +144,21 @@ export function DesktopSettingsMenu({
               <HelpCircle className="w-4 h-4 text-slate-500 dark:text-slate-400" />
               {currentView === 'faq' ? 'Back to Dailies' : 'FAQs'}
             </button>
+
+            {isAdmin && (
+              <button
+                type="button"
+                role="menuitem"
+                onClick={() => {
+                  setOpen(false);
+                  onNavigate(currentView === 'admin' ? 'dashboard' : 'admin');
+                }}
+                className="w-full flex items-center gap-2.5 rounded-xl px-3 py-2 text-xs font-medium text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800 transition cursor-pointer"
+              >
+                <ShieldCheck className="w-4 h-4 text-amber-500 dark:text-amber-400" />
+                {currentView === 'admin' ? 'Back to Dailies' : 'Admin'}
+              </button>
+            )}
           </div>
 
           <div className="px-1.5 pt-1 mt-0.5 border-t border-slate-200/80 dark:border-slate-800">

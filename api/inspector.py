@@ -143,7 +143,7 @@ def _default_favicon(url: str) -> str:
     return f"https://www.google.com/s2/favicons?domain={host}&sz=128"
 
 
-async def inspect_daily_url(raw_url: str) -> InspectedSite:
+async def inspect_daily_url(raw_url: str, require_reachable: bool = False) -> InspectedSite:
     current_url = normalize_and_validate_url(raw_url)
     fallback_title = _fallback_title_from_url(current_url)
     fallback_icon = _default_favicon(current_url)
@@ -164,6 +164,11 @@ async def inspect_daily_url(raw_url: str) -> InspectedSite:
                         next_url = urljoin(current_url, response.headers["location"])
                         current_url = normalize_and_validate_url(next_url)
                         continue
+
+                    if require_reachable and response.status_code >= 400 and response.status_code != 403:
+                        raise ValueError(
+                            f"Website returned HTTP {response.status_code}. Please check that the URL is valid."
+                        )
 
                     buf = bytearray()
                     async for chunk in response.aiter_bytes():
@@ -194,13 +199,17 @@ async def inspect_daily_url(raw_url: str) -> InspectedSite:
                     )
     except ValueError:
         raise
-    except Exception:
+    except Exception as exc:
+        if require_reachable:
+            raise ValueError("Could not reach this website. Please double-check the URL.") from exc
         return InspectedSite(
             url=current_url,
             title=fallback_title,
             icon_url=fallback_icon,
         )
 
+    if require_reachable:
+        raise ValueError("Too many redirects while checking this URL.")
     return InspectedSite(
         url=current_url,
         title=fallback_title,

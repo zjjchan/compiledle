@@ -18,30 +18,30 @@ from firebase_admin import auth as firebase_auth
 from firebase_admin import firestore
 from pydantic import BaseModel, Field
 
-from api.auth import AuthenticatedUser, get_current_user
+from api.auth import AuthenticatedUser, get_current_user, is_user_admin, require_admin
+from api.catalog import (
+    add_game_to_catalog,
+    canonicalize_game_url,
+    get_catalog_games,
+    normalize_category,
+    remove_game_from_catalog,
+)
 from api.firebase_client import get_db
-from api.inspector import inspect_daily_url, normalize_and_validate_url
+from api.inspector import inspect_daily_url
 from api.notifier import (
     dispatch_due_notifications,
     local_today_str,
-    send_push_to_tokens,
     validate_notify_time,
     validate_timezone,
 )
 
-app = FastAPI(title="Compiledle API", version="1.1.0")
+app = FastAPI(title="Compiledle API", version="2.0.0")
 
 RECENT_AUTH_WINDOW_SECONDS = 300
 
 
-class InspectUrlRequest(BaseModel):
-    url: str = Field(..., min_length=1, max_length=2048)
-
-
 class CreateDailyRequest(BaseModel):
-    url: str = Field(..., min_length=1, max_length=2048)
-    title: str | None = Field(default=None, max_length=80)
-    iconUrl: str | None = Field(default=None, max_length=2048)
+    catalogId: str = Field(..., min_length=1, max_length=64)
     customNotifyTime: str | None = None
 
 
@@ -71,6 +71,17 @@ class RegisterDeviceRequest(BaseModel):
     userAgent: str = Field(default="", max_length=512)
 
 
+class GameSubmissionRequest(BaseModel):
+    url: str = Field(..., min_length=1, max_length=2048)
+    title: str | None = Field(default=None, max_length=80)
+    category: str | None = Field(default=None, max_length=40)
+
+
+class AcceptGameRequestBody(BaseModel):
+    title: str | None = Field(default=None, max_length=80)
+    category: str | None = Field(default=None, max_length=40)
+
+
 def _daily_sort_key(item: tuple[str, dict[str, Any]]) -> tuple[float, str]:
     _, data = item
     raw_order = data.get("order")
@@ -78,14 +89,41 @@ def _daily_sort_key(item: tuple[str, dict[str, Any]]) -> tuple[float, str]:
     return (order_val, str(data.get("createdAt") or ""))
 
 
+def _request_sort_key(item: dict[str, Any]) -> tuple[int, str]:
+    return (-int(item.get("requestCount") or 0), str(item.get("title") or "").lower())
+
+
+def _resolve_catalog_id_for_daily(
+    data: dict[str, Any], catalog: dict[str, dict[str, Any]]
+) -> str | None:
+    explicit_id = data.get("catalogId")
+    if explicit_id and explicit_id in catalog:
+        return str(explicit_id)
+    raw_url = data.get("url") or ""
+    if not raw_url:
+        return None
+    try:
+        _, _, derived_id = canonicalize_game_url(raw_url)
+        if derived_id in catalog:
+            return derived_id
+    except ValueError:
+        return None
+    return None
+
+
 def _serialize_daily(
-    doc_id: str, data: dict[str, Any], today_str: str, fallback_order: int = 0
+    doc_id: str,
+    data: dict[str, Any],
+    today_str: str,
+    catalog_id: str,
+    fallback_order: int = 0,
 ) -> dict[str, Any]:
     last_played = data.get("lastPlayedDate")
     raw_order = data.get("order")
     order_val = int(raw_order) if isinstance(raw_order, (int, float)) else fallback_order
     return {
         "id": doc_id,
+        "catalogId": catalog_id,
         "title": data.get("title") or "Daily Game",
         "url": data.get("url") or "",
         "iconUrl": data.get("iconUrl") or "",
@@ -152,6 +190,7 @@ def _ensure_user_doc(
         "notificationsEnabled": False,
         "lastGeneralNotifiedDate": None,
         "fcmTokens": {},
+        "isAdmin": False,
         "createdAt": datetime.now(timezone.utc).isoformat(),
     }
     user_ref.set(initial_data)
@@ -171,13 +210,25 @@ def get_me(
     user_ref, user_data = _ensure_user_doc(user.uid, user.email, detected_tz=tz)
     user_tz = user_data.get("timezone") or "UTC"
     today_str = local_today_str(user_tz)
+    catalog = get_catalog_games()
 
     raw_docs = [(doc.id, doc.to_dict() or {}) for doc in user_ref.collection("dailies").stream()]
     raw_docs.sort(key=_daily_sort_key)
-    dailies = [
-        _serialize_daily(doc_id, doc_data, today_str, fallback_order=idx)
-        for idx, (doc_id, doc_data) in enumerate(raw_docs)
-    ]
+
+    dailies: list[dict[str, Any]] = []
+    for idx, (doc_id, doc_data) in enumerate(raw_docs):
+        matched_catalog_id = _resolve_catalog_id_for_daily(doc_data, catalog)
+        if not matched_catalog_id:
+            continue
+        dailies.append(
+            _serialize_daily(
+                doc_id,
+                doc_data,
+                today_str,
+                catalog_id=matched_catalog_id,
+                fallback_order=idx,
+            )
+        )
 
     fcm_tokens = user_data.get("fcmTokens") or {}
     return {
@@ -188,9 +239,19 @@ def get_me(
             "notificationsEnabled": bool(user_data.get("notificationsEnabled", False)),
             "deviceCount": len(fcm_tokens),
             "localToday": today_str,
+            "isAdmin": is_user_admin(user, user_data),
         },
         "dailies": dailies,
     }
+
+
+@app.get("/api/catalog")
+def list_catalog(
+    _user: AuthenticatedUser = Depends(get_current_user),
+) -> dict[str, Any]:
+    games_map = get_catalog_games()
+    games_list = sorted(games_map.values(), key=lambda g: str(g.get("title") or "").lower())
+    return {"games": games_list}
 
 
 @app.patch("/api/settings")
@@ -231,6 +292,7 @@ def update_settings(
         "notificationsEnabled": bool(user_data.get("notificationsEnabled", False)),
         "deviceCount": len(user_data.get("fcmTokens") or {}),
         "localToday": local_today_str(user_tz),
+        "isAdmin": is_user_admin(user, user_data),
     }
 
 
@@ -280,7 +342,6 @@ def delete_account(
     db = get_db()
     user_ref = db.collection("users").document(user.uid)
 
-    # Delete all daily subcollection documents first, then the user document
     batch = db.batch()
     ops = 0
     for daily_doc in user_ref.collection("dailies").stream():
@@ -305,29 +366,19 @@ def delete_account(
     return {"status": "deleted"}
 
 
-@app.post("/api/dailies/inspect")
-async def inspect_daily(
-    body: InspectUrlRequest,
-    _user: AuthenticatedUser = Depends(get_current_user),
-) -> dict[str, Any]:
-    try:
-        info = await inspect_daily_url(body.url)
-    except ValueError as exc:
-        raise HTTPException(status_code=400, detail=str(exc)) from exc
-
-    return {
-        "url": info.url,
-        "title": info.title,
-        "iconUrl": info.icon_url,
-    }
-
-
 @app.post("/api/dailies", status_code=status.HTTP_201_CREATED)
-async def create_daily(
+def create_daily(
     body: CreateDailyRequest,
     user: AuthenticatedUser = Depends(get_current_user),
 ) -> dict[str, Any]:
     user_ref, user_data = _ensure_user_doc(user.uid, user.email)
+    catalog = get_catalog_games()
+    game = catalog.get(body.catalogId)
+    if not game:
+        raise HTTPException(
+            status_code=400,
+            detail="Selected game is not in Compiledle's catalog.",
+        )
 
     custom_time: str | None = None
     if body.customNotifyTime:
@@ -336,32 +387,25 @@ async def create_daily(
         except ValueError as exc:
             raise HTTPException(status_code=400, detail=str(exc)) from exc
 
-    try:
-        if body.title and body.iconUrl:
-            normalized_url = normalize_and_validate_url(body.url)
-            title = body.title.strip()
-            icon_url = body.iconUrl.strip()
-        else:
-            info = await inspect_daily_url(body.url)
-            normalized_url = info.url
-            title = (body.title or info.title).strip()
-            icon_url = (body.iconUrl or info.icon_url).strip()
-    except ValueError as exc:
-        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    existing_docs = [d.to_dict() or {} for d in user_ref.collection("dailies").stream()]
+    for existing in existing_docs:
+        if _resolve_catalog_id_for_daily(existing, catalog) == body.catalogId:
+            raise HTTPException(
+                status_code=400,
+                detail=f"{game['title']} is already in your dailies.",
+            )
 
-    existing_orders = [
-        d.to_dict().get("order")
-        for d in user_ref.collection("dailies").stream()
-        if d.exists
+    numeric_orders = [
+        int(d["order"]) for d in existing_docs if isinstance(d.get("order"), (int, float))
     ]
-    numeric_orders = [int(o) for o in existing_orders if isinstance(o, (int, float))]
-    next_order = (max(numeric_orders) + 1) if numeric_orders else len(existing_orders)
+    next_order = (max(numeric_orders) + 1) if numeric_orders else len(existing_docs)
 
     now_iso = datetime.now(timezone.utc).isoformat()
     doc_data: dict[str, Any] = {
-        "title": title or "Daily Game",
-        "url": normalized_url,
-        "iconUrl": icon_url,
+        "catalogId": body.catalogId,
+        "title": game["title"],
+        "url": game["url"],
+        "iconUrl": game["iconUrl"],
         "customNotifyTime": custom_time,
         "lastNotifiedDate": None,
         "lastPlayedDate": None,
@@ -370,7 +414,13 @@ async def create_daily(
     }
     _, doc_ref = user_ref.collection("dailies").add(doc_data)
     today_str = local_today_str(user_data.get("timezone") or "UTC")
-    return _serialize_daily(doc_ref.id, doc_data, today_str, fallback_order=next_order)
+    return _serialize_daily(
+        doc_ref.id,
+        doc_data,
+        today_str,
+        catalog_id=body.catalogId,
+        fallback_order=next_order,
+    )
 
 
 @app.put("/api/dailies/reorder")
@@ -437,7 +487,11 @@ def update_daily(
         daily_ref.update(updates)
         current.update(updates)
 
-    return _serialize_daily(daily_id, current, today_str)
+    catalog = get_catalog_games()
+    matched_id = _resolve_catalog_id_for_daily(current, catalog) or str(
+        current.get("catalogId") or ""
+    )
+    return _serialize_daily(daily_id, current, today_str, catalog_id=matched_id)
 
 
 @app.delete("/api/dailies/{daily_id}")
@@ -451,6 +505,179 @@ def delete_daily(
         raise HTTPException(status_code=404, detail="Daily not found.")
     daily_ref.delete()
     return {"status": "deleted", "id": daily_id}
+
+
+@app.post("/api/requests", status_code=status.HTTP_201_CREATED)
+async def submit_game_request(
+    body: GameSubmissionRequest,
+    user: AuthenticatedUser = Depends(get_current_user),
+) -> dict[str, Any]:
+    try:
+        info = await inspect_daily_url(body.url, require_reachable=True)
+        norm_url, canonical_key, url_id = canonicalize_game_url(info.url)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+    catalog = get_catalog_games()
+    if url_id in catalog:
+        raise HTTPException(
+            status_code=400,
+            detail=f"{catalog[url_id]['title']} is already in Compiledle's catalog!",
+        )
+
+    db = get_db()
+    req_ref = db.collection("game_requests").document(url_id)
+    snap = req_ref.get()
+    now_iso = datetime.now(timezone.utc).isoformat()
+
+    if snap.exists:
+        data = snap.to_dict() or {}
+        requesters = dict(data.get("requesters") or {})
+        if user.uid in requesters:
+            raise HTTPException(
+                status_code=400,
+                detail="You have already requested this game.",
+            )
+        requesters[user.uid] = now_iso
+        new_count = len(requesters)
+        req_ref.update(
+            {
+                f"requesters.{user.uid}": now_iso,
+                "requestCount": new_count,
+                "updatedAt": now_iso,
+            }
+        )
+        return {
+            "id": url_id,
+            "title": data.get("title") or info.title,
+            "url": data.get("url") or norm_url,
+            "requestCount": new_count,
+        }
+
+    final_title = (body.title or "").strip()[:80] or info.title
+    entry = {
+        "id": url_id,
+        "title": final_title,
+        "url": norm_url,
+        "canonicalKey": canonical_key,
+        "category": normalize_category(body.category),
+        "iconUrl": info.icon_url,
+        "requesters": {user.uid: now_iso},
+        "requestCount": 1,
+        "createdAt": now_iso,
+        "updatedAt": now_iso,
+    }
+    req_ref.set(entry)
+    return {
+        "id": url_id,
+        "title": final_title,
+        "url": norm_url,
+        "requestCount": 1,
+    }
+
+
+@app.get("/api/admin/requests")
+def admin_list_requests(
+    _admin: AuthenticatedUser = Depends(require_admin),
+) -> dict[str, Any]:
+    db = get_db()
+    items: list[dict[str, Any]] = []
+    for doc in db.collection("game_requests").stream():
+        data = doc.to_dict() or {}
+        requesters = data.get("requesters") or {}
+        count = int(data.get("requestCount") or len(requesters))
+        items.append(
+            {
+                "id": doc.id,
+                "title": data.get("title") or "Daily Game",
+                "url": data.get("url") or "",
+                "category": normalize_category(data.get("category")),
+                "iconUrl": data.get("iconUrl") or "",
+                "requestCount": count,
+                "createdAt": data.get("createdAt") or "",
+            }
+        )
+    items.sort(key=_request_sort_key)
+    return {"requests": items}
+
+
+@app.post("/api/admin/requests/{request_id}/accept")
+def admin_accept_request(
+    request_id: str,
+    body: AcceptGameRequestBody | None = None,
+    _admin: AuthenticatedUser = Depends(require_admin),
+) -> dict[str, Any]:
+    db = get_db()
+    req_ref = db.collection("game_requests").document(request_id)
+    snap = req_ref.get()
+    if not snap.exists:
+        raise HTTPException(status_code=404, detail="Game request not found.")
+
+    data = snap.to_dict() or {}
+    title = ((body.title if body else None) or data.get("title") or "Daily Game").strip()
+    category = (body.category if body and body.category else data.get("category")) or "Other"
+
+    try:
+        added = add_game_to_catalog(
+            url=data.get("url") or "",
+            title=title,
+            category=category,
+            icon_url=data.get("iconUrl"),
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+    req_ref.delete()
+    return {"game": added}
+
+
+@app.delete("/api/admin/requests/{request_id}")
+def admin_reject_request(
+    request_id: str,
+    _admin: AuthenticatedUser = Depends(require_admin),
+) -> dict[str, str]:
+    db = get_db()
+    req_ref = db.collection("game_requests").document(request_id)
+    if not req_ref.get().exists:
+        raise HTTPException(status_code=404, detail="Game request not found.")
+    req_ref.delete()
+    return {"status": "rejected", "id": request_id}
+
+
+@app.post("/api/admin/catalog", status_code=status.HTTP_201_CREATED)
+async def admin_add_catalog_game(
+    body: GameSubmissionRequest,
+    _admin: AuthenticatedUser = Depends(require_admin),
+) -> dict[str, Any]:
+    try:
+        info = await inspect_daily_url(body.url, require_reachable=True)
+        title = (body.title or "").strip()[:80] or info.title
+        added = add_game_to_catalog(
+            url=info.url,
+            title=title,
+            category=body.category,
+            icon_url=info.icon_url,
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+    # Clean up any matching pending request for the same URL
+    req_ref = get_db().collection("game_requests").document(added["id"])
+    if req_ref.get().exists:
+        req_ref.delete()
+
+    return {"game": added}
+
+
+@app.delete("/api/admin/catalog/{game_id}")
+def admin_remove_catalog_game(
+    game_id: str,
+    _admin: AuthenticatedUser = Depends(require_admin),
+) -> dict[str, str]:
+    removed = remove_game_from_catalog(game_id)
+    if not removed:
+        raise HTTPException(status_code=404, detail="Catalog game not found.")
+    return {"status": "removed", "id": game_id}
 
 
 @app.post("/api/devices")
@@ -492,39 +719,6 @@ def unregister_device(
     user_ref, _ = _ensure_user_doc(user.uid, user.email)
     user_ref.update({f"fcmTokens.{token_hash}": firestore.DELETE_FIELD})
     return {"status": "removed"}
-
-
-@app.post("/api/notifications/test")
-def send_test_notification(
-    request: Request,
-    user: AuthenticatedUser = Depends(get_current_user),
-) -> dict[str, Any]:
-    user_ref, user_data = _ensure_user_doc(user.uid, user.email)
-    fcm_tokens = user_data.get("fcmTokens") or {}
-    if not fcm_tokens:
-        raise HTTPException(
-            status_code=400,
-            detail="No push-enabled devices registered yet. Enable push notifications on this device first.",
-        )
-
-    sent, stale, errors = send_push_to_tokens(
-        fcm_tokens=fcm_tokens,
-        title="Compiledle — Test Alert",
-        body="Push notifications are working! You'll be notified at your scheduled times.",
-        url="/",
-        base_url=_public_base_url(request),
-    )
-    if stale:
-        user_ref.update({f"fcmTokens.{h}": firestore.DELETE_FIELD for h in stale})
-
-    if sent == 0:
-        detail = (
-            f"Push delivery failed: {errors[0]}"
-            if errors
-            else "Registered push token expired. Please click 'Enable on This Device' again."
-        )
-        raise HTTPException(status_code=400, detail=detail)
-    return {"sent": sent}
 
 
 @app.api_route("/api/cron/notify", methods=["GET", "POST"])
