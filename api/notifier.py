@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import re
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Any
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
@@ -170,28 +170,100 @@ def group_due_dailies_by_time(
     return due_by_time
 
 
+def compute_utc_notify_slots(
+    local_times: set[str],
+    tz_name: str,
+    enabled: bool,
+    has_tokens: bool,
+) -> list[str]:
+    """
+    Converts a user's active local reminder times ("HH:MM") into 15-minute UTC slot
+    keys ("HH:MM") stored on `users/{uid}.utcNotifySlots`. Evaluates both Jan 15 and
+    Jul 15 so DST transitions stay covered automatically without re-syncing.
+    """
+    if not enabled or not has_tokens or not local_times:
+        return []
+
+    try:
+        tz = ZoneInfo(tz_name)
+    except Exception:
+        tz = ZoneInfo("UTC")
+
+    year = datetime.now(timezone.utc).year
+    slots: set[str] = set()
+    for month in (1, 7):
+        for hhmm in local_times:
+            match = TIME_PATTERN.match(hhmm.strip())
+            if not match:
+                continue
+            h, m = int(match.group(1)), int(match.group(2))
+            local_dt = datetime(year, month, 15, h, m, tzinfo=tz)
+            utc_dt = local_dt.astimezone(timezone.utc)
+            floored_min = (utc_dt.minute // 15) * 15
+            slots.add(f"{utc_dt.hour:02d}:{floored_min:02d}")
+    return sorted(slots)
+
+
+def current_utc_query_slots(now_utc: datetime) -> list[str]:
+    """
+    Returns the current and previous 15-minute UTC slots (e.g. ["00:00", "23:45"] at
+    00:02 UTC) to match the 30-minute `is_time_due` jitter window.
+    """
+    ref = now_utc.astimezone(timezone.utc) if now_utc.tzinfo else now_utc.replace(tzinfo=timezone.utc)
+    cur_min = (ref.minute // 15) * 15
+    cur_dt = ref.replace(minute=cur_min, second=0, microsecond=0)
+    prev_dt = cur_dt - timedelta(minutes=15)
+    return [cur_dt.strftime("%H:%M"), prev_dt.strftime("%H:%M")]
+
+
+def sync_user_utc_notify_slots(
+    user_ref: Any,
+    user_data: dict[str, Any],
+    daily_docs: list[dict[str, Any]] | None = None,
+) -> list[str]:
+    """Recomputes and persists `utcNotifySlots` on `users/{uid}`."""
+    enabled = bool(user_data.get("notificationsEnabled", False))
+    has_tokens = bool(user_data.get("fcmTokens"))
+    if not enabled or not has_tokens:
+        slots: list[str] = []
+    else:
+        if daily_docs is None:
+            daily_docs = [d.to_dict() or {} for d in user_ref.collection("dailies").stream()]
+        default_time = user_data.get("defaultNotifyTime") or "00:00"
+        local_times = {d.get("customNotifyTime") or default_time for d in daily_docs}
+        tz_name = user_data.get("timezone") or "UTC"
+        slots = compute_utc_notify_slots(local_times, tz_name, enabled=True, has_tokens=True)
+
+    if user_data.get("utcNotifySlots") != slots:
+        user_ref.update({"utcNotifySlots": slots})
+        user_data["utcNotifySlots"] = slots
+    return slots
+
+
 def dispatch_due_notifications(
     now_utc: datetime | None = None, base_url: str | None = None
 ) -> dict[str, int]:
     """
-    Evaluates all opted-in users in their respective local timezones and sends at most
-    one batched notification per scheduled time slot (covering all unplayed dailies due
-    at that time).
+    Queries only users whose `utcNotifySlots` matches the current or previous 15-minute
+    UTC slot, then sends at most one batched notification per scheduled time slot.
     """
     db = get_db()
     ref_utc = now_utc or datetime.now(timezone.utc)
+    query_slots = current_utc_query_slots(ref_utc)
 
     users_checked = 0
     notifications_sent = 0
     stale_tokens_pruned = 0
 
     users_query = db.collection("users").where(
-        filter=firestore.FieldFilter("notificationsEnabled", "==", True)
+        filter=firestore.FieldFilter("utcNotifySlots", "array_contains_any", query_slots)
     )
 
     for user_doc in users_query.stream():
         users_checked += 1
         user_data = user_doc.to_dict() or {}
+        if not user_data.get("notificationsEnabled"):
+            continue
         fcm_tokens: dict[str, dict[str, Any]] = user_data.get("fcmTokens") or {}
         if not fcm_tokens:
             continue

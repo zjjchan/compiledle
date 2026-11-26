@@ -32,6 +32,7 @@ from api.inspector import inspect_daily_url
 from api.notifier import (
     dispatch_due_notifications,
     local_today_str,
+    sync_user_utc_notify_slots,
     validate_notify_time,
     validate_timezone,
 )
@@ -191,6 +192,7 @@ def _ensure_user_doc(
         "notificationsEnabled": False,
         "lastGeneralNotifiedDate": None,
         "fcmTokens": {},
+        "utcNotifySlots": [],
         "isAdmin": False,
         "createdAt": datetime.now(timezone.utc).isoformat(),
     }
@@ -215,6 +217,9 @@ def get_me(
 
     raw_docs = [(doc.id, doc.to_dict() or {}) for doc in user_ref.collection("dailies").stream()]
     raw_docs.sort(key=_daily_sort_key)
+
+    if "utcNotifySlots" not in user_data:
+        sync_user_utc_notify_slots(user_ref, user_data, [d for _, d in raw_docs])
 
     dailies: list[dict[str, Any]] = []
     for idx, (doc_id, doc_data) in enumerate(raw_docs):
@@ -284,6 +289,7 @@ def update_settings(
     if updates:
         user_ref.update(updates)
         user_data.update(updates)
+        sync_user_utc_notify_slots(user_ref, user_data)
 
     user_tz = user_data.get("timezone") or "UTC"
     return {
@@ -414,6 +420,7 @@ def create_daily(
         "createdAt": now_iso,
     }
     _, doc_ref = user_ref.collection("dailies").add(doc_data)
+    sync_user_utc_notify_slots(user_ref, user_data, [*existing_docs, doc_data])
     today_str = local_today_str(user_data.get("timezone") or "UTC")
     return _serialize_daily(
         doc_ref.id,
@@ -487,6 +494,8 @@ def update_daily(
     if updates:
         daily_ref.update(updates)
         current.update(updates)
+        if "customNotifyTime" in updates:
+            sync_user_utc_notify_slots(user_ref, user_data)
 
     catalog = get_catalog_games()
     matched_id = _resolve_catalog_id_for_daily(current, catalog) or str(
@@ -500,11 +509,12 @@ def delete_daily(
     daily_id: str,
     user: AuthenticatedUser = Depends(get_current_user),
 ) -> dict[str, str]:
-    user_ref, _ = _ensure_user_doc(user.uid, user.email)
+    user_ref, user_data = _ensure_user_doc(user.uid, user.email)
     daily_ref = user_ref.collection("dailies").document(daily_id)
     if not daily_ref.get().exists:
         raise HTTPException(status_code=404, detail="Daily not found.")
     daily_ref.delete()
+    sync_user_utc_notify_slots(user_ref, user_data)
     return {"status": "deleted", "id": daily_id}
 
 
@@ -752,6 +762,9 @@ def register_device(
     )
     tokens = dict(user_data.get("fcmTokens") or {})
     tokens[token_hash] = entry
+    user_data["fcmTokens"] = tokens
+    user_data["notificationsEnabled"] = True
+    sync_user_utc_notify_slots(user_ref, user_data)
     return {
         "tokenHash": token_hash,
         "deviceCount": len(tokens),
@@ -766,8 +779,12 @@ def unregister_device(
 ) -> dict[str, str]:
     if not token_hash.isalnum():
         raise HTTPException(status_code=400, detail="Invalid device identifier.")
-    user_ref, _ = _ensure_user_doc(user.uid, user.email)
+    user_ref, user_data = _ensure_user_doc(user.uid, user.email)
     user_ref.update({f"fcmTokens.{token_hash}": firestore.DELETE_FIELD})
+    tokens = dict(user_data.get("fcmTokens") or {})
+    tokens.pop(token_hash, None)
+    user_data["fcmTokens"] = tokens
+    sync_user_utc_notify_slots(user_ref, user_data)
     return {"status": "removed"}
 
 
