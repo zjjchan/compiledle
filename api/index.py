@@ -25,6 +25,7 @@ from api.catalog import (
     get_catalog_games,
     normalize_category,
     remove_game_from_catalog,
+    update_game_in_catalog,
 )
 from api.firebase_client import get_db
 from api.inspector import inspect_daily_url
@@ -507,16 +508,45 @@ def delete_daily(
     return {"status": "deleted", "id": daily_id}
 
 
+def _is_compiledle_self_url(raw_url: str, request_host: str = "") -> bool:
+    try:
+        _, canonical_key, _ = canonicalize_game_url(raw_url)
+    except ValueError:
+        return False
+    host = canonical_key.split("/", 1)[0].split("?", 1)[0].split(":", 1)[0].lower()
+    blocked_hosts = {"compiledle.vercel.app"}
+    req_host = request_host.split(",")[0].strip().split(":", 1)[0].lower()
+    if req_host.startswith("www."):
+        req_host = req_host[4:]
+    if req_host and req_host not in ("localhost", "127.0.0.1"):
+        blocked_hosts.add(req_host)
+    return host in blocked_hosts
+
+
 @app.post("/api/requests", status_code=status.HTTP_201_CREATED)
 async def submit_game_request(
+    request: Request,
     body: GameSubmissionRequest,
     user: AuthenticatedUser = Depends(get_current_user),
 ) -> dict[str, Any]:
+    req_host = request.headers.get("x-forwarded-host") or request.headers.get("host") or ""
+    if _is_compiledle_self_url(body.url, req_host):
+        raise HTTPException(
+            status_code=400,
+            detail="Sorry, you can't suggest adding Compiledle to Compiledle!",
+        )
+
     try:
         info = await inspect_daily_url(body.url, require_reachable=True)
         norm_url, canonical_key, url_id = canonicalize_game_url(info.url)
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+    if _is_compiledle_self_url(norm_url, req_host):
+        raise HTTPException(
+            status_code=400,
+            detail="Sorry, you can't suggest adding Compiledle to Compiledle!",
+        )
 
     catalog = get_catalog_games()
     if url_id in catalog:
@@ -667,6 +697,26 @@ async def admin_add_catalog_game(
         req_ref.delete()
 
     return {"game": added}
+
+
+@app.patch("/api/admin/catalog/{game_id}")
+def admin_update_catalog_game(
+    game_id: str,
+    body: AcceptGameRequestBody,
+    _admin: AuthenticatedUser = Depends(require_admin),
+) -> dict[str, Any]:
+    try:
+        updated = update_game_in_catalog(
+            game_id=game_id,
+            title=body.title,
+            category=body.category,
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+    if not updated:
+        raise HTTPException(status_code=404, detail="Catalog game not found.")
+    return {"game": updated}
 
 
 @app.delete("/api/admin/catalog/{game_id}")
