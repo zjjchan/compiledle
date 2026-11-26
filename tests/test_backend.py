@@ -11,6 +11,7 @@ from api.index import _daily_sort_key, _require_recent_auth, app
 from api.inspector import normalize_and_validate_url
 from api.notifier import (
     format_general_notification_body,
+    group_due_dailies_by_time,
     is_time_due,
     local_now_for_timezone,
     validate_notify_time,
@@ -111,3 +112,27 @@ def test_recent_auth_guard() -> None:
     with pytest.raises(HTTPException) as exc_info:
         _require_recent_auth(stale_user)
     assert exc_info.value.status_code == 403
+
+
+def test_group_due_dailies_batches_by_time_slot() -> None:
+    sg_1300 = datetime(2026, 11, 26, 13, 2, tzinfo=ZoneInfo("Asia/Singapore"))
+    dailies = [
+        ("ref1", {"title": "Krillion", "customNotifyTime": "13:00"}),
+        ("ref2", {"title": "Connections", "customNotifyTime": "13:00"}),
+        ("ref3", {"title": "Wordle", "customNotifyTime": "13:00", "lastPlayedDate": "2026-11-26"}),
+        ("ref4", {"title": "Framed", "customNotifyTime": "13:00", "lastNotifiedDate": "2026-11-26"}),
+        ("ref5", {"title": "Worldle", "customNotifyTime": "18:00"}),
+    ]
+    grouped = group_due_dailies_by_time(dailies, "00:00", None, sg_1300)
+    assert list(grouped.keys()) == ["13:00"]
+    assert [title for _, title, _ in grouped["13:00"]] == ["Krillion", "Connections"]
+
+    # Also merges explicit custom time matching default time into a single batch
+    sg_0000 = datetime(2026, 11, 26, 0, 1, tzinfo=ZoneInfo("Asia/Singapore"))
+    midnight_dailies = [
+        ("ref1", {"title": "Wordle", "customNotifyTime": None}),
+        ("ref2", {"title": "Minute Cryptic", "customNotifyTime": "00:00"}),
+    ]
+    grouped_midnight = group_due_dailies_by_time(midnight_dailies, "00:00", None, sg_0000)
+    assert list(grouped_midnight.keys()) == ["00:00"]
+    assert [title for _, title, _ in grouped_midnight["00:00"]] == ["Wordle", "Minute Cryptic"]

@@ -130,14 +130,53 @@ def format_general_notification_body(titles: list[str]) -> str:
     return f"Ready to play: {shown} (+{remaining} more)"
 
 
+def group_due_dailies_by_time(
+    dailies: list[tuple[Any, dict[str, Any]]],
+    default_time: str,
+    last_general_date: str | None,
+    local_dt: datetime,
+) -> dict[str, list[tuple[Any, str, bool]]]:
+    """
+    Groups all unplayed, un-notified dailies that are currently due into buckets keyed by
+    their effective scheduled time ("HH:MM"), so each scheduled time triggers at most one
+    batched notification regardless of how many dailies share that time.
+
+    Returns { "HH:MM": [(doc_ref, title, is_custom_time), ...] }.
+    """
+    today_str = local_dt.strftime("%Y-%m-%d")
+    due_by_time: dict[str, list[tuple[Any, str, bool]]] = {}
+
+    for doc_ref, d_data in dailies:
+        if d_data.get("lastPlayedDate") == today_str:
+            continue
+
+        custom_time = d_data.get("customNotifyTime")
+        is_custom = bool(custom_time)
+        effective_time = custom_time or default_time
+
+        if is_custom:
+            if d_data.get("lastNotifiedDate") == today_str:
+                continue
+        else:
+            if last_general_date == today_str:
+                continue
+
+        if not is_time_due(effective_time, local_dt):
+            continue
+
+        title = d_data.get("title") or "Daily Game"
+        due_by_time.setdefault(effective_time, []).append((doc_ref, title, is_custom))
+
+    return due_by_time
+
+
 def dispatch_due_notifications(
     now_utc: datetime | None = None, base_url: str | None = None
 ) -> dict[str, int]:
     """
-    Evaluates all opted-in users in their respective local timezones and dispatches:
-    1) One consolidated general notification at `defaultNotifyTime` (default 00:00)
-       for unplayed dailies that do NOT specify a custom time.
-    2) Dedicated notifications for each unplayed daily with a `customNotifyTime`.
+    Evaluates all opted-in users in their respective local timezones and sends at most
+    one batched notification per scheduled time slot (covering all unplayed dailies due
+    at that time).
     """
     db = get_db()
     ref_utc = now_utc or datetime.now(timezone.utc)
@@ -165,54 +204,44 @@ def dispatch_due_notifications(
         last_general_date = user_data.get("lastGeneralNotifiedDate")
 
         dailies_ref = user_doc.reference.collection("dailies")
-        daily_docs = list(dailies_ref.stream())
-        if not daily_docs:
+        daily_entries = [(d.reference, d.to_dict() or {}) for d in dailies_ref.stream()]
+        if not daily_entries:
             continue
 
-        general_due_titles: list[str] = []
-        general_time_matched = (
-            last_general_date != today_str and is_time_due(default_time, local_dt)
+        due_by_time = group_due_dailies_by_time(
+            dailies=daily_entries,
+            default_time=default_time,
+            last_general_date=last_general_date,
+            local_dt=local_dt,
         )
 
         all_stale_hashes: set[str] = set()
-
-        for d_doc in daily_docs:
-            d_data = d_doc.to_dict() or {}
-            if d_data.get("lastPlayedDate") == today_str:
-                continue  # Already played today in local timezone
-
-            custom_time = d_data.get("customNotifyTime")
-            title = d_data.get("title") or "Daily Game"
-
-            if custom_time:
-                if d_data.get("lastNotifiedDate") != today_str and is_time_due(custom_time, local_dt):
-                    sent, stale, _ = send_push_to_tokens(
-                        fcm_tokens=fcm_tokens,
-                        title=f"Time to play {title}!",
-                        body="Tap to jump right into today's puzzle.",
-                        url=f"/?play={d_doc.id}",
-                        base_url=base_url,
-                    )
-                    all_stale_hashes.update(stale)
-                    if sent > 0:
-                        notifications_sent += sent
-                        d_doc.reference.update({"lastNotifiedDate": today_str})
-            elif general_time_matched:
-                general_due_titles.append(title)
-
         user_updates: dict[str, Any] = {}
-        if general_time_matched and general_due_titles:
+
+        for _time_slot, items in due_by_time.items():
+            titles = [title for _, title, _ in items]
+            if len(titles) == 1:
+                notif_title = f"Time to play {titles[0]}!"
+                notif_body = "Tap to open Compiledle and play today's puzzle."
+            else:
+                notif_title = "Your Dailies Are Ready!"
+                notif_body = format_general_notification_body(titles)
+
             sent, stale, _ = send_push_to_tokens(
                 fcm_tokens=fcm_tokens,
-                title="Your Dailies Are Ready!",
-                body=format_general_notification_body(general_due_titles),
+                title=notif_title,
+                body=notif_body,
                 url="/",
                 base_url=base_url,
             )
             all_stale_hashes.update(stale)
             if sent > 0:
                 notifications_sent += sent
-                user_updates["lastGeneralNotifiedDate"] = today_str
+                for doc_ref, _title, is_custom in items:
+                    if is_custom:
+                        doc_ref.update({"lastNotifiedDate": today_str})
+                    else:
+                        user_updates["lastGeneralNotifiedDate"] = today_str
 
         for dead_hash in all_stale_hashes:
             user_updates[f"fcmTokens.{dead_hash}"] = firestore.DELETE_FIELD
