@@ -143,8 +143,13 @@ export function App() {
       prev.map((item) => (item.id === daily.id ? { ...item, playedToday: nextPlayed } : item))
     );
     try {
-      const updated = await updateDaily(daily.id, { playedToday: nextPlayed });
-      setDailies((prev) => prev.map((item) => (item.id === updated.id ? updated : item)));
+      const updated = await updateDaily(daily.id, {
+        playedToday: nextPlayed,
+        localDate: settings?.localToday,
+      });
+      setDailies((prev) =>
+        prev.map((item) => (item.id === daily.id ? { ...item, ...updated } : item))
+      );
     } catch {
       setDailies((prev) =>
         prev.map((item) => (item.id === daily.id ? { ...item, playedToday: !nextPlayed } : item))
