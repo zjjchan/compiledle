@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react';
-import { ExternalLink, Loader2, Maximize2, Plus, Search, X } from 'lucide-react';
+import { Loader2, Plus, Search, X } from 'lucide-react';
 import { createDaily, inspectUrl } from '../lib/api';
 import { formatTime12h, TIME_SLOTS_15M, type DailyItem, type InspectedSite } from '../types';
 
@@ -16,7 +16,6 @@ export function AddDailyModal({ defaultNotifyTime, onClose, onCreated }: AddDail
   const [inspected, setInspected] = useState<InspectedSite | null>(null);
 
   const [title, setTitle] = useState('');
-  const [embeddable, setEmbeddable] = useState(true);
   const [scheduleMode, setScheduleMode] = useState<'general' | 'custom'>('general');
   const [customTime, setCustomTime] = useState('09:00');
   const [error, setError] = useState<string | null>(null);
@@ -30,7 +29,6 @@ export function AddDailyModal({ defaultNotifyTime, onClose, onCreated }: AddDail
       setInspected(result);
       setUrlInput(result.url);
       setTitle(result.title);
-      setEmbeddable(result.embeddable);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Could not inspect URL.');
     } finally {
@@ -48,8 +46,6 @@ export function AddDailyModal({ defaultNotifyTime, onClose, onCreated }: AddDail
         url: urlInput.trim(),
         title: title.trim() || undefined,
         iconUrl: inspected?.iconUrl || undefined,
-        embeddable: inspected ? embeddable : undefined,
-        embedReason: inspected?.embedReason,
         customNotifyTime: scheduleMode === 'custom' ? customTime : null,
       });
       onCreated(created);
@@ -113,7 +109,7 @@ export function AddDailyModal({ defaultNotifyTime, onClose, onCreated }: AddDail
           </div>
 
           {inspected && (
-            <div className="rounded-xl border border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-950/70 p-3.5 space-y-3">
+            <div className="rounded-xl border border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-950/70 p-3.5">
               <div className="flex items-center gap-3">
                 {inspected.iconUrl && (
                   <img
@@ -137,37 +133,6 @@ export function AddDailyModal({ defaultNotifyTime, onClose, onCreated }: AddDail
                     className="w-full rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-900 focus:border-amber-500 dark:border-slate-700 dark:bg-slate-900 dark:text-white dark:focus:border-amber-400 focus:outline-none"
                   />
                 </div>
-              </div>
-
-              <div className="flex items-start justify-between gap-3 pt-2 border-t border-slate-200 dark:border-slate-800/80">
-                <div className="text-xs">
-                  <div className="flex items-center gap-1.5 font-medium text-slate-800 dark:text-slate-200">
-                    {embeddable ? (
-                      <>
-                        <Maximize2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-                        Full-screen in-app embed
-                      </>
-                    ) : (
-                      <>
-                        <ExternalLink className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
-                        Opens in browser sheet / tab
-                      </>
-                    )}
-                  </div>
-                  <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
-                    {inspected.embedReason}
-                  </p>
-                </div>
-
-                <label className="inline-flex items-center gap-1.5 text-[11px] text-slate-600 dark:text-slate-400 shrink-0 cursor-pointer select-none">
-                  <input
-                    type="checkbox"
-                    checked={embeddable}
-                    onChange={(e) => setEmbeddable(e.target.checked)}
-                    className="rounded border-slate-400 dark:border-slate-600 accent-amber-500 dark:accent-amber-400"
-                  />
-                  Embed
-                </label>
               </div>
             </div>
           )}

@@ -3,8 +3,6 @@ export interface DailyItem {
   title: string;
   url: string;
   iconUrl: string;
-  embeddable: boolean;
-  embedReason: string;
   customNotifyTime: string | null;
   playedToday: boolean;
   lastPlayedDate: string | null;
@@ -30,8 +28,6 @@ export interface InspectedSite {
   url: string;
   title: string;
   iconUrl: string;
-  embeddable: boolean;
-  embedReason: string;
 }
 
 export interface TimeOption {

@@ -82,6 +82,7 @@ def send_push_to_tokens(
 
     link = absolute_https_url(base_url, url)
     icon = absolute_https_url(base_url, "/icons/icon-192.png") or "/icons/icon-192.png"
+    badge = absolute_https_url(base_url, "/icons/badge-96.png") or "/icons/badge-96.png"
 
     for token_hash, entry in fcm_tokens.items():
         token = (entry or {}).get("token")
@@ -96,7 +97,7 @@ def send_push_to_tokens(
                     title=title,
                     body=body,
                     icon=icon,
-                    badge=icon,
+                    badge=badge,
                 ),
                 fcm_options=messaging.WebpushFCMOptions(link=link) if link else None,
             ),

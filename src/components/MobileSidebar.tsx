@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import {
   Bell,
+  HelpCircle,
   LayoutGrid,
   LogOut,
   Moon,
@@ -10,14 +11,16 @@ import {
 } from 'lucide-react';
 import type { ThemeMode } from '../lib/theme';
 
+export type AppView = 'dashboard' | 'account' | 'faq';
+
 interface MobileSidebarProps {
   open: boolean;
   email: string;
-  currentView: 'dashboard' | 'account';
+  currentView: AppView;
   notificationsEnabled: boolean;
   theme: ThemeMode;
   onClose: () => void;
-  onNavigate: (view: 'dashboard' | 'account') => void;
+  onNavigate: (view: AppView) => void;
   onOpenNotifications: () => void;
   onToggleTheme: () => void;
   onSignOut: () => void;
@@ -153,6 +156,22 @@ export function MobileSidebar({
               Appearance
             </span>
             <span className="text-xs text-slate-500 dark:text-slate-400 capitalize">{theme}</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => {
+              onNavigate('faq');
+              onClose();
+            }}
+            className={`w-full flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition cursor-pointer ${
+              currentView === 'faq'
+                ? 'bg-amber-500/10 text-amber-800 dark:bg-amber-400/15 dark:text-amber-300'
+                : 'text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800/70'
+            }`}
+          >
+            <HelpCircle className="w-4 h-4 shrink-0" />
+            FAQs
           </button>
         </nav>
 

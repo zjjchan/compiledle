@@ -7,9 +7,8 @@ A Progressive Web App (PWA) for collating, scheduling reminders for, and playing
 ## Features
 
 - **Accounts & Access Control**: Sign in with **Google** or **Email & Password** via Firebase Authentication, with account settings to update credentials or permanently delete your account and data.
-- **Smart Hybrid Game Player**:
-  - Automatically inspects added URLs for title, icon, and browser framing headers (`X-Frame-Options` and `Content-Security-Policy: frame-ancestors`).
-  - Launches embeddable games directly inside a full-screen `100dvh` in-app player (with a **Back to Dailies** bar and **Played** toggle), and opens iframe-restricted sites cleanly in an external browser view.
+- **Smart URL Metadata Fetching**:
+  - Automatically inspects added URLs for title and icon (with SSRF protection), launching every game cleanly in a first-party browser sheet/tab so sign-ins and streaks always persist.
 - **Organized Daily Hub**:
   - Drag-and-drop card reordering (mouse and touch supported via `@dnd-kit`).
   - Automatic **Played Today** tracking that resets at `12:00 AM` in your local timezone.

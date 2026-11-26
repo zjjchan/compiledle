@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
-import { Bell, LogOut, Moon, Settings, Sun, UserRound } from 'lucide-react';
+import { Bell, HelpCircle, LogOut, Moon, Settings, Sun, UserRound } from 'lucide-react';
 import type { ThemeMode } from '../lib/theme';
+import type { AppView } from './MobileSidebar';
 
 interface DesktopSettingsMenuProps {
   email: string;
-  currentView: 'dashboard' | 'account';
+  currentView: AppView;
   notificationsEnabled: boolean;
   theme: ThemeMode;
-  onNavigate: (view: 'dashboard' | 'account') => void;
+  onNavigate: (view: AppView) => void;
   onOpenNotifications: () => void;
   onToggleTheme: () => void;
   onSignOut: () => void;
@@ -127,6 +128,19 @@ export function DesktopSettingsMenu({
               <span className="text-[11px] text-slate-500 dark:text-slate-400 capitalize">
                 {theme === 'dark' ? 'Dark' : 'Light'}
               </span>
+            </button>
+
+            <button
+              type="button"
+              role="menuitem"
+              onClick={() => {
+                setOpen(false);
+                onNavigate(currentView === 'faq' ? 'dashboard' : 'faq');
+              }}
+              className="w-full flex items-center gap-2.5 rounded-xl px-3 py-2 text-xs font-medium text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800 transition cursor-pointer"
+            >
+              <HelpCircle className="w-4 h-4 text-slate-500 dark:text-slate-400" />
+              {currentView === 'faq' ? 'Back to Dailies' : 'FAQs'}
             </button>
           </div>
 

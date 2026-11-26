@@ -22,8 +22,6 @@ class InspectedSite:
     url: str
     title: str
     icon_url: str
-    embeddable: bool
-    embed_reason: str
 
 
 class _HeadMetadataParser(HTMLParser):
@@ -123,44 +121,11 @@ def _assert_public_host(hostname: str) -> None:
             raise ValueError("Private or internal IP addresses are not allowed.")
 
 
-def evaluate_framing_headers(csp_values: list[str], x_frame_options: str | None) -> tuple[bool, str]:
-    """
-    Determine whether modern browsers allow embedding a page inside a cross-origin <iframe>.
-    Per W3C CSP Level 2+, CSP `frame-ancestors` supersedes `X-Frame-Options` when present.
-    """
-    frame_ancestor_policies: list[list[str]] = []
-    for csp in csp_values:
-        for directive in csp.split(";"):
-            parts = directive.strip().split()
-            if parts and parts[0].lower() == "frame-ancestors":
-                frame_ancestor_policies.append([p.lower() for p in parts[1:]])
-
-    if frame_ancestor_policies:
-        for sources in frame_ancestor_policies:
-            if not sources or "'none'" in sources:
-                return False, "Site blocks embedding via Content-Security-Policy (frame-ancestors 'none')."
-            allows_any_https = "*" in sources or "https:" in sources or "https://*" in sources
-            if not allows_any_https:
-                return False, "Site restricts embedding via Content-Security-Policy (frame-ancestors)."
-        return True, "Allows full-screen in-app embed."
-
-    if x_frame_options:
-        xfo_norm = x_frame_options.strip().upper()
-        # Multiple comma-separated headers sometimes occur (e.g. "SAMEORIGIN, SAMEORIGIN")
-        tokens = [t.strip() for t in xfo_norm.split(",") if t.strip()]
-        for tok in tokens:
-            if tok in ("DENY", "SAMEORIGIN") or tok.startswith("ALLOW-FROM"):
-                return False, f"Site blocks embedding via X-Frame-Options ({tok})."
-
-    return True, "Allows full-screen in-app embed."
-
-
 def _fallback_title_from_url(url: str) -> str:
     parsed = urlparse(url)
     host = (parsed.hostname or "Daily Game").lower()
     if host.startswith("www."):
         host = host[4:]
-    # Check if path hints at the game name (e.g. nytimes.com/games/wordle/index.html)
     segments = [
         seg for seg in parsed.path.split("/")
         if seg and seg.lower() not in ("index.html", "games", "game", "daily", "play", "en")
@@ -200,10 +165,6 @@ async def inspect_daily_url(raw_url: str) -> InspectedSite:
                         current_url = normalize_and_validate_url(next_url)
                         continue
 
-                    csp_list = response.headers.get_list("content-security-policy")
-                    xfo = response.headers.get("x-frame-options")
-                    embeddable, reason = evaluate_framing_headers(csp_list, xfo)
-
                     buf = bytearray()
                     async for chunk in response.aiter_bytes():
                         buf.extend(chunk)
@@ -230,25 +191,18 @@ async def inspect_daily_url(raw_url: str) -> InspectedSite:
                         url=current_url,
                         title=clean_title,
                         icon_url=icon_url,
-                        embeddable=embeddable,
-                        embed_reason=reason,
                     )
     except ValueError:
         raise
     except Exception:
-        # Network timeout or bot firewall: degrade gracefully so user can still add URL
         return InspectedSite(
             url=current_url,
             title=fallback_title,
             icon_url=fallback_icon,
-            embeddable=True,
-            embed_reason="Could not pre-verify framing headers; defaulting to in-app embed.",
         )
 
     return InspectedSite(
         url=current_url,
         title=fallback_title,
         icon_url=fallback_icon,
-        embeddable=True,
-        embed_reason="Redirect limit reached; defaulting to in-app embed.",
     )

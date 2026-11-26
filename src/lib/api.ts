@@ -79,8 +79,6 @@ export function createDaily(input: {
   url: string;
   title?: string;
   iconUrl?: string;
-  embeddable?: boolean;
-  embedReason?: string;
   customNotifyTime?: string | null;
 }): Promise<DailyItem> {
   return apiFetch<DailyItem>('/api/dailies', {
@@ -100,7 +98,6 @@ export function updateDaily(
   id: string,
   patch: {
     title?: string;
-    embeddable?: boolean;
     customNotifyTime?: string;
     clearCustomNotifyTime?: boolean;
     playedToday?: boolean;
@@ -133,11 +130,5 @@ export function registerDeviceToken(
 export function unregisterDeviceToken(tokenHash: string): Promise<{ status: string }> {
   return apiFetch(`/api/devices/${encodeURIComponent(tokenHash)}`, {
     method: 'DELETE',
-  });
-}
-
-export function triggerTestNotification(): Promise<{ sent: number }> {
-  return apiFetch('/api/notifications/test', {
-    method: 'POST',
   });
 }

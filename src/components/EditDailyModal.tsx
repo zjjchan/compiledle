@@ -19,7 +19,6 @@ export function EditDailyModal({
   onDeleted,
 }: EditDailyModalProps) {
   const [title, setTitle] = useState(daily.title);
-  const [embeddable, setEmbeddable] = useState(daily.embeddable);
   const [scheduleMode, setScheduleMode] = useState<'general' | 'custom'>(
     daily.customNotifyTime ? 'custom' : 'general'
   );
@@ -35,7 +34,6 @@ export function EditDailyModal({
     try {
       const updated = await updateDaily(daily.id, {
         title: title.trim(),
-        embeddable,
         customNotifyTime: scheduleMode === 'custom' ? customTime : undefined,
         clearCustomNotifyTime: scheduleMode === 'general',
       });
@@ -139,23 +137,6 @@ export function EditDailyModal({
               </select>
             )}
           </div>
-
-          <label className="flex items-start gap-3 rounded-xl border border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-950/60 p-3 cursor-pointer select-none">
-            <input
-              type="checkbox"
-              checked={embeddable}
-              onChange={(e) => setEmbeddable(e.target.checked)}
-              className="mt-0.5 rounded border-slate-400 dark:border-slate-600 accent-amber-500 dark:accent-amber-400"
-            />
-            <div className="text-xs">
-              <span className="font-medium text-slate-800 dark:text-slate-200 block">
-                Open in full-screen in-app embed
-              </span>
-              <span className="text-slate-500 dark:text-slate-400 text-[11px]">
-                Uncheck if this website blocks iframes so it opens cleanly in an external browser view.
-              </span>
-            </div>
-          </label>
 
           {error && (
             <div className="rounded-xl bg-rose-50 border border-rose-200 text-rose-700 dark:bg-rose-500/10 dark:border-rose-500/30 px-3.5 py-2.5 text-xs dark:text-rose-300">

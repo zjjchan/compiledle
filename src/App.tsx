@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { onAuthStateChanged, type User } from 'firebase/auth';
 import {
   closestCenter,
@@ -30,18 +30,19 @@ import { AuthScreen } from './components/AuthScreen';
 import { DailyCard } from './components/DailyCard';
 import { AddDailyModal } from './components/AddDailyModal';
 import { EditDailyModal } from './components/EditDailyModal';
-import { EmbedPlayer } from './components/EmbedPlayer';
 import { SettingsModal } from './components/SettingsModal';
-import { MobileSidebar } from './components/MobileSidebar';
+import { MobileSidebar, type AppView } from './components/MobileSidebar';
 import { DesktopSettingsMenu } from './components/DesktopSettingsMenu';
 import { AccountPage } from './components/AccountPage';
+import { FaqPage } from './components/FaqPage';
+import { PwaInstallBanner } from './components/PwaInstallBanner';
 
 export function App() {
   const { theme, toggleTheme } = useTheme();
   const [user, setUser] = useState<User | null>(null);
   const [authReady, setAuthReady] = useState(false);
 
-  const [currentView, setCurrentView] = useState<'dashboard' | 'account'>('dashboard');
+  const [currentView, setCurrentView] = useState<AppView>('dashboard');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const [settings, setSettings] = useState<UserSettings | null>(null);
@@ -49,7 +50,6 @@ export function App() {
   const [loadingData, setLoadingData] = useState(false);
   const [loadError, setLoadError] = useState<string | null>(null);
 
-  const [activeDailyId, setActiveDailyId] = useState<string | null>(null);
   const [showAddModal, setShowAddModal] = useState(false);
   const [editingDaily, setEditingDaily] = useState<DailyItem | null>(null);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
@@ -81,6 +81,17 @@ export function App() {
     return () => unsub();
   }, []);
 
+  useEffect(() => {
+    if (!authReady) return;
+    const splash = document.getElementById('startup-splash');
+    if (!splash) return;
+    const hideTimer = window.setTimeout(() => {
+      splash.classList.add('splash-hidden');
+      window.setTimeout(() => splash.remove(), 300);
+    }, 650);
+    return () => window.clearTimeout(hideTimer);
+  }, [authReady]);
+
   const loadDashboard = useCallback(async () => {
     if (!user) return;
     setLoadingData(true);
@@ -91,13 +102,8 @@ export function App() {
       setDailies(data.dailies);
 
       const params = new URLSearchParams(window.location.search);
-      const playId = params.get('play');
-      if (playId) {
-        const target = data.dailies.find((d) => d.id === playId);
+      if (params.has('play')) {
         window.history.replaceState({}, '', '/');
-        if (target && target.embeddable) {
-          setActiveDailyId(target.id);
-        }
       }
     } catch (err) {
       setLoadError(err instanceof Error ? err.message : 'Failed to load your dailies.');
@@ -112,7 +118,6 @@ export function App() {
     } else {
       setDailies([]);
       setSettings(null);
-      setActiveDailyId(null);
     }
   }, [user, loadDashboard]);
 
@@ -127,30 +132,10 @@ export function App() {
       unsubscribeFcm = unsub;
     });
 
-    const onSwMessage = (event: MessageEvent) => {
-      if (event.data?.type === 'NAVIGATE_DAILY' && typeof event.data.url === 'string') {
-        const urlObj = new URL(event.data.url, window.location.origin);
-        const playId = urlObj.searchParams.get('play');
-        if (playId) {
-          const found = dailies.find((d) => d.id === playId);
-          if (found?.embeddable) {
-            setActiveDailyId(found.id);
-          }
-        }
-      }
-    };
-    navigator.serviceWorker?.addEventListener('message', onSwMessage);
-
     return () => {
       unsubscribeFcm?.();
-      navigator.serviceWorker?.removeEventListener('message', onSwMessage);
     };
-  }, [user, dailies]);
-
-  const activeDaily = useMemo(
-    () => dailies.find((d) => d.id === activeDailyId) || null,
-    [dailies, activeDailyId]
-  );
+  }, [user]);
 
   async function markPlayedOptimistic(daily: DailyItem, nextPlayed: boolean) {
     setDailies((prev) =>
@@ -170,11 +155,7 @@ export function App() {
     if (!daily.playedToday) {
       void markPlayedOptimistic(daily, true);
     }
-    if (daily.embeddable) {
-      setActiveDailyId(daily.id);
-    } else {
-      window.open(daily.url, '_blank', 'noopener,noreferrer');
-    }
+    window.open(daily.url, '_blank', 'noopener,noreferrer');
   }
 
   function handleTogglePlayed(daily: DailyItem) {
@@ -211,10 +192,9 @@ export function App() {
             Firebase Configuration Needed
           </h1>
           <p className="text-sm text-slate-600 dark:text-slate-400">
-            Copy <code className="text-amber-600 dark:text-amber-300">.env.example</code> to{' '}
-            <code className="text-amber-600 dark:text-amber-300">.env.local</code> and fill in your{' '}
-            <code className="text-amber-600 dark:text-amber-300">VITE_FIREBASE_*</code> keys to
-            launch Compiledle.
+            Create <code className="text-amber-600 dark:text-amber-300">.env.local</code> and fill
+            in your <code className="text-amber-600 dark:text-amber-300">VITE_FIREBASE_*</code> keys
+            to launch Compiledle.
           </p>
         </div>
       </div>
@@ -231,16 +211,6 @@ export function App() {
 
   if (!user) {
     return <AuthScreen theme={theme} onToggleTheme={toggleTheme} />;
-  }
-
-  if (activeDaily) {
-    return (
-      <EmbedPlayer
-        daily={activeDaily}
-        onBack={() => setActiveDailyId(null)}
-        onTogglePlayed={handleTogglePlayed}
-      />
-    );
   }
 
   const playedCount = dailies.filter((d) => d.playedToday).length;
@@ -324,6 +294,8 @@ export function App() {
         onSignOut={() => void logOut()}
       />
 
+      {currentView === 'dashboard' && <PwaInstallBanner />}
+
       {toast && (
         <div className="max-w-3xl mx-auto px-4 pt-4">
           <div className="rounded-xl border border-amber-300 bg-amber-50 dark:border-amber-400/40 dark:bg-amber-400/10 px-4 py-3 flex items-start justify-between gap-3">
@@ -351,7 +323,17 @@ export function App() {
           onEmailUpdated={(newEmail) => {
             setSettings((prev) => (prev ? { ...prev, email: newEmail } : prev));
           }}
+          onAccountDeleted={() => {
+            setUser(null);
+            setDailies([]);
+            setSettings(null);
+            setCurrentView('dashboard');
+            setMobileMenuOpen(false);
+            window.history.replaceState({}, '', '/');
+          }}
         />
+      ) : currentView === 'faq' ? (
+        <FaqPage onBack={() => setCurrentView('dashboard')} />
       ) : (
         <main className="max-w-3xl mx-auto px-4 pt-6 space-y-8">
           {loadingData ? (
@@ -379,8 +361,8 @@ export function App() {
                 Your Compiledle Hub is Empty
               </h2>
               <p className="text-sm text-slate-600 dark:text-slate-400 max-w-sm mx-auto mt-1.5 mb-6">
-                Add your favorite daily puzzles by pasting their URL—we&apos;ll fetch their icon,
-                check full-screen embed support, and remind you on schedule.
+                Add your favorite daily puzzles by pasting their URL—we&apos;ll fetch their icon
+                and remind you on schedule.
               </p>
               <button
                 type="button"

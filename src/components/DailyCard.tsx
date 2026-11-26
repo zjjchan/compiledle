@@ -8,7 +8,6 @@ import {
   ExternalLink,
   GripVertical,
   MoreHorizontal,
-  Play,
 } from 'lucide-react';
 import { formatTime12h, type DailyItem } from '../types';
 
@@ -159,22 +158,14 @@ export function DailyCard({
         <button
           type="button"
           onClick={() => onPlay(daily)}
-          title={
-            daily.embeddable
-              ? 'Play in full-screen in-app embed'
-              : 'Open in browser sheet / new tab'
-          }
+          title={`Open ${daily.title}`}
           className={`ml-auto shrink-0 inline-flex items-center gap-1.5 rounded-xl px-3.5 py-1.5 text-xs font-semibold transition cursor-pointer ${
             daily.playedToday
               ? 'bg-slate-200/80 text-slate-700 hover:bg-slate-300/80 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'
               : 'bg-amber-400 text-slate-950 hover:bg-amber-500 dark:hover:bg-amber-300'
           }`}
         >
-          {daily.embeddable ? (
-            <Play className="w-3.5 h-3.5 fill-current" />
-          ) : (
-            <ExternalLink className="w-3.5 h-3.5" />
-          )}
+          <ExternalLink className="w-3.5 h-3.5" />
           {daily.playedToday ? 'Open Again' : 'Play'}
         </button>
       </div>

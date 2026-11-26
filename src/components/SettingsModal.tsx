@@ -1,11 +1,6 @@
 import { useMemo, useState } from 'react';
-import { Bell, BellRing, Check, Globe, Loader2, Send, Smartphone, X } from 'lucide-react';
-import {
-  registerDeviceToken,
-  triggerTestNotification,
-  unregisterDeviceToken,
-  updateUserSettings,
-} from '../lib/api';
+import { Bell, BellRing, Check, Globe, Info, Loader2, Smartphone, X } from 'lucide-react';
+import { registerDeviceToken, unregisterDeviceToken, updateUserSettings } from '../lib/api';
 import { requestFcmDeviceToken } from '../lib/firebase';
 import {
   detectBrowserTimezone,
@@ -27,7 +22,7 @@ export function SettingsModal({ settings, onClose, onUpdated }: SettingsModalPro
   const [timezone, setTimezone] = useState(settings.timezone || detectBrowserTimezone());
   const [saving, setSaving] = useState(false);
   const [pushBusy, setPushBusy] = useState(false);
-  const [testBusy, setTestBusy] = useState(false);
+  const [showReregisterTip, setShowReregisterTip] = useState(false);
   const [feedback, setFeedback] = useState<{ kind: 'ok' | 'err'; text: string } | null>(null);
 
   const allTimezones = useMemo(() => getSupportedTimezones(), []);
@@ -78,7 +73,7 @@ export function SettingsModal({ settings, onClose, onUpdated }: SettingsModalPro
       }
       const next = await updateUserSettings({ notificationsEnabled: false });
       onUpdated(next);
-      setFeedback({ kind: 'ok', text: 'Scheduled notifications paused.' });
+      setFeedback({ kind: 'ok', text: 'Scheduled notifications disabled.' });
     } catch (err) {
       setFeedback({
         kind: 'err',
@@ -109,21 +104,7 @@ export function SettingsModal({ settings, onClose, onUpdated }: SettingsModalPro
     }
   }
 
-  async function handleSendTest() {
-    setFeedback(null);
-    setTestBusy(true);
-    try {
-      await triggerTestNotification();
-      setFeedback({ kind: 'ok', text: 'Test notification sent! Check your device alerts.' });
-    } catch (err) {
-      setFeedback({
-        kind: 'err',
-        text: err instanceof Error ? err.message : 'Could not send test notification.',
-      });
-    } finally {
-      setTestBusy(false);
-    }
-  }
+  const isRegistered = settings.notificationsEnabled && Boolean(deviceHash);
 
   return (
     <div className="fixed inset-0 z-40 flex items-end sm:items-center justify-center bg-slate-900/40 dark:bg-black/70 backdrop-blur-xs p-0 sm:p-4">
@@ -174,37 +155,49 @@ export function SettingsModal({ settings, onClose, onUpdated }: SettingsModalPro
           </div>
 
           <div className="flex flex-wrap items-center gap-2 pt-1">
-            <button
-              type="button"
-              disabled={pushBusy}
-              onClick={handleEnablePushOnDevice}
-              className="inline-flex items-center gap-1.5 rounded-xl bg-amber-400 hover:bg-amber-500 dark:hover:bg-amber-300 text-slate-950 font-semibold px-3.5 py-2 text-xs transition disabled:opacity-60 cursor-pointer"
-            >
-              {pushBusy ? (
-                <Loader2 className="w-3.5 h-3.5 animate-spin" />
-              ) : (
-                <Bell className="w-3.5 h-3.5" />
-              )}
-              {settings.notificationsEnabled && deviceHash
-                ? 'Refresh This Device'
-                : 'Enable on This Device'}
-            </button>
-
-            {settings.deviceCount > 0 && (
+            <div className="relative inline-flex items-center gap-1.5">
               <button
                 type="button"
-                disabled={testBusy}
-                onClick={handleSendTest}
-                className="inline-flex items-center gap-1.5 rounded-xl border border-slate-300 bg-white hover:bg-slate-100 text-slate-700 dark:border-slate-700 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-200 font-medium px-3.5 py-2 text-xs transition disabled:opacity-60 cursor-pointer"
+                disabled={pushBusy}
+                onClick={handleEnablePushOnDevice}
+                title={
+                  isRegistered
+                    ? 'Re-register this device if you are not receiving scheduled alerts'
+                    : undefined
+                }
+                className="inline-flex items-center gap-1.5 rounded-xl bg-amber-400 hover:bg-amber-500 dark:hover:bg-amber-300 text-slate-950 font-semibold px-3.5 py-2 text-xs transition disabled:opacity-60 cursor-pointer"
               >
-                {testBusy ? (
+                {pushBusy ? (
                   <Loader2 className="w-3.5 h-3.5 animate-spin" />
                 ) : (
-                  <Send className="w-3.5 h-3.5" />
+                  <Bell className="w-3.5 h-3.5" />
                 )}
-                Send Test Alert
+                {isRegistered ? 'Re-register Device' : 'Enable on This Device'}
               </button>
-            )}
+
+              {isRegistered && (
+                <button
+                  type="button"
+                  onClick={() => setShowReregisterTip((v) => !v)}
+                  onMouseEnter={() => setShowReregisterTip(true)}
+                  onMouseLeave={() => setShowReregisterTip(false)}
+                  aria-label="When to re-register this device"
+                  className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-200/70 dark:hover:text-slate-200 dark:hover:bg-slate-800 transition cursor-pointer"
+                >
+                  <Info className="w-4 h-4" />
+                </button>
+              )}
+
+              {isRegistered && showReregisterTip && (
+                <div
+                  role="tooltip"
+                  className="absolute left-0 top-full mt-2 z-20 w-60 rounded-xl border border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-800 px-3 py-2 text-[11px] text-slate-600 dark:text-slate-200 shadow-lg"
+                >
+                  Re-register this device if your push notifications stop working or after clearing
+                  browser data.
+                </div>
+              )}
+            </div>
 
             {settings.notificationsEnabled && (
               <button
@@ -213,7 +206,7 @@ export function SettingsModal({ settings, onClose, onUpdated }: SettingsModalPro
                 onClick={handleDisablePush}
                 className="rounded-xl px-3 py-2 text-xs font-medium text-slate-500 hover:text-rose-600 dark:text-slate-400 dark:hover:text-rose-300 cursor-pointer"
               >
-                Pause Alerts
+                Disable Alerts
               </button>
             )}
           </div>

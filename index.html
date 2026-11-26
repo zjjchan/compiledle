@@ -9,7 +9,7 @@
     <meta name="theme-color" content="#0f172a" />
     <meta
       name="description"
-      content="Collate, get notified for, and play all your daily web games in one place."
+      content="All your dailies, compiled in one place."
     />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta
@@ -20,6 +20,7 @@
     <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="icon" type="image/svg+xml" href="/icons/icon.svg" />
     <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+    <link rel="apple-touch-startup-image" href="/icons/splash.png" />
     <title>Compiledle</title>
     <script>
       (function () {
@@ -34,8 +35,59 @@
         } catch (e) {}
       })();
     </script>
+    <style>
+      #startup-splash {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        text-align: center;
+        background-color: #f8fafc;
+        color: #0f172a;
+        transition: opacity 280ms ease;
+      }
+      html.dark #startup-splash {
+        background-color: #020617;
+        color: #f8fafc;
+      }
+      #startup-splash.splash-hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+      #startup-splash img {
+        width: 80px;
+        height: 80px;
+        border-radius: 20px;
+        box-shadow: 0 12px 32px rgba(15, 23, 42, 0.2);
+      }
+      #startup-splash h1 {
+        margin: 18px 0 6px;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: 26px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+      }
+      #startup-splash p {
+        margin: 0;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: 14px;
+        color: #64748b;
+      }
+      html.dark #startup-splash p {
+        color: #94a3b8;
+      }
+    </style>
   </head>
   <body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 antialiased selection:bg-amber-400/30 transition-colors duration-150">
+    <div id="startup-splash" aria-label="Loading Compiledle">
+      <img src="/icons/icon.svg" alt="Compiledle logo" />
+      <h1>Compiledle</h1>
+      <p>All your dailies, compiled in one place</p>
+    </div>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

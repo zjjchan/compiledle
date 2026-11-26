@@ -28,9 +28,15 @@ interface AccountPageProps {
   user: User;
   onBack: () => void;
   onEmailUpdated: (newEmail: string) => void;
+  onAccountDeleted: () => void;
 }
 
-export function AccountPage({ user, onBack, onEmailUpdated }: AccountPageProps) {
+export function AccountPage({
+  user,
+  onBack,
+  onEmailUpdated,
+  onAccountDeleted,
+}: AccountPageProps) {
   const { hasPassword, hasGoogle } = getUserProviders(user);
 
   const [emailInput, setEmailInput] = useState(user.email || '');
@@ -140,6 +146,7 @@ export function AccountPage({ user, onBack, onEmailUpdated }: AccountPageProps) 
 
       localStorage.removeItem(LOCAL_TOKEN_HASH_KEY);
       await logOut().catch(() => {});
+      onAccountDeleted();
     } catch (err) {
       setDeleteError(formatFirebaseAuthError(err));
       setDeleteBusy(false);

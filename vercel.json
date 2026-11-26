@@ -2,11 +2,19 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
     {
+      "source": "/__/auth/(.*)",
+      "destination": "https://dailies-center-m360jc.firebaseapp.com/__/auth/$1"
+    },
+    {
+      "source": "/__/firebase/init.json",
+      "destination": "https://dailies-center-m360jc.firebaseapp.com/__/firebase/init.json"
+    },
+    {
       "source": "/api/(.*)",
       "destination": "/api/index.py"
     },
     {
-      "source": "/((?!api/|firebase-messaging-sw\\.js|manifest\\.webmanifest|icons/|assets/).*)",
+      "source": "/((?!api/|__/auth/|__/firebase/|firebase-messaging-sw\\.js|manifest\\.webmanifest|icons/|assets/).*)",
       "destination": "/index.html"
     }
   ],

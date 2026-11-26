@@ -39,7 +39,7 @@ if (
     self.registration.showNotification(title, {
       body,
       icon: '/icons/icon-192.png',
-      badge: '/icons/icon-192.png',
+      badge: '/icons/badge-96.png',
       data: { url },
     });
   });

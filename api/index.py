@@ -42,14 +42,11 @@ class CreateDailyRequest(BaseModel):
     url: str = Field(..., min_length=1, max_length=2048)
     title: str | None = Field(default=None, max_length=80)
     iconUrl: str | None = Field(default=None, max_length=2048)
-    embeddable: bool | None = None
-    embedReason: str | None = Field(default=None, max_length=240)
     customNotifyTime: str | None = None
 
 
 class UpdateDailyRequest(BaseModel):
     title: str | None = Field(default=None, max_length=80)
-    embeddable: bool | None = None
     customNotifyTime: str | None = None
     clearCustomNotifyTime: bool = False
     playedToday: bool | None = None
@@ -92,8 +89,6 @@ def _serialize_daily(
         "title": data.get("title") or "Daily Game",
         "url": data.get("url") or "",
         "iconUrl": data.get("iconUrl") or "",
-        "embeddable": bool(data.get("embeddable", True)),
-        "embedReason": data.get("embedReason") or "",
         "customNotifyTime": data.get("customNotifyTime"),
         "playedToday": last_played == today_str,
         "lastPlayedDate": last_played,
@@ -324,8 +319,6 @@ async def inspect_daily(
         "url": info.url,
         "title": info.title,
         "iconUrl": info.icon_url,
-        "embeddable": info.embeddable,
-        "embedReason": info.embed_reason,
     }
 
 
@@ -344,19 +337,15 @@ async def create_daily(
             raise HTTPException(status_code=400, detail=str(exc)) from exc
 
     try:
-        if body.title and body.embeddable is not None and body.iconUrl:
+        if body.title and body.iconUrl:
             normalized_url = normalize_and_validate_url(body.url)
             title = body.title.strip()
             icon_url = body.iconUrl.strip()
-            embeddable = body.embeddable
-            embed_reason = body.embedReason or ""
         else:
             info = await inspect_daily_url(body.url)
             normalized_url = info.url
             title = (body.title or info.title).strip()
             icon_url = (body.iconUrl or info.icon_url).strip()
-            embeddable = info.embeddable if body.embeddable is None else body.embeddable
-            embed_reason = body.embedReason if body.embedReason is not None else info.embed_reason
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
@@ -373,8 +362,6 @@ async def create_daily(
         "title": title or "Daily Game",
         "url": normalized_url,
         "iconUrl": icon_url,
-        "embeddable": embeddable,
-        "embedReason": embed_reason,
         "customNotifyTime": custom_time,
         "lastNotifiedDate": None,
         "lastPlayedDate": None,
@@ -430,9 +417,6 @@ def update_daily(
         if not cleaned_title:
             raise HTTPException(status_code=400, detail="Title cannot be empty.")
         updates["title"] = cleaned_title
-
-    if body.embeddable is not None:
-        updates["embeddable"] = body.embeddable
 
     if body.clearCustomNotifyTime:
         updates["customNotifyTime"] = None
