@@ -14,7 +14,7 @@
       "destination": "/api/index.py"
     },
     {
-      "source": "/((?!api/|__/auth/|__/firebase/|firebase-messaging-sw\\.js|manifest\\.webmanifest|icons/|assets/).*)",
+      "source": "/((?!api/|__/auth/|__/firebase/|firebase-messaging-sw\\.js|manifest\\.webmanifest|robots\\.txt|sitemap\\.xml|icons/|assets/).*)",
       "destination": "/index.html"
     }
   ],
