@@ -1,6 +1,8 @@
 # Compiledle
 
-A Progressive Web App (PWA) for collating, scheduling reminders for, and playing all your daily web puzzles (Wordle, NYT Connections, Krillion, Minute Cryptic, Framed, Worldle, and more) in one place.
+A Progressive Web App (PWA) for personally compiling, scheduling reminders for, and playing all your daily web puzzles (Wordle, NYT Connections, Krillion, Minute Cryptic, Framed, Worldle, and more) in one place.
+
+**Live App:** [https://compiledle.vercel.app](https://compiledle.vercel.app)
 
 ---
 
