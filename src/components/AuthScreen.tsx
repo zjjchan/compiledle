@@ -321,6 +321,59 @@ export function AuthScreen({ theme, onToggleTheme }: AuthScreenProps) {
             </>
           )}
         </div>
+
+        <section
+          aria-label="About Compiledle"
+          className="mt-8 grid grid-cols-1 gap-3 text-left"
+        >
+          <div className="rounded-xl border border-slate-200/80 bg-white/70 dark:border-slate-800/70 dark:bg-slate-900/40 px-4 py-3">
+            <h2 className="text-xs font-semibold text-slate-800 dark:text-slate-200">
+              900+ Daily Games &amp; Community Suggestions
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
+              Browse Wordle, Connections, Krillion, Minute Cryptic, and hundreds of other word,
+              trivia, geography, and logic dailies — or suggest new ones to add.
+            </p>
+          </div>
+          <div className="rounded-xl border border-slate-200/80 bg-white/70 dark:border-slate-800/70 dark:bg-slate-900/40 px-4 py-3">
+            <h2 className="text-xs font-semibold text-slate-800 dark:text-slate-200">
+              Automatic Daily Reset &amp; Drag-and-Drop Order
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
+              Organize your routine in any order, track what you&apos;ve played today with automatic
+              midnight resets in your timezone, and keep all your streaks intact.
+            </p>
+          </div>
+          <div className="rounded-xl border border-slate-200/80 bg-white/70 dark:border-slate-800/70 dark:bg-slate-900/40 px-4 py-3">
+            <h2 className="text-xs font-semibold text-slate-800 dark:text-slate-200">
+              Scheduled Push Reminders
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
+              Set a global daily reminder or custom per-game notification times so you never miss a
+              puzzle on phone or desktop.
+            </p>
+          </div>
+        </section>
+
+        <footer className="mt-6 flex items-center justify-center gap-4 text-xs text-slate-400 dark:text-slate-500">
+          <a
+            href="https://dles.aukspot.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-slate-600 dark:hover:text-slate-300 transition"
+          >
+            aukspot&apos;s Dles
+          </a>
+          <span aria-hidden="true">·</span>
+          <a
+            href="https://github.com/zjjchan/dailies_center"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-slate-600 dark:hover:text-slate-300 transition"
+          >
+            GitHub
+          </a>
+        </footer>
       </div>
     </div>
   );
